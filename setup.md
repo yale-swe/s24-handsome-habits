@@ -1,12 +1,16 @@
 # Setup
-*also lots of debugging*
+
 
 ### Install Dependencies
-`brew install node
-brew install watchman
-npm install -g expo-cli`
+`brew install node`
 
-download xcode, you want to make sure it has an iOS simulator installed (mine had to download after opening the app)
+`brew install watchman`
+
+`npm install -g expo-cli`
+
+Download Xcode, and make sure it has an iOS simulator installed (mine had to download after opening the app)
+
+Then install cocoapods:
 
 `gem install cocoapods`
 
@@ -20,10 +24,16 @@ source ~/.zshrc`
 `cd yimsApp/ios
 pod install`
 
+`cd yimsApp; npm install`
+
 
 # Run the App
 `npm start`
 
-scan QR code in ExpoGo app
+Scan QR code in ExpoGo app
 
-alternatively, press i to open in iOS simulator
+Alternatively, press `i` to open in iOS simulator.
+
+If expo asks to fully install Xcode after downloading and updating from the App store, you may need to set the correct path to Xcode by running
+
+`sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` 
