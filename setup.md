@@ -1,5 +1,14 @@
 # Setup
 
+## If you want to use a virtual environment:
+
+`pip install nodeenv`
+
+`nodeenv {name of environment}`
+
+`source {name of environment}/bin/activate`
+
+More here: https://pypi.org/project/nodeenv/
 
 ### Install Dependencies
 `brew install node`
@@ -37,3 +46,15 @@ Alternatively, press `i` to open in iOS simulator.
 If expo asks to fully install Xcode after downloading and updating from the App store, you may need to set the correct path to Xcode by running
 
 `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` 
+
+
+## Setting up server
+
+`cd server`
+
+`npm install` (Install dependencies in package.json)
+
+
+## Running server
+
+`npm start` (Starts the server)
