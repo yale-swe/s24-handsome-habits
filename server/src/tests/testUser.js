@@ -1,6 +1,5 @@
 import User from '../db/models/user.js';
 import { createUser } from '../db/db_operations.js';
-import { connectToDatabase } from '../index.js';
 
 
 // Create a new user and test that the user is in the db
