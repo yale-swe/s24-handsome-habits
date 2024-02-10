@@ -53,3 +53,8 @@ If expo asks to fully install Xcode after downloading and updating from the App 
 `cd server`
 
 `npm install` (Install dependencies in package.json)
+
+
+## Running server
+
+`npm start` (Starts the server)

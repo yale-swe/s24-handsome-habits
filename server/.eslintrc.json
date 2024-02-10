@@ -11,11 +11,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": [
-            "error",
-            "spaces",
-            "tab"
-        ],
         "linebreak-style": [
             "error",
             "unix"
