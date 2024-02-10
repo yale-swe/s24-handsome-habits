@@ -30,10 +30,8 @@ source ~/.zshrc`
 
 
 ### Configure for iOS 
-`cd yimsApp/ios
-pod install`
 
-`cd yimsApp; npm install`
+`cd client; npm install`
 
 
 # Run the App
