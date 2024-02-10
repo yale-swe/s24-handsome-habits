@@ -2,7 +2,8 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config';
-
+import { testCreateUser } from './tests/testUser.js';
+import {findUser} from './db/db_operations.js';
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -16,6 +17,7 @@ export async function connectToDatabase() {
             console.log('Database connected');
             // only listen to requests after we are connected to the database
             app.listen(port);
+
         }
     ).catch((err) => { console.log(err); });
 }

@@ -5,7 +5,7 @@ import { connectToDatabase } from '../index.js';
 
 // Create a new user and test that the user is in the db
 export async function testCreateUser() {
-    await connectToDatabase();
+    // await connectToDatabase();
     const test_user_info = new User({
         username: 'testuser',
         password: 'testpassword',
@@ -29,4 +29,4 @@ export async function testCreateUser() {
         });
 }
 
-testCreateUser();
+// testCreateUser();
