@@ -29,6 +29,7 @@ export default function App() {
     }
   }
 
+  // make na api call to server to get user info
   async function getUserInfo(token) {
     if (!token) return;
 
@@ -56,13 +57,9 @@ export default function App() {
         source={require("./src/images/aminata.png")}
         style={{ width: 300, height: 400 }}
       /> */}
-      {/* <input type="text" placeholder="email" />
-      <input type="text" placeholder="password" /> */}
       <Text>{JSON.stringify(userInfo, null, 2)}</Text>
       {console.log("userInfo", userInfo)}
-      <TextInput placeholder="email" />
-      <TextInput placeholder="password" />
-      <Button title="Sign in with google " onPress={() => promptAsync()} />
+      <Button title="Sign in with google" onPress={() => promptAsync()} />
       <Button
         title="Deleted saved users"
         onPress={() => AsyncStorage.removeItem("@user")}
