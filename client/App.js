@@ -61,11 +61,13 @@ export default function App() {
       {console.log("userInfo", userInfo)}
       <TouchableOpacity onPress={() => promptAsync()} style={styles.loginButton}>
         <View style={styles.buttonContent}>
-
-          <Image 
-            source={require("./src/images/googlelogo.png")} 
-            style={styles.googleLogo}
-          />
+          <View style={styles.logoContainer}>
+            <Image 
+              source={require("./src/images/googlelogo.png")} 
+              style={styles.googleLogo}
+            />
+          </View>
+    
           <Text style={styles.buttonText}>Sign in with Google</Text>
         </View>
       </TouchableOpacity>
@@ -109,23 +111,30 @@ const styles = StyleSheet.create({
     padding: 0,
     // border: "3px solid black",
   },
+  logoContainer: {
+    backgroundColor: "white",
+    padding: 5,
+    marginEnd: 15,
+    borderTopStartRadius: 10,
+    borderBottomStartRadius: 10,
+  },
   googleLogo:{
     width: 30,
     height: 30,
-    backgroundColor: "white",
-    borderBottomStartRadius: 10,
-    borderTopStartRadius: 10,
+
   },
   buttonContent: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    // padding: 0,
-    // margin: 10,
+    // paddingVertical: 20,
+    margin: 3,
   },
   buttonText : {
     color: "white",
     fontSize: 20,
     fontWeight: "bold",
+    paddingEnd: 10,
+
   }
 });
