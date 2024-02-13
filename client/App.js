@@ -9,10 +9,9 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
   const [userInfo, setUserInfo] = useState(null);
-  // console.log("client Id", process.env.GOOGLE_IOS_CLIENT_ID);
+  console.log("client Id", process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID);
   const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId:
-      "129443748990-dogbtnfprb2u3lefsaet7erjenk0jdt9.apps.googleusercontent.com",
+    iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
   });
 
   useEffect(() => {
@@ -59,9 +58,11 @@ export default function App() {
       /> */}
       {/* <input type="text" placeholder="email" />
       <input type="text" placeholder="password" /> */}
+      <Text>{JSON.stringify(userInfo, null, 2)}</Text>
+      {console.log("userInfo", userInfo)}
       <TextInput placeholder="email" />
       <TextInput placeholder="password" />
-      <Button title="Sign in with Google" onPress={() => promptAsync()} />
+      <Button title="Sign in with google " onPress={() => promptAsync()} />
       <Button
         title="Deleted saved users"
         onPress={() => AsyncStorage.removeItem("@user")}

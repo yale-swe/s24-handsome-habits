@@ -15,17 +15,19 @@
             "**/*"
         ],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.swe.yimsApp"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
-            }
+            },
+            "package": "com.swe.yimsApp"
         },
         "web": {
             "favicon": "./assets/favicon.png"
         },
-        "scheme": "yimsApp"
+        "scheme": "Yims App"
     }
 }
