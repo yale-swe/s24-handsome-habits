@@ -1,7 +1,7 @@
 # Handsome Habits
 *Wini Aboyure, Julian Tweneboa Kodua, Aminata Sakho, and Tyler Norsworthy*
 
-![Handsome Habits](bulldog.png)
+<img src="bulldog.png" width="200" height="250">
 
 ## Description
 
