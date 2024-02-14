@@ -14,41 +14,6 @@ export default function App() {
     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
   });
 
-  useEffect(() => {
-    googleSignin();
-  }, [response]);
-
-  async function googleSignin() {
-    const user = await AsyncStorage.getItem("@user");
-    if (user) {
-      setUserInfo(JSON.parse(user));
-    } else {
-      if (response?.type === "success") {
-        await getUserInfo(response.authentication.accessToken);
-      }
-    }
-  }
-
-  // make na api call to server to get user info
-  async function getUserInfo(token) {
-    if (!token) return;
-
-    try {
-      const response = await fetch(
-        "https://www.googleapis.com/userinfo/v2/me",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      const user = await response.json();
-      await AsyncStorage.setItem("@user", JSON.stringify(user));
-      setUserInfo(user);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.header2}>Welcome to</Text>
@@ -71,7 +36,6 @@ export default function App() {
           <Text style={styles.buttonText}>Sign in with Google</Text>
         </View>
       </TouchableOpacity>
-      {/* <Button style={styles.header1} title="Sign in with Google" onPress={() => promptAsync()} /> */}
       <Button
         title="Deleted saved users"
         onPress={() => AsyncStorage.removeItem("@user")}
@@ -109,7 +73,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderRadius: 10,
     padding: 0,
-    // border: "3px solid black",
   },
   logoContainer: {
     backgroundColor: "white",
@@ -127,7 +90,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    // paddingVertical: 20,
     margin: 3,
   },
   buttonText : {

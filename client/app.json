@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.yimsApp"
+      "bundleIdentifier": "com.swe.yimsApp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.yimsApp"
+      "package": "com.swe.yimsApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
