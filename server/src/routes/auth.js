@@ -3,6 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 router.post('/login', async(req, res) => {
+    console.log("Logging in with Google")
     var token = req.body.token;
 
     if (!token) return;

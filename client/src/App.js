@@ -1,8 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity,  Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
-import Authentication from "./src/services/authentication";
+import Authentication, { logout } from "./services/authentication";
 
 export default function App() {
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -10,31 +17,29 @@ export default function App() {
   });
 
   useEffect(() => {
-    const user = Authentication(response);
-    if (user) console.log(user);
+    Authentication(response);
   }, [response]);
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.header2}>Welcome to</Text>
       <Text style={styles.header1}>Handsome Habits</Text>
-      <Image
-        source={require("./src/images/bulldog.png")}
-        style={styles.bulldog}
-      />
-      <Text>{JSON.stringify(userInfo, null, 2)}</Text>
-      {console.log("userInfo", userInfo)}
-      <TouchableOpacity onPress={() => promptAsync()} style={styles.loginButton}>
+      <Image source={require("./images/bulldog.png")} style={styles.bulldog} />
+      <TouchableOpacity
+        onPress={() => promptAsync()}
+        style={styles.loginButton}
+      >
         <View style={styles.buttonContent}>
           <View style={styles.logoContainer}>
-            <Image 
-              source={require("./src/images/googlelogo.png")} 
+            <Image
+              source={require("./images/googlelogo.png")}
               style={styles.googleLogo}
             />
           </View>
           <Text style={styles.buttonText}>Sign in with Google</Text>
         </View>
       </TouchableOpacity>
+      <Button title="Delete Saved Users" onPress={() => logout()} />
       <StatusBar style="auto" />
     </View>
   );
@@ -46,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF8F0",
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: "Roboto"
+    fontFamily: "Roboto",
   },
   header2: {
     fontSize: 20,
@@ -76,10 +81,9 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 10,
     borderBottomStartRadius: 10,
   },
-  googleLogo:{
+  googleLogo: {
     width: 30,
     height: 30,
-
   },
   buttonContent: {
     flexDirection: "row",
@@ -87,11 +91,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 3,
   },
-  buttonText : {
+  buttonText: {
     color: "white",
     fontSize: 20,
     fontWeight: "bold",
     paddingEnd: 10,
-
-  }
+  },
 });
