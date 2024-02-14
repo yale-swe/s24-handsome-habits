@@ -2,10 +2,12 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config';
+import authRouter from './routes/auth.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/auth', authRouter);
 
 export async function connectToDatabase() {
     const port = process.env.PORT || 8000;
