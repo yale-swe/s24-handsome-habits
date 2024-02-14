@@ -2,37 +2,23 @@ import Api from "./api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default async function Authentication(response) {
+  const [userInfo, setUserInfo] = useState(null);
   const user = await AsyncStorage.getItem("@user");
-  console.log("WHATTTT");
   if (user) {
-    console.log("aaaaa");
-    return JSON.parse(user);
+    user_data = JSON.parse(user);
+    setUserInfo(user_data);
+    return user_data;
   } else if (response?.type === "success") {
-    console.log("bbbbb");
-    return await getUserInfo(response.authentication.accessToken);
+    return await getUserInfoWithGoogle(response.authentication.accessToken);
   } else {
-    console.log("cccc");
-    console.log("Failed to retrieve user info");
     return null;
   }
 
-  async function getUserInfo(token) {
-    console.log("dddd");
-
-    if (!token) return;
-
+  async function getUserInfoWithGoogle(token) {
     try {
-      const response = await fetch(
-        "https://www.googleapis.com/userinfo/v2/me",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      const user = await response.json();
-      console.log("user", user);
-      await AsyncStorage.setItem("@user", JSON.stringify(user));
-      return user;
+      const user = await Api.post("/auth/login", { token: token });
+      await AsyncStorage.setItem("@user", JSON.stringify(user.data));
+      return JSON.stringify(user.data);
     } catch (e) {
       console.error(e);
     }
