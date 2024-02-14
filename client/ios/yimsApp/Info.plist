@@ -27,7 +27,8 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.anonymous.yimsApp</string>
+				<string>yimsApp</string>
+				<string>com.swe.yimsApp</string>
 			</array>
 		</dict>
 	</array>

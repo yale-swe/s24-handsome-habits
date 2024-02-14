@@ -1,19 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity,  Image } from "react-native";
-import { useEffect, useState } from "react";
-import * as WebBrowser from "expo-web-browser";
+import { useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-WebBrowser.maybeCompleteAuthSession();
+import Authentication from "./src/services/authentication";
 
 export default function App() {
-  const [userInfo, setUserInfo] = useState(null);
-  console.log("client Id", process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID);
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
   });
 
+  useEffect(() => {
+    const user = Authentication(response);
+    if (user) console.log(user);
+  }, [response]);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header2}>Welcome to</Text>
@@ -32,14 +32,9 @@ export default function App() {
               style={styles.googleLogo}
             />
           </View>
-    
           <Text style={styles.buttonText}>Sign in with Google</Text>
         </View>
       </TouchableOpacity>
-      <Button
-        title="Deleted saved users"
-        onPress={() => AsyncStorage.removeItem("@user")}
-      />
       <StatusBar style="auto" />
     </View>
   );

@@ -83,9 +83,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.yimsApp'
+    namespace 'com.swe.yimsApp'
     defaultConfig {
-        applicationId 'com.anonymous.yimsApp'
+        applicationId 'com.swe.yimsApp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
