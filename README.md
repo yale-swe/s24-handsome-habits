@@ -1,5 +1,7 @@
-# Yims
+# Handsome Habits
 *Wini Aboyure, Julian Tweneboa Kodua, Aminata Sakho, and Tyler Norsworthy*
+
+![Handsome Habits](bulldog.png)
 
 ## Description
 
