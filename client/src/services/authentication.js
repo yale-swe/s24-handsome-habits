@@ -5,15 +5,17 @@ export default async function Authentication(response) {
   var user_data = null;
   const user = await AsyncStorage.getItem("@user");
   if (user) {
-    console.log("Retrieved user from AsyncStorage");
+    logout();
     user_data = JSON.parse(user);
-  } else if (response?.type === "success") {
+  }
+
+  if (response?.type === "success") {
     console;
     user_data = await getUserInfoWithGoogle(
       response.authentication.accessToken
     );
   }
-  console.log("Info of signed in user:", user_data);
+  console.log("User signed in:", user_data);
   return user_data;
 
   async function getUserInfoWithGoogle(token) {
