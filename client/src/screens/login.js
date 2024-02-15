@@ -11,13 +11,18 @@ import { useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
 import Authentication, { logout } from "../services/authentication";
 
-const Login = () => {
+const Login = (navigation) => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
   });
 
   useEffect(() => {
-    Authentication(response);
+    if (response?.type === 'success'){
+        Authentication(response).then(() => {
+            navigation.navigation.navigate("Home");
+        });
+
+    }
   }, [response]);
 
   return (
