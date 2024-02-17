@@ -1,13 +1,21 @@
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import authRouter from './routes/authRouter.js';
+import router from './routes/apiRouter.js';
+import passportConfig from './controllers/authentication/strategies/passport-config.js';
 import 'dotenv/config';
-import authRouter from './routes/auth.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+passportConfig(app);
+
 app.use('/auth', authRouter);
+app.use('/api', router);
 
 export async function connectToDatabase() {
     const port = process.env.PORT || 8000;

@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@react-native-async-storage/async-storage": "1.21.0",
+        "@react-native-cookies/cookies": "github:react-native-cookies/cookies",
         "@react-native-google-signin/google-signin": "^11.0.0",
         "@react-navigation/native": "^6.1.10",
         "@react-navigation/native-stack": "^6.9.18",
@@ -23,7 +24,8 @@
         "react-native": "0.73.2",
         "react-native-safe-area-context": "^4.9.0",
         "react-native-screen": "^1.0.1",
-        "react-native-screens": "^3.29.0"
+        "react-native-screens": "^3.29.0",
+        "react-native-webview": "^13.8.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",
