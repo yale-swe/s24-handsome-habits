@@ -1,4 +1,4 @@
-import Api from "./api";
+import Api from "./apiUtil";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default async function Authentication(response) {

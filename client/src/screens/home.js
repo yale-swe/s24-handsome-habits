@@ -1,20 +1,16 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
-  TouchableOpacity,
-  Image,
   ImageBackground
 } from "react-native";
-import { useEffect } from "react";
 
+// eslint-disable-next-line
 const Home = (navigation) => {
 
   return (
     <View style={styles.container}>
-        <ImageBackground source={require("../assets/images/cross_bg.png")} resizeMode="cover" style={styles.image}>
+        <ImageBackground testID="homeView" source={require("../assets/images/cross_bg.png")} resizeMode="cover" style={styles.image}>
             <Text style={styles.header1}>Home Page</Text>
         </ImageBackground>
     </View>

@@ -9,9 +9,10 @@ import {
 } from "react-native";
 import { useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
-import Authentication, { logout } from "../services/authentication";
+import Authentication, { logout } from "../services/authenticationUtil";
 
 const Login = (navigation) => {
+  // eslint-disable-next-line
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
   });
