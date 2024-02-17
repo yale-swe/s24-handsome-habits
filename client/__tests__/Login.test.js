@@ -1,21 +1,40 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import Login from '../src/screens/login.js'; 
 import * as Google from 'expo-auth-session/providers/google';
-import { logout } from '../src/services/authenticationUtil.js'; // Adjust the import path
+import { CASLogout } from '../src/services/authenticationUtil.js'; 
 
 // Mocking Google Authentication and logout function
 jest.mock('expo-auth-session/providers/google', () => ({
   useAuthRequest: jest.fn().mockReturnValue([
     {}, // mock request
-    null, // mock response 
+    Promise.resolve({ type: 'success' }), // mock response 
     jest.fn(), // mock promptAsync function
   ]),
 }));
 
+jest.mock('react-native-webview', () => ({
+  WebView: () => 'WebView',
+}));
+
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn().mockResolvedValue(null),
+  getItem: jest.fn().mockResolvedValue(null), 
+  removeItem: jest.fn().mockResolvedValue(null),
+  clear: jest.fn().mockResolvedValue(null),
+}));
+
 jest.mock('../src/services/authenticationUtil.js', () => ({
   Authentication: jest.fn(),
-  logout: jest.fn(),
+  CASLogout: jest.fn(),
+}));
+
+jest.mock('../src/services/userService', () => ({
+  findUser: jest.fn().mockRejectedValue(new Error('User not found')),
+}));
+
+jest.mock('../src/services/userService', () => ({
+  findUser: jest.fn().mockRejectedValue(new Error('User not found')),
 }));
 
 describe('Login Component', () => {
@@ -23,21 +42,31 @@ describe('Login Component', () => {
     const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);
     expect(getByText('Welcome to')).toBeTruthy();
     expect(getByText('Handsome Habits')).toBeTruthy();
+    expect(getByText('Sign in with Google')).toBeTruthy();
+    expect(getByText('Sign in with Yale CAS')).toBeTruthy();
   });
 
-  it('calls Google sign-in on button press', () => {
+  it('calls Google sign-in on button press', async () => {
     const promptAsyncMock = jest.fn();
     Google.useAuthRequest.mockImplementation(() => ([{}, {}, promptAsyncMock]));
 
     const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);
-    fireEvent.press(getByText('Sign in with Google'));
-    expect(promptAsyncMock).toHaveBeenCalled();
+    const googleSignInButton = getByText('Sign in with Google');
+
+    fireEvent.press(googleSignInButton);
+    await waitFor(() => { 
+      expect(promptAsyncMock).toHaveBeenCalled();
+    });
   });
 
-  it('calls logout on button press', () => {
+  it('calls CASLogout on button press', async () => {
     const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);
-    fireEvent.press(getByText('Delete Saved Users'));
-    expect(logout).toHaveBeenCalled();
+    const deleteSavedUsersButton = getByText('Delete Saved Users');
+
+    fireEvent.press(deleteSavedUsersButton);
+    await waitFor(() => {
+      expect(CASLogout).toHaveBeenCalled();
+    });
   });
 
 });

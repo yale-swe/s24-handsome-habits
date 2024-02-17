@@ -34,20 +34,16 @@
         "eslint-plugin-react": "^7.33.2",
         "jest": "^29.7.0"
     },
-    
-    
-  "jest": {
-    "preset": "react-native",
-    "transformIgnorePatterns": [
-      "/node_modules/(?!expo-status-bar)/",
-      "/node_modules/(?!expo-auth-session/providers/google)/"
-    ],
-    "moduleNameMapper": {
-        "^expo-application$": "/__mocks__/expo-application.js",
-        "^expo-web-browser$": "/__mocks__/expo-web-browser.js"
-      }
-   
-  },
-    
+    "jest": {
+        "preset": "react-native",
+        "transformIgnorePatterns": [
+            "/node_modules/(?!expo-status-bar)/",
+            "/node_modules/(?!expo-auth-session/providers/google)/"
+        ],
+        "moduleNameMapper": {
+            "^expo-application$": "/__mocks__/expo-application.js",
+            "^expo-web-browser$": "/__mocks__/expo-web-browser.js"
+        }
+    },
     "private": true
 }
