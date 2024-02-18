@@ -1,0 +1,39 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '21.6.1' 
+
+# Install dependencies and run lint in the server directory
+    - name: Install server dependencies
+      run: |
+        cd server
+        npm install
+    - name: Run server lint
+      run: |
+        cd server
+        npm run lint
+
+    # Install dependencies, run lint, and tests in the client directory
+    - name: Install client dependencies
+      run: |
+        cd client
+        npm install
+    - name: Run client lint
+      run: |
+        cd client
+        npm run lint
+    - name: Run client Jest tests
+      run: |
+        cd client
+        npm test
