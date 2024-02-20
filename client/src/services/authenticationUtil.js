@@ -1,4 +1,5 @@
 import Api from "./apiUtil";
+import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default async function Authentication(response) {
@@ -31,4 +32,11 @@ export default async function Authentication(response) {
 
 export async function logout() {
   await AsyncStorage.removeItem("@user");
+}
+
+export async function CASLogout() {
+  AsyncStorage.removeItem("cookies");
+  // remove the cookie from axios
+  axios.defaults.headers.Cookie = "";
+  await Api.get("/auth/cas/logout");
 }
