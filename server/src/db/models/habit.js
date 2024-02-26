@@ -43,6 +43,6 @@ const habitSchema = new mongoose.Schema({
     quality: { type: Int32 },
 });
 
-const Habit = mongoose.model('User', habitSchema);
+const Habit = mongoose.model('Habit', habitSchema);
 
 export default Habit;
