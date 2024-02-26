@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import LoginButton from "../components/loginButton";
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,18 @@ import {
   Image,
 } from "react-native";
 import { useEffect, useState } from "react";
+import { Typography, Colors, Spacing, Buttons } from '../styles';
+import { StatusBar } from "expo-status-bar";
 import * as Google from "expo-auth-session/providers/google";
 import Authentication, { CASLogout } from "../services/authenticationUtil";
 import { WebView } from "react-native-webview";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { findUser } from "../services/userService";
+import { useNavigation } from '@react-navigation/native';
 
-const Login = (navigation) => {
+const Login = ({navigation}) => {
+
   const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
   const [, setLoading] = useState(true);
   const [, response, promptAsync] = Google.useAuthRequest({
@@ -29,13 +33,8 @@ const Login = (navigation) => {
     setShowWebView(true);
   }
 
-  useEffect(() => {
-    if (response?.type === "success") {
-      Authentication(response).then(() => {
-        navigation.navigation.navigate("Home");
-      });
-    }
-  }, [response]);
+// const navigation = useNavigation();
+  
 
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.
@@ -53,8 +52,10 @@ const Login = (navigation) => {
         var resp = null;
         resp = await findUser();
         if (resp) {
-          navigation.navigation.navigate("Home");
+          console.log("Navigating to Home")
+          navigation.navigate("Home");
         } else {
+          console.log(resp)
           console.log("User not authenticated");
           setLoading(false);
         }
@@ -77,125 +78,57 @@ const Login = (navigation) => {
       // const userData = JSON.parse(decodeURIComponent(encodedUserData));
 
       setShowWebView(false); // Hide the WebView
-      navigation.navigation.navigate("Home");
+      navigation.navigate("Home");
     }
   };
 
-  const loginScreen = () => (
+  const renderWebView = () => {
+
+    return (
+      <WebView
+          source={{ uri: `${serverURL}/auth/cas/login` }}
+          onNavigationStateChange={handleWebViewNavigationStateChange}
+          style={ styles.webView}
+        />
+
+    );
+  };
+
+
+  return (
     <View style={styles.container}>
-      <Text style={styles.header2}> Welcome to </Text>
-      <Text style={styles.header1}> Handsome Habits </Text>
-      <Image
-        source={require("../assets/images/bulldog.png")}
-        style={styles.bulldog}
-      />
-      <TouchableOpacity
-        onPress={() => handleLoginWithCAS()}
-        style={styles.loginButton}
-      >
-        <View style={styles.buttonContent}>
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/googlelogo.png")}
-              style={styles.googleLogo}
-            />
-          </View>
-          <Text style={styles.buttonText}> Sign in with Yale CAS </Text>
-        </View>
-      </TouchableOpacity>
-      <View style={styles.space} />
-      <TouchableOpacity
-        onPress={() => promptAsync()}
-        style={styles.GloginButton}
-      >
-        <View style={styles.buttonContent}>
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/googlelogo.png")}
-              style={styles.googleLogo}
-            />
-          </View>
-          <Text style={styles.buttonText}> Sign in with Google </Text>
-        </View>
-      </TouchableOpacity>
-      <Button title="Delete Saved Users" onPress={() => CASLogout()} />
-      <StatusBar style="auto" />
+        <Text style={Typography.header4}> Welcome to </Text>
+        <Text style={Typography.header3}> Handsome Habits </Text>
+        <Image
+          source={require("../assets/images/bulldog.png")}
+          style={styles.bulldog}
+        />
+        <LoginButton 
+          title="Sign in with Google" 
+          logo={require("../assets/images/googlelogo.png")} 
+          onPress=""
+        />
     </View>
   );
-
-  const renderWebView = () => (
-    <WebView
-      source={{ uri: `${serverURL}/auth/cas/login` }}
-      onNavigationStateChange={handleWebViewNavigationStateChange}
-      style={{ flex: 1 }}
-    />
-  );
-
-  return showWebView ? renderWebView() : loginScreen();
-};
+}
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: "#FFF8F0",
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: "Roboto",
-  },
-  header2: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  header1: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "#FFB706",
+    paddingTop: 100,
+    ...Typography.mainFont,
   },
   bulldog: {
     margin: 30,
     width: 150,
     height: 250,
   },
-  loginButton: {
-    backgroundColor: "#294078",
-    color: "white",
-    fontSize: 20,
-    borderRadius: 10,
-    padding: 0,
-  },
-  GloginButton: {
-    backgroundColor: "#FFB706",
-    color: "white",
-    fontSize: 20,
-    borderRadius: 10,
-    padding: 0,
-  },
-  logoContainer: {
-    backgroundColor: "white",
-    padding: 5,
-    marginEnd: 15,
-    borderTopStartRadius: 10,
-    borderBottomStartRadius: 10,
-  },
-  googleLogo: {
-    width: 30,
-    height: 30,
-  },
-  buttonContent: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 3,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingEnd: 10,
-  },
-  space: {
-    height: 20,
-  },
+
 });
+
 
 export default Login;
