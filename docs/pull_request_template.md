@@ -1,11 +1,10 @@
 ## Summary of PR
-<!--- Brief summary of your changes in detail -->
-## Visuals
-<!--- If frontend affected, please describe -->
-## Testing Checklist
-<!--- Check at least one -->
-- [ ] Tested on iOS simulator
-- [ ] Backend tested
-- [ ] Frontend tested
+
+## Checklist before requesting a review
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my code
+- [ ] If it is a core feature, I have added thorough tests
+- [ ] I have tested on the iOS simulator
+- [ ] I have made corresponding changes to the documentation
+
 ## Todos & Follow ups
-<!--- Add to this for context -->
