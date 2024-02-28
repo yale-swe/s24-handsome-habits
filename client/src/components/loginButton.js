@@ -1,144 +1,28 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-import { useEffect, useState } from "react";
-import * as Google from "expo-auth-session/providers/google";
-import Authentication, { CASLogout } from "../services/authenticationUtil";
-import { WebView } from "react-native-webview";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { findUser } from "../services/userService";
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { Buttons } from "../styles";
+import PropTypes from "prop-types";
 
-import { Typography, Colors, Spacing, Buttons } from '../styles';
-
-// import LoginButton from "./screens/login";
-
-const LoginButton = ({
-    title,
-    logo,
-    onPress,
-  }) => {
-
-//   const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
-//   const [, setLoading] = useState(true);
-//   const [, response, promptAsync] = Google.useAuthRequest({
-//     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
-//   });
-
-//   const [showWebView, setShowWebView] = useState(false);
-
-//   function handleLoginWithCAS() {
-//     // Display the WebView for CAS login
-//     setShowWebView(true);
-//   }
-
-// // const navigation = useNavigation();
-  
-
-//   /**
-//    * On component mount, check if the user is already authenticated by looking for cookies.
-//    * If authenticated, navigate to the main screen; otherwise, display the login option.
-//    * This useEffect hook will run only once after the initial render, not on subsequent re-renders.
-//    */
-//   useEffect(() => {
-//     const actions = async () => {
-//       const cookies = await AsyncStorage.getItem("cookies");
-//       if (cookies) {
-//         axios.defaults.headers.Cookie = cookies;
-//       }
-
-//       try {
-//         var resp = null;
-//         resp = await findUser();
-//         if (resp) {
-//           console.log("Navigating to Home")
-//           navigation.navigate("Home");
-//         } else {
-//           console.log(resp)
-//           console.log("User not authenticated");
-//           setLoading(false);
-//         }
-//       } catch (error) {
-//         setLoading(false);
-//       }
-//     };
-//     actions();
-//   }, []);
-
-//   /**
-//    * Handle navigation state changes in the WebView.
-//    * Used to detect successful login and to extract user data from the URL.
-//    */
-//   const handleWebViewNavigationStateChange = (newNavState) => {
-//     const { url } = newNavState;
-//     if (url.includes(`${serverURL}/userdata?data=`)) {
-//       // Do better checks here to confirm the user information if cookies are used
-//       // const encodedUserData = url.split("data=")[1];
-//       // const userData = JSON.parse(decodeURIComponent(encodedUserData));
-
-//       setShowWebView(false); // Hide the WebView
-//       navigation.navigate("Home");
-//     }
-//   };
-
-  // const buttons = (props) => (
-    return (
+const LoginButton = (props) => {
+  return (
     <View style={styles.container}>
-      {/* <TouchableOpacity
-        onPress={() => handleLoginWithCAS()}
-        style={Buttons.YloginButton}
-      >
+      <TouchableOpacity onPress={props.onPress} style={Buttons.GloginButton}>
         <View style={Buttons.buttonContent}>
           <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/googlelogo.png")}
-              style={styles.googleLogo}
-            />
+            <Image source={props.logo} style={styles.googleLogo} />
           </View>
-          <Text style={Buttons.buttonText}> Sign in with Yale CAS </Text>
+          <Text style={Buttons.buttonText}>{props.title}</Text>
         </View>
       </TouchableOpacity>
-      <View style={styles.space} /> */}
-      <TouchableOpacity
-        // onPress={() => promptAsync()}
-        onPress={onPress}
-        style={Buttons.GloginButton}
-      >
-        <View style={Buttons.buttonContent}>
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/googlelogo.png")}
-              style={styles.googleLogo}
-            />
-          </View>
-          <Text style={Buttons.buttonText}> Sign in with Google </Text>
-        </View>
-      </TouchableOpacity>
-      <Button title="Delete Saved Users" onPress={() => CASLogout()} />
       <StatusBar style="auto" />
     </View>
-  // );
+  );
+};
 
-  // const renderWebView = () => {
-
-  //   return (
-  //     <WebView
-  //         source={{ uri: `${serverURL}/auth/cas/login` }}
-  //         onNavigationStateChange={handleWebViewNavigationStateChange}
-  //         style={ styles.webView}
-  //       />
-
-    );
-  // };
-
-
+LoginButton.propTypes = {
+  title: PropTypes.string,
+  logo: PropTypes.any,
+  onPress: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -146,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-
   },
   logoContainer: {
     backgroundColor: "white",
@@ -168,18 +51,6 @@ const styles = StyleSheet.create({
   space: {
     height: 20,
   },
-  webView: {
-    // flex: 1,
-    // width: 300,
-    // height: 600,
-    // position: 'absolute',
-    // top: 0,
-    // right: 0,
-    // bottom: 0,
-    // left: 0,
-    // height: 300,
-    // width: 200,
-  }
 });
 
 export default LoginButton;
