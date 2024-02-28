@@ -54,7 +54,8 @@ const habitSchema = new mongoose.Schema({
         workout: { 
             workout_tag: {type: String, default: ''},
             workout_duration: {type: Int32, default: 0}
-        }
+        },
+        any: mongoose.Schema.Types.Mixed
 
     }
 });
