@@ -1,4 +1,4 @@
-import LoginButton from "../components/loginButton";
+import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -7,10 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
-import { Typography, Colors, Spacing, Buttons } from '../styles';
-import { StatusBar } from "expo-status-bar";
 import * as Google from "expo-auth-session/providers/google";
 import Authentication, { CASLogout } from "../services/authenticationUtil";
 import { WebView } from "react-native-webview";
@@ -19,8 +16,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { findUser } from "../services/userService";
 import { useNavigation } from '@react-navigation/native';
 
-const Login = ({navigation}) => {
+import { Typography, Colors, Spacing, Buttons } from '../styles';
 
+// import LoginButton from "./screens/login";
+
+const LoginButtons = () => {
   const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
   const [, setLoading] = useState(true);
   const [, response, promptAsync] = Google.useAuthRequest({
@@ -53,10 +53,8 @@ const Login = ({navigation}) => {
         var resp = null;
         resp = await findUser();
         if (resp) {
-          console.log("Navigating to Home")
           navigation.navigate("Home");
         } else {
-          console.log(resp)
           console.log("User not authenticated");
           setLoading(false);
         }
@@ -83,53 +81,80 @@ const Login = ({navigation}) => {
     }
   };
 
-  const renderWebView = () => {
-
-    return (
-      <WebView
-          source={{ uri: `${serverURL}/auth/cas/login` }}
-          onNavigationStateChange={handleWebViewNavigationStateChange}
-          style={ styles.webView}
-        />
-
-    );
-  };
-
-
-  return (
+  const loginScreen = () => (
     <View style={styles.container}>
-        <Text style={Typography.header4}> Welcome to </Text>
-        <Text style={Typography.header3}> Handsome Habits </Text>
-        <Image
-          source={require("../assets/images/bulldog.png")}
-          style={styles.bulldog}
-        />
-        <LoginButton 
-          title="Sign in with Google" 
-          logo={require("../assets/images/googlelogo.png")} 
-          onPress=""
-        />
+      <TouchableOpacity
+        onPress={() => handleLoginWithCAS()}
+        style={Buttons.YloginButton}
+      >
+        <View style={Buttons.buttonContent}>
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/googlelogo.png")}
+              style={styles.googleLogo}
+            />
+          </View>
+          <Text style={Buttons.buttonText}> Sign in with Yale CAS </Text>
+        </View>
+      </TouchableOpacity>
+      <View style={styles.space} />
+      <TouchableOpacity
+        onPress={() => promptAsync()}
+        style={Buttons.GloginButton}
+      >
+        <View style={Buttons.buttonContent}>
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/googlelogo.png")}
+              style={styles.googleLogo}
+            />
+          </View>
+          <Text style={Buttons.buttonText}> Sign in with Google </Text>
+        </View>
+      </TouchableOpacity>
+      <Button title="Delete Saved Users" onPress={() => CASLogout()} />
+      <StatusBar style="auto" />
     </View>
   );
-}
+
+  const renderWebView = () => (
+    <WebView
+      source={{ uri: `${serverURL}/auth/cas/login` }}
+      onNavigationStateChange={handleWebViewNavigationStateChange}
+      style={{ flex: 1 }}
+    />
+  );
+
+  return showWebView ? renderWebView() : loginScreen();
+};
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: "#FFF8F0",
     alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 100,
-    ...Typography.mainFont,
-  },
-  bulldog: {
-    margin: 30,
-    width: 150,
-    height: 250,
-  },
+    // justifyContent: "center",
 
+  },
+  logoContainer: {
+    backgroundColor: "white",
+    padding: 5,
+    marginEnd: 15,
+    borderTopStartRadius: 10,
+    borderBottomStartRadius: 10,
+  },
+  googleLogo: {
+    width: 30,
+    height: 30,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingEnd: 10,
+  },
+  space: {
+    height: 20,
+  },
 });
 
-
-export default Login;
+export default LoginButtons;
