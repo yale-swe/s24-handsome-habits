@@ -1,25 +1,29 @@
-export const mainFont = { fontFamily: "Roboto"};
+export const defaultFont = { fontFamily: "OpenSans-Regular"};
+export const boldFont = { fontFamily: "OpenSans-Bold" };
+export const semiBoldFont = { fontFamily: "OpenSans-SemiBold" };
 
 export const header1 = { 
     fontSize: 70, 
-    fontWeight: "bold", 
     color: "#000", 
     textAlign: "center", 
-    ...mainFont 
+    ...boldFont 
 };
 
 export const header3 = {
     fontSize: 36,
-    fontWeight: "bold",
     textAlign: "center",
-    ...mainFont,
+    ...boldFont,
 };
 
 export const header4 = {
     fontSize: 20,
-    fontWeight: "bold",
     textAlign: "center",
-    ...mainFont,
+    ...boldFont,
 };
 
+export const buttonText = {
+    color: "white",
+    fontSize: 20,
+    ...boldFont,
+};
  

@@ -8,7 +8,7 @@ import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Buttons } from "../styles";
+import { Buttons, Colors } from "../styles";
 
 const Login = ({ navigation }) => {
   const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
@@ -22,6 +22,7 @@ const Login = ({ navigation }) => {
     // Display the WebView for CAS login
     setShowWebView(true);
   }
+
 
   // For handling response from Google Auth
   useEffect(() => {
@@ -45,6 +46,7 @@ const Login = ({ navigation }) => {
       }
 
       try {
+
         if (await findUser()) {
           console.log("Navigating to Home");
           navigation.navigate("Home");
@@ -74,27 +76,32 @@ const Login = ({ navigation }) => {
     }
   };
 
+
   const loginScreen = () => (
     <View style={styles.container}>
-      <Text style={Typography.header4}> Welcome to </Text>
-      <Text style={Typography.header3}> Handsome Habits </Text>
+  
       <Image
         source={require("../assets/images/bulldog.png")}
         style={styles.bulldog}
       />
-      <View style={ styles.buttonContainer }>
-        <LoginButton
-          title="Sign in with Yale CAS"
-          logo={require("../assets/images/ylogo.png")}
-          style={Buttons.YloginButton}
-          onPress={handleLoginWithCAS}
-        />
-        <LoginButton
-          title="Sign in with Google"
-          logo={require("../assets/images/googlelogo.png")}
-          style={Buttons.GloginButton}
-          onPress={() => promptAsync()}
-        />
+      <View style={ styles.lowerContainer }>
+        <Text style={Typography.header4}> Welcome to </Text>
+        <Text style={Typography.header3}> Handsome Habits </Text>
+        <View style={styles.buttonContainer}>
+
+          <LoginButton
+            title="Sign in with Yale CAS"
+            logo={require("../assets/images/ylogo.png")}
+            style={Buttons.YloginButton}
+            onPress={handleLoginWithCAS}
+          />
+          <LoginButton
+            title="Sign in with Google"
+            logo={require("../assets/images/googlelogo.png")}
+            style={Buttons.GloginButton}
+            onPress={() => promptAsync()}
+          />
+        </View>
       </View>
     </View>
   );
@@ -115,20 +122,27 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF8F0",
+    backgroundColor: Colors.Colors.yellow,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 100,
     ...Typography.mainFont,
   },
+  lowerContainer: {
+    paddingTop: 30,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingBottom: 100,
+    backgroundColor: "white",
+    width: "100%",
+  },
   buttonContainer: {
     marginTop: 30,
-    marginBottom: 100,
   },
   bulldog: {
     margin: 30,
-    width: 150,
-    height: 250,
+    width: 200,
+    height: 300,
   },
 });
 

@@ -1,19 +1,12 @@
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 
-import { Typography } from "../styles";
+import { Typography, Colors } from "../styles";
 
 // eslint-disable-next-line
 const Home = (navigation) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        testID="homeView"
-        source={require("../assets/images/cross_bg.png")}
-        resizeMode="cover"
-        style={styles.backgroundImage}
-      >
-        <Text style={Typography.header1}>Home Page</Text>
-      </ImageBackground>
+      <Text style={Typography.header1}>Home Page</Text>
     </View>
   );
 };
@@ -21,10 +14,8 @@ const Home = (navigation) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF8F0",
-    ...Typography.mainFont,
+    backgroundColor: Colors.Colors.beige,
   },
-
   backgroundImage: {
     flex: 1,
     justifyContent: "center",

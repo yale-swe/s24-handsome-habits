@@ -1,7 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Buttons } from "../styles";
+import { Buttons, Typography } from "../styles";
 import PropTypes from "prop-types";
+
 
 const LoginButton = (props) => {
   return (
@@ -11,7 +12,7 @@ const LoginButton = (props) => {
           <View style={styles.logoContainer}>
             <Image source={props.logo} style={styles.googleLogo} />
           </View>
-          <Text style={Buttons.buttonText}>{props.title}</Text>
+          <Text style={styles.buttonTextArea}>{props.title}</Text>
         </View>
       </TouchableOpacity>
       <StatusBar style="auto" />
@@ -27,7 +28,6 @@ LoginButton.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
     margin: 10,
@@ -43,15 +43,10 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  buttonText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingEnd: 10,
+  buttonTextArea: {
+    ...Buttons.buttonTextArea,
+    ...Typography.buttonText,
   },
-  // space: {
-  //   // height: 20,
-  // },
 });
 
 export default LoginButton;

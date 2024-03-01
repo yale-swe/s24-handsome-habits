@@ -22,9 +22,6 @@ export const buttonContent = {
     alignItems: "center",
     margin: 3,
 };
-export const buttonText = {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
+export const buttonTextArea = {
     paddingEnd: 10,
 };
