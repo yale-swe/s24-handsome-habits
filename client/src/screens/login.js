@@ -1,9 +1,15 @@
 import { StyleSheet, Text, View, Button, Image } from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { Typography } from "../styles";
 import { WebView } from "react-native-webview";
 import { findUser } from "../services/userService";
+import { Typography } from "../styles";
+import { WebView } from "react-native-webview";
+import { findUser } from "../services/userService";
 import Authentication, { CASLogout } from "../services/authenticationUtil";
+import * as Google from "expo-auth-session/providers/google";
+import LoginButton from "../components/loginButton";
 import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
@@ -31,6 +37,14 @@ const Login = ({ navigation }) => {
       });
     }
   }, [response]);
+  // For handling response from Google Auth
+  useEffect(() => {
+    if (response?.type === "success") {
+      Authentication(response).then(() => {
+        navigation.navigation.navigate("Home");
+      });
+    }
+  }, [response]);
 
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.
@@ -45,6 +59,8 @@ const Login = ({ navigation }) => {
       }
 
       try {
+        if (await findUser()) {
+          console.log("Navigating to Home");
         if (await findUser()) {
           console.log("Navigating to Home");
           navigation.navigate("Home");
@@ -74,6 +90,7 @@ const Login = ({ navigation }) => {
     }
   };
 
+  const loginScreen = () => (
   const loginScreen = () => (
     <View style={styles.container}>
       <Text style={Typography.header4}> Welcome to </Text>

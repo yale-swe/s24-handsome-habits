@@ -5,17 +5,32 @@ import PropTypes from "prop-types";
 
 const LoginButton = (props) => {
   return (
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { Buttons } from "../styles";
+import PropTypes from "prop-types";
+
+const LoginButton = (props) => {
+  return (
     <View style={styles.container}>
       <TouchableOpacity onPress={props.onPress} style={props.style}>
         <View style={Buttons.buttonContent}>
           <View style={styles.logoContainer}>
             <Image source={props.logo} style={styles.googleLogo} />
+            <Image source={props.logo} style={styles.googleLogo} />
           </View>
+          <Text style={Buttons.buttonText}>{props.title}</Text>
           <Text style={Buttons.buttonText}>{props.title}</Text>
         </View>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
+  );
+};
+
+LoginButton.propTypes = {
+  title: PropTypes.string,
+  logo: PropTypes.any,
+  onPress: PropTypes.any,
   );
 };
 
