@@ -1,9 +1,15 @@
 import { StyleSheet, Text, View, Button, Image } from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { Typography } from "../styles";
 import { WebView } from "react-native-webview";
 import { findUser } from "../services/userService";
+import { Typography } from "../styles";
+import { WebView } from "react-native-webview";
+import { findUser } from "../services/userService";
 import Authentication, { CASLogout } from "../services/authenticationUtil";
+import * as Google from "expo-auth-session/providers/google";
+import LoginButton from "../components/loginButton";
 import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
@@ -22,6 +28,7 @@ const Login = ({ navigation }) => {
     // Display the WebView for CAS login
     setShowWebView(true);
   }
+
 
 
   // For handling response from Google Auth
