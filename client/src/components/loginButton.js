@@ -11,7 +11,6 @@ const LoginButton = (props) => {
         <View style={Buttons.buttonContent}>
           <View style={styles.logoContainer}>
             <Image source={props.logo} style={styles.googleLogo} />
-            <Image source={props.logo} style={styles.googleLogo} />
           </View>
           <Text style={styles.buttonTextArea}>{props.title}</Text>
         </View>
@@ -25,7 +24,6 @@ LoginButton.propTypes = {
   title: PropTypes.string,
   logo: PropTypes.any,
   onPress: PropTypes.any,
-  );
 };
 
 LoginButton.propTypes = {

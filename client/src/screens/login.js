@@ -1,20 +1,13 @@
 import { StyleSheet, Text, View, Button, Image } from "react-native";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { useEffect, useState } from "react";
-import { Typography } from "../styles";
-import { WebView } from "react-native-webview";
-import { findUser } from "../services/userService";
-import { Typography } from "../styles";
 import { WebView } from "react-native-webview";
 import { findUser } from "../services/userService";
 import Authentication, { CASLogout } from "../services/authenticationUtil";
 import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
-import * as Google from "expo-auth-session/providers/google";
-import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Buttons, Colors } from "../styles";
+import { Typography, Buttons, Colors } from "../styles";
 
 const Login = ({ navigation }) => {
   const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
