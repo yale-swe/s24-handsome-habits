@@ -30,11 +30,17 @@ const Login = (navigation) => {
   }
 
   useEffect(() => {
-    if (response?.type === "success") {
-      Authentication(response).then(() => {
-        navigation.navigation.navigate("Home");
-      });
-    }
+    (async () => {
+      if (response?.type === "success") {
+        try {
+          if (await Authentication(response)) {
+            navigation.navigation.navigate("Home");
+          }
+        } catch (error) {
+          console.error("Error logging in with Google:", error);
+        }
+      }
+    })();
   }, [response]);
 
   /**
@@ -50,9 +56,7 @@ const Login = (navigation) => {
       }
 
       try {
-        var resp = null;
-        resp = await findUser();
-        if (resp) {
+        if (await findUser()) {
           navigation.navigation.navigate("Home");
         } else {
           console.log("User not authenticated");
