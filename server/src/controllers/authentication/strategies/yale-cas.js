@@ -32,7 +32,7 @@ export default function(passport) {
             // This is the `verify` callback
             async function(netid, profile, done) {
                 try {
-                    let user = await User.findOne({ id: netid });
+                    let user = await User.findOne({ account_id: netid });
                     if (!user) {
                         // get user profile via yalies
                         let people = await yalies_api.people({
@@ -40,7 +40,6 @@ export default function(passport) {
                                 netid: netid,
                             },
                         });
-                        console.log("People: ", people);
 
                         // There must be only one person with the netid
                         if (people.length !== 1) {
@@ -52,7 +51,7 @@ export default function(passport) {
                         const person = people[0];
 
                         user = createUser({
-                            id: netid,
+                            account_id: netid,
                             email: person.email,
                             first_name: person.first_name,
                             last_name: person.last_name,
@@ -63,13 +62,11 @@ export default function(passport) {
                             profilePic: person.image,
                             isVerified: true,
                         });
-
                         console.log("New user created: ", user);
                     }
-
                     return done(null, user);
                 } catch (error) {
-                    console.log(error);
+                    // console.log(error);
                     return done(error);
                 }
             }

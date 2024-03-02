@@ -26,11 +26,17 @@ const Login = ({ navigation }) => {
 
   // For handling response from Google Auth
   useEffect(() => {
-    if (response?.type === "success") {
-      Authentication(response).then(() => {
-        navigation.navigation.navigate("Home");
-      });
-    }
+    (async () => {
+      if (response?.type === "success") {
+        try {
+          if (await Authentication(response)) {
+            navigation.navigation.navigate("Home");
+          }
+        } catch (error) {
+          console.error("Error logging in with Google:", error);
+        }
+      }
+    })();
   }, [response]);
 
   /**
