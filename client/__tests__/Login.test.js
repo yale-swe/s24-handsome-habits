@@ -2,7 +2,6 @@ import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import Login from '../src/screens/login.js'; 
 import * as Google from 'expo-auth-session/providers/google';
-import { CASLogout } from '../src/services/authenticationUtil.js'; 
 
 // Mocking Google Authentication and logout function
 jest.mock('expo-auth-session/providers/google', () => ({

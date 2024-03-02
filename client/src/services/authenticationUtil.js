@@ -8,7 +8,8 @@ export default async function Authentication(response) {
   if (user) {
     logout();
     user_data = JSON.parse(user);
-  } else if (response?.type === "success") {
+  }  
+  if (response?.type === "success") {
     user_data = await getUserInfoWithGoogle(
       response.authentication.accessToken
     );

@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Colors, Buttons, Typography } from "../styles";
+import { Buttons, Typography } from "../styles";
 import PropTypes from "prop-types";
 
 
@@ -24,6 +24,7 @@ LoginButton.propTypes = {
   title: PropTypes.string,
   logo: PropTypes.any,
   onPress: PropTypes.any,
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({

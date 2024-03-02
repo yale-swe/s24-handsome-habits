@@ -1,15 +1,25 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Buttons, Typography, Colors } from "../styles";
+import PropTypes from "prop-types";
+
 
 // eslint-disable-next-line
-const Exercise = ({navigation}) => {
+const Exercise = (props) => {
+
+    Exercise.propTypes = {
+        navigation: PropTypes.shape({
+            navigate: PropTypes.func.isRequired, 
+        }).isRequired,
+    };
+
+    
   return (
     <View style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={Buttons.habitButton}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Home')} style={Buttons.habitButton}>
             <Text>Go Back to Home</Text>
         </TouchableOpacity>
         <Text style={Typography.header3}>EXERCISE PAGE</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('ExerciseLog')} style={Buttons.habitButton}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('ExerciseLog')} style={Buttons.habitButton}>
             <Text>Go to Log an Exercise</Text>
         </TouchableOpacity>
 
