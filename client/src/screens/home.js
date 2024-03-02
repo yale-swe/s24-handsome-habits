@@ -1,40 +1,24 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground
-} from "react-native";
+import { StyleSheet, Text, View, ImageBackground } from "react-native";
+
+import { Typography, Colors } from "../styles";
 
 // eslint-disable-next-line
 const Home = (navigation) => {
-
   return (
     <View style={styles.container}>
-        <ImageBackground testID="homeView" source={require("../assets/images/cross_bg.png")} resizeMode="cover" style={styles.image}>
-            <Text style={styles.header1}>Home Page</Text>
-        </ImageBackground>
+      <Text style={Typography.header1}>Home Page</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF8F0",
-    // alignItems: "center",
-    // justifyContent: "center",
-    fontFamily: "Roboto",
+    backgroundColor: Colors.Colors.beige,
   },
-  image: {
+  backgroundImage: {
     flex: 1,
-    justifyContent: "center"
-  },
-  header1: {
-    fontSize: 70,
-    fontWeight: "bold",
-    color: "#000",
-    textAlign: "center",
-    fontFamily: "Roboto",
+    justifyContent: "center",
   },
 });
 

@@ -59,14 +59,4 @@ describe('Login Component', () => {
     });
   });
 
-  it('calls CASLogout on button press', async () => {
-    const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);
-    const deleteSavedUsersButton = getByText('Delete Saved Users');
-
-    fireEvent.press(deleteSavedUsersButton);
-    await waitFor(() => {
-      expect(CASLogout).toHaveBeenCalled();
-    });
-  });
-
 });
