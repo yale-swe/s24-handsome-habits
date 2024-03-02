@@ -1,15 +1,23 @@
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { WebView } from "react-native-webview";
 import { findUser } from "../services/userService";
-import Authentication, { CASLogout } from "../services/authenticationUtil";
+import Authentication from "../services/authenticationUtil";
 import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Typography, Buttons, Colors } from "../styles";
+import PropTypes from "prop-types";
 
-const Login = ({ navigation }) => {
+const Login = ( props ) => {
+
+  Login.propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired, 
+    }).isRequired,
+  };
+
   const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
   const [, setLoading] = useState(true);
   const [showWebView, setShowWebView] = useState(false);
@@ -22,15 +30,13 @@ const Login = ({ navigation }) => {
     setShowWebView(true);
   }
 
-
-
   // For handling response from Google Auth
   useEffect(() => {
     (async () => {
       if (response?.type === "success") {
         try {
           if (await Authentication(response)) {
-            navigation.navigation.navigate("Home");
+            props.navigation.navigate("Home");
           }
         } catch (error) {
           console.error("Error logging in with Google:", error);
@@ -55,7 +61,7 @@ const Login = ({ navigation }) => {
 
         if (await findUser()) {
           console.log("Navigating to Home");
-          navigation.navigate("Home");
+          props.navigation.navigate("Home");
         } else {
           console.log("User not authenticated");
           setLoading(false);
@@ -78,7 +84,7 @@ const Login = ({ navigation }) => {
       // const encodedUserData = url.split("data=")[1];
       // const userData = JSON.parse(decodeURIComponent(encodedUserData));
       setShowWebView(false); // Hide the WebView
-      navigation.navigate("Home");
+      props.navigation.navigate("Home");
     }
   };
 
@@ -98,13 +104,13 @@ const Login = ({ navigation }) => {
           <LoginButton
             title="Sign in with Yale CAS"
             logo={require("../assets/images/ylogo.png")}
-            style={Buttons.YloginButton}
+            style={styles.YloginButton}
             onPress={handleLoginWithCAS}
           />
           <LoginButton
             title="Sign in with Google"
             logo={require("../assets/images/googlelogo.png")}
-            style={Buttons.GloginButton}
+            style={styles.GloginButton}
             onPress={() => promptAsync()}
           />
         </View>
@@ -149,6 +155,14 @@ const styles = StyleSheet.create({
     margin: 30,
     width: 200,
     height: 300,
+  },
+  GloginButton: {
+    ...Buttons.loginButton,
+    backgroundColor: Colors.Colors.yellow,
+  },
+  YloginButton: {
+    ...Buttons.loginButton,
+    backgroundColor: Colors.Colors.navy,
   },
 });
 

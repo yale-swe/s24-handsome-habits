@@ -24,12 +24,7 @@ LoginButton.propTypes = {
   title: PropTypes.string,
   logo: PropTypes.any,
   onPress: PropTypes.any,
-};
-
-LoginButton.propTypes = {
-  title: PropTypes.string,
-  logo: PropTypes.any,
-  onPress: PropTypes.any,
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -41,6 +36,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     backgroundColor: "white",
     padding: 5,
+    margin: 2,
     marginEnd: 15,
     borderTopStartRadius: 10,
     borderBottomStartRadius: 10,
