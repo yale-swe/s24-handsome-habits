@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Buttons, Typography } from "../styles";
+import { Colors, Buttons, Typography } from "../styles";
 import PropTypes from "prop-types";
 
 
@@ -26,12 +26,6 @@ LoginButton.propTypes = {
   onPress: PropTypes.any,
 };
 
-LoginButton.propTypes = {
-  title: PropTypes.string,
-  logo: PropTypes.any,
-  onPress: PropTypes.any,
-};
-
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -41,6 +35,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     backgroundColor: "white",
     padding: 5,
+    margin: 2,
     marginEnd: 15,
     borderTopStartRadius: 10,
     borderBottomStartRadius: 10,

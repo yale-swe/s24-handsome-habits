@@ -6,16 +6,6 @@ export const loginButton = {
     padding: 0,
 };
 
-export const GloginButton = {
-    ...loginButton,
-    backgroundColor: "#FFB706"
-};
-
-export const YloginButton = { 
-    ...loginButton,
-    backgroundColor: "#294078"
-};
-
 export const buttonContent = {
     flexDirection: "row",
     justifyContent: "center",
@@ -24,4 +14,13 @@ export const buttonContent = {
 };
 export const buttonTextArea = {
     paddingEnd: 10,
+};
+
+export const habitButton = {
+    backgroundColor: "#FFB706",
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+    alignItems: "center",
+    justifyContent: "center",
 };

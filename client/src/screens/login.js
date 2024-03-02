@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
       if (response?.type === "success") {
         try {
           if (await Authentication(response)) {
-            navigation.navigation.navigate("Home");
+            navigation.navigate("Home");
           }
         } catch (error) {
           console.error("Error logging in with Google:", error);
@@ -98,13 +98,13 @@ const Login = ({ navigation }) => {
           <LoginButton
             title="Sign in with Yale CAS"
             logo={require("../assets/images/ylogo.png")}
-            style={Buttons.YloginButton}
+            style={styles.YloginButton}
             onPress={handleLoginWithCAS}
           />
           <LoginButton
             title="Sign in with Google"
             logo={require("../assets/images/googlelogo.png")}
-            style={Buttons.GloginButton}
+            style={styles.GloginButton}
             onPress={() => promptAsync()}
           />
         </View>
@@ -149,6 +149,14 @@ const styles = StyleSheet.create({
     margin: 30,
     width: 200,
     height: 300,
+  },
+  GloginButton: {
+    ...Buttons.loginButton,
+    backgroundColor: Colors.Colors.yellow,
+  },
+  YloginButton: {
+    ...Buttons.loginButton,
+    backgroundColor: Colors.Colors.navy,
   },
 });
 

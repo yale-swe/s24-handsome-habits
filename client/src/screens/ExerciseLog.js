@@ -1,16 +1,14 @@
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react-native";
-
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from "react-native";
 import { Buttons, Typography, Colors } from "../styles";
 
 // eslint-disable-next-line
-const Home = ({navigation}) => {
+const ExerciseLog = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Text style={Typography.header1}>Home Page</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Exercise')} style={Buttons.habitButton}>
-        <Text>Go to Exercise Page</Text>
+        <Text>Go Back to Excercise</Text>
       </TouchableOpacity>
-  
+      <Text style={Typography.header3}>LOG AN EXERCISE</Text>
     </View>
   );
 };
@@ -26,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default ExerciseLog;
