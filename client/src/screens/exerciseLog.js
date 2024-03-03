@@ -78,9 +78,29 @@ const ExerciseLog = (props) => {
         <TouchableOpacity style={styles.logButton} onPress={logExercise }>
             <Text style={styles.logButtonText}>Add Workout</Text>
         </TouchableOpacity>
+        <BackButton onPress={() => props.navigation.navigate('Exercise')}/>
+        <View style={styles.logContainer}>
+        <TextInput
+          style={styles.titleInput}
+          placeholder="Title"
+        />
+        <View style={{flexDirection: "row"}}>
+          <Text style={styles.subHeading}>Time</Text>
+          {/* <TextInput
+            style={styles.input}
+            placeholder="Time"
+          /> */}
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Duration"
+        />
+        <TouchableOpacity style={styles.logButton}>
+            <Text style={styles.logButtonText}>Add Workout</Text>
+        </TouchableOpacity>
 
         </View>
-        <Text style={Typography.passion}>LOG AN EXERCISE</Text>
+        <Text style={Typography.header3}>LOG AN EXERCISE</Text>
         </View>
     );
 };
