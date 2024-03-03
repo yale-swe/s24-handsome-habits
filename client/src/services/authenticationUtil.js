@@ -37,6 +37,7 @@ export async function logout() {
   await AsyncStorage.removeItem("user");
   // remove the cookie header from axios
   axios.defaults.headers.Cookie = "";
+  console.log("Logging out and deleting user cookies");
 }
 
 export async function CASLogout() {
@@ -48,12 +49,24 @@ export async function CASLogout() {
  * @returns {} - The user data if found; otherwise, null.
  */
 export async function LoginWithActiveSession() {
-  const response = await AuthApi.get("/login", { withCredentials: true });
-  
-  // Clear session if session is invalid / unauthorized user
-  if (response.status == StatusCodes.UNAUTHORIZED) {
-    logout();
-  }
+  let response = null;
+  await AsyncStorage.removeItem("cookies");
 
-  return response.status === 200 ? response : null;
+  try {
+    response = await AuthApi.get("/login", { withCredentials: true });
+  } catch (err) {
+    // Clear session if session is invalid / unauthorized user
+    console.error(
+      "Error logging in with stored cookies. Logging out",
+      err.response.status
+    );
+    if (err.response.status == StatusCodes.UNAUTHORIZED) {
+      logout();
+    }
+  } finally {
+    // eslint-disable-next-line no-unsafe-finally
+    return response?.status === 200 ? response : null;
+  }
 }
+
+
