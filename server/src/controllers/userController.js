@@ -6,11 +6,12 @@ import mongoose from "mongoose";
 
 export async function createUser(user) {
   try {
-    let newUser = new User(user);
-    newUser = await newUser.save();
+    const newUser = await new User(user);
+    await newUser.save();
     // User id is the primary key for user; default _id by MongoDB
     createPoints(newUser._id);
     createInitialAssets(newUser._id);
+    console.log("New user: ", newUser);
     return newUser;
   } catch (err) {
     console.log("Error creating user: ", err);

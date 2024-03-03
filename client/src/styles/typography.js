@@ -21,6 +21,18 @@ export const header4 = {
     ...boldFont,
 };
 
+export const header5 = {
+    fontSize: 16,
+    textAlign: "center",
+    ...boldFont,
+};
+
+export const header6 = {
+    fontSize: 14,
+    textAlign: "center",
+    ...boldFont,
+};
+
 export const buttonText = {
     color: "white",
     fontSize: 20,
