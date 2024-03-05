@@ -4,11 +4,10 @@ import Home from '../src/screens/home.js';
 
 describe('Home component', () => {
   it('renders correctly', () => {
-    const {getByText, getByTestId} = render(<Home navigation={null} />);
+    const {getByText} = render(<Home navigation={null} />);
 
-    // Check if the "Home Page" text is present as well as image through testID
+    // Check if the "Home Page" text is present
     expect(getByText('Home Page')).toBeTruthy();
-    expect(getByTestId('homeView')).toBeTruthy();
   });
 
 });

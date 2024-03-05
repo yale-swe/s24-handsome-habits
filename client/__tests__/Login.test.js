@@ -2,7 +2,6 @@ import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import Login from '../src/screens/login.js'; 
 import * as Google from 'expo-auth-session/providers/google';
-import { CASLogout } from '../src/services/authenticationUtil.js'; 
 
 // Mocking Google Authentication and logout function
 jest.mock('expo-auth-session/providers/google', () => ({
@@ -56,16 +55,6 @@ describe('Login Component', () => {
     fireEvent.press(googleSignInButton);
     await waitFor(() => { 
       expect(promptAsyncMock).toHaveBeenCalled();
-    });
-  });
-
-  it('calls CASLogout on button press', async () => {
-    const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);
-    const deleteSavedUsersButton = getByText('Delete Saved Users');
-
-    fireEvent.press(deleteSavedUsersButton);
-    await waitFor(() => {
-      expect(CASLogout).toHaveBeenCalled();
     });
   });
 

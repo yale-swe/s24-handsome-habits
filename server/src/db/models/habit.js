@@ -11,36 +11,53 @@ import mongoose from 'mongoose';
  *
  * 
  * @typedef {Object} Habit
- * @property {String} id - Unique id for the habit.
- * @property {String} user_id - user_id for the habit.
+ * @property {mongoose.Schema.Types.ObjectId} user_id - user_id for the habit.
  * @property {String} title - title given to the habit by the user.
  * @property {String} category - category of habit: eating, sleeping, excercising, studying.
  * @property {String} description - optional description given to the habit by the user.
  * @property {Date} date_and_time - timestamp of habit.
- * @property {String} tag - the habit tag.
- * @property {Int32} duration - The duration of the habit.
- * @property {Int32} quality - The quality of the habit.
+ * @property {Object} details - The details pertaining to each individual habit.
  */
 
-// Profile for Yale students
+// Habit schema
 const habitSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        unique: true
-    },
+   //mongoose creates automatically a unique _id for each row
     user_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        unique: false
+        unique: false,
+        ref: 'User'
     },
     title: { type: String },
-    category: { type: String },
+    category: { 
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        unique: false,
+        ref: 'Category'
+
+    },
     description: { type: String },
     date_and_time: { type: Date },
-    tag: { type: String },
-    duration: { type: Int32 },
-    quality: { type: Int32 },
+    details: { 
+        eating: {
+            eating_tag: {type: String, default: ''},
+            healthy_meal: {type: Boolean, default: false}
+        },
+        sleep: {
+            sleep_duration: {type: Int32, default: 0},
+            quality_of_sleep: {type: Int32, default: 0}
+        },
+        study: {
+            study_duration: {type: Int32, default: 0},
+            study_productivity: {type: Int32, default: 0}
+        },
+        workout: { 
+            workout_tag: {type: String, default: ''},
+            workout_duration: {type: Int32, default: 0}
+        },
+        any: mongoose.Schema.Types.Mixed
+
+    }
 });
 
 const Habit = mongoose.model('Habit', habitSchema);
