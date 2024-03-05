@@ -18,7 +18,7 @@ import mongoose from 'mongoose';
  * @property {Int32} studying_points - A user's wellness points from logging studying.
  */
 
-// Profile for Yale students
+// Points Table for users
 const pointsTableSchema = new mongoose.Schema({
     user_id: {
         type: String,

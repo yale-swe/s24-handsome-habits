@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "9c6386df-c8bc-43bf-8130-5d27382c5c76"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.aquapineapples.server"
+    }
+  }
+}

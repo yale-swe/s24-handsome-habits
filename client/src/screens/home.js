@@ -9,10 +9,12 @@ import {
 const Home = (navigation) => {
 
   return (
+    // show the user's coins and wellness points
     <View style={styles.container}>
         <ImageBackground testID="homeView" source={require("../assets/images/cross_bg.png")} resizeMode="cover" style={styles.image}>
             <Text style={styles.header1}>Home Page</Text>
         </ImageBackground>
+        
     </View>
   );
 }
