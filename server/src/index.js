@@ -27,7 +27,10 @@ export async function connectToDatabase() {
             console.log('Database connected');
             // only listen to requests after we are connected to the database
             app.listen(port);
-            initializeBaseCategories();
+            // if we don't have 4 categories, initialize the base categories in the database
+            if (Category.countDocuments() < 4) {
+                initializeBaseCategories();
+            }
         }
     ).catch((err) => { console.log(err); });
 }
