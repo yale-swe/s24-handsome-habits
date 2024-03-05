@@ -21,54 +21,31 @@ app.use('/api', router);
 export async function connectToDatabase() {
     const port = process.env.PORT || 8000;
     const db_uri = process.env.DB_URI;
-    console.log('Connecting to databasee');
+    console.log('Connecting to database');
     await mongoose.connect(db_uri).then(
         () => {
             console.log('Database connected');
             // only listen to requests after we are connected to the database
             app.listen(port);
-            // if we don't have 4 categories, initialize the base categories in the database
-            if (Category.countDocuments() < 4) {
-                initializeBaseCategories();
+            initializeBaseCategories();
+        }
+        ).catch((err) => { console.log(err); });
+    }
+    
+async function initializeBaseCategories() {
+    // if we don't have 4 categories, initialize the base categories in the database
+    if (await Category.countDocuments() < 4) {
+        var baseCategories = ["Eating", "Sleeping", "Exercising", "Studying"];
+
+        for (var base_habit of baseCategories) {
+            const new_category = await Category.findOne({
+                category_name: base_habit,
+            });
+            if (!new_category) {
+                const newCategory = new Category({category_name: base_habit});
+                newCategory.save();
             }
         }
-    ).catch((err) => { console.log(err); });
-}
-
-async function initializeBaseCategories() {
-    // Initialize the base categories if they don't exist
-    // query the database for each category
-    // if that category doesn't exist, create it
-    const eating = await Category.findOne({
-        category_name: "eating",
-    });
-    if (!eating) {
-        const newEating = new Category("eating");
-        newEating.save();
-    }
-
-    const sleeping = await Category.findOne({
-        category_name: "sleeping",
-    });
-    if (!sleeping) {
-        const newSleeping = new Category("sleeping");
-        newSleeping.save();
-    }
-
-    const exercising = await Category.findOne({
-        category_name: "exercising",
-    });
-    if (!exercising) {
-        const newExercising = new Category("exercising");
-        newExercising.save();
-    }
-
-    const studying = await Category.findOne({
-        category_name: "studying",
-    });
-    if (!studying) {
-        const newStudying = new Category("studying");
-        newStudying.save();
     }
 }
 
