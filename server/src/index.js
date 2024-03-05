@@ -6,6 +6,7 @@ import authRouter from './routes/authRouter.js';
 import router from './routes/apiRouter.js';
 import passportConfig from './controllers/authentication/strategies/passport-config.js';
 import 'dotenv/config';
+import Category from './db/models/category.js'
 
 const app = express();
 app.use(cors());
@@ -26,9 +27,46 @@ export async function connectToDatabase() {
             console.log('Database connected');
             // only listen to requests after we are connected to the database
             app.listen(port);
-
+            initializeBaseCategories();
         }
     ).catch((err) => { console.log(err); });
+}
+
+async function initializeBaseCategories() {
+    // Initialize the base categories if they don't exist
+    // query the database for each category
+    // if that category doesn't exist, create it
+    const eating = await Category.findOne({
+        category_name: "eating",
+    });
+    if (!eating) {
+        const newEating = new Category("eating");
+        newEating.save();
+    }
+
+    const sleeping = await Category.findOne({
+        category_name: "sleeping",
+    });
+    if (!sleeping) {
+        const newSleeping = new Category("sleeping");
+        newSleeping.save();
+    }
+
+    const exercising = await Category.findOne({
+        category_name: "exercising",
+    });
+    if (!exercising) {
+        const newExercising = new Category("exercising");
+        newExercising.save();
+    }
+
+    const studying = await Category.findOne({
+        category_name: "studying",
+    });
+    if (!studying) {
+        const newStudying = new Category("studying");
+        newStudying.save();
+    }
 }
 
 connectToDatabase();
