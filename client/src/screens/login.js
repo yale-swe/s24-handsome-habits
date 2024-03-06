@@ -97,6 +97,7 @@ const Login = ( props ) => {
         style={styles.bulldog}
       />
       <View style={ styles.lowerContainer }>
+        <Text style={Typography.passion}>LOffG IN</Text>
         <Text style={Typography.header4}> Welcome to </Text>
         <Text style={Typography.header3}> Handsome Habits </Text>
         <View style={styles.buttonContainer}>
@@ -138,7 +139,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 100,
-    ...Typography.mainFont,
   },
   lowerContainer: {
     paddingTop: 30,

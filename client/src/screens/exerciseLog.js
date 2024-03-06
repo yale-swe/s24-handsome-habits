@@ -40,7 +40,7 @@ const ExerciseLog = (props) => {
         </TouchableOpacity>
 
         </View>
-        <Text style={Typography.header3}>LOG AN EXERCISE</Text>
+        <Text style={Typography.passion}>LOG AN EXERCISE</Text>
         </View>
     );
 };
