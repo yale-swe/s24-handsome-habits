@@ -1,20 +1,21 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { WebView } from "react-native-webview";
-import { findUser } from "../services/userService";
-import Authentication from "../services/authenticationUtil";
+import Authentication, {
+  LoginWithActiveSession,
+} from "../services/authenticationUtil";
 import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Typography, Buttons, Colors } from "../styles";
 import PropTypes from "prop-types";
+import CookieManager from "@react-native-cookies/cookies";
 
-const Login = ( props ) => {
-
+const Login = (props) => {
   Login.propTypes = {
     navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired, 
+      navigate: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -53,20 +54,29 @@ const Login = ( props ) => {
   useEffect(() => {
     const actions = async () => {
       const cookies = await AsyncStorage.getItem("cookies");
+      console.log("Checking for cookies");
       if (cookies) {
-        axios.defaults.headers.Cookie = cookies;
-      }
+        // Set axios header. This would be included in all API requests.
+        axios.defaults.headers.Cookie = JSON.parse(cookies);
+        console.log("Cookies found");
+        try {
+          const user = await LoginWithActiveSession();
+          if (user) {
+            var userData = await user.data;
+            userData = decodeURIComponent(JSON.stringify(userData.user));
+            console.log("User data: ", userData);
+            
+            // Save user data on client side
+            AsyncStorage.setItem("user", userData);
 
-      try {
-
-        if (await findUser()) {
-          console.log("Navigating to Home");
-          props.navigation.navigate("Home");
-        } else {
-          console.log("User not authenticated");
+            // Redirect to the main screen
+            props.navigation.navigate("Home");
+          }
+        } catch (error) {
+          console.error("Error checking for cookies:", error);
           setLoading(false);
         }
-      } catch (error) {
+      } else {
         setLoading(false);
       }
     };
@@ -77,30 +87,32 @@ const Login = ( props ) => {
    * Handle navigation state changes in the WebView.
    * Used to detect successful login and to extract user data from the URL.
    */
-  const handleWebViewNavigationStateChange = (newNavState) => {
+  const handleWebViewNavigationStateChange = async (newNavState) => {
     const { url } = newNavState;
     if (url.includes(`${serverURL}/userdata?data=`)) {
+      const cookies = await CookieManager.get(url, true);
+      AsyncStorage.setItem("cookies", JSON.stringify(cookies));
+      axios.defaults.headers.Cookie = cookies["connect.sid"];
+      // console.log("Async cookies: ", await AsyncStorage.getItem("cookies"));
       // todo: Do better checks here to confirm the user information if cookies are used
       // const encodedUserData = url.split("data=")[1];
       // const userData = JSON.parse(decodeURIComponent(encodedUserData));
+      // console.log("User data: ", userData);
       setShowWebView(false); // Hide the WebView
       props.navigation.navigate("Home");
     }
   };
 
-
   const loginScreen = () => (
     <View style={styles.container}>
-  
       <Image
         source={require("../assets/images/bulldog.png")}
         style={styles.bulldog}
       />
-      <View style={ styles.lowerContainer }>
+      <View style={styles.lowerContainer}>
         <Text style={Typography.header4}> Welcome to </Text>
         <Text style={Typography.header3}> Handsome Habits </Text>
         <View style={styles.buttonContainer}>
-
           <LoginButton
             title="Sign in with Yale CAS"
             logo={require("../assets/images/ylogo.png")}
@@ -124,6 +136,7 @@ const Login = ( props ) => {
         source={{ uri: `${serverURL}/auth/cas/login` }}
         onNavigationStateChange={handleWebViewNavigationStateChange}
         style={styles.webView}
+        sharedCookiesEnabled={true}
       />
     );
   };

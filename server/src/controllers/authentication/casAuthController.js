@@ -1,4 +1,5 @@
 import passport from "passport";
+import { UserFromSession } from "../userController.js";
 
 /**
  * Authenticates a user using Yale's CAS system.
@@ -25,6 +26,7 @@ export function CASLogin(req, res, next) {
         }
 
         console.log("User Session: ", req.session);
+
         // Store user information in session upon successful authentication
         // Adjust according to the user object structures
         req.session.user = { user };
@@ -39,6 +41,30 @@ export function CASLogin(req, res, next) {
         // Redirect with the user data
         res.redirect(`${process.env.HOST_URL}/userdata?data=${encodedUserData}`);
     })(req, res, next);
+}
+
+/**
+ * Checks if there is an active session form the client and returns the user data if found.
+ * @param {Express.Request} req - The request object from Express.
+ * @param {Express.Response} res - The response object from Express.
+ */
+export function LoginWithActiveSession(req, res) {
+    console.log("Cookies: ", req.cookies);
+    if (req.cookies["connect.sid"]) {
+        const encodedSession = req.cookies["connect.sid"];
+        UserFromSession(encodedSession).then((user) => {
+            if (user) {
+                // Redirect to the user data page
+                const userData = JSON.stringify(user); // Convert user data to a string
+                const encodedUserData = encodeURIComponent(userData); // Encode the user data
+                res.status(200).send({ user: encodedUserData });
+            } else {
+                res.status(401).send({ error: "No user found. Sign in again" });
+            }
+        });
+    } else {
+        res.status(401).send({ error: "No active session found. Sign in again" });
+    }
 }
 
 export async function CASLogout(req, res) {

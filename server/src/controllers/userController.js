@@ -1,5 +1,6 @@
 import User from '../db/models/user.js';
 import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
 
 export async function createUser(user) {
     try {
@@ -41,4 +42,26 @@ export async function findUser(req, res) {
 
 export async function deleteUser(username) {
     return User.deleteOne({ username: username });
+}
+
+
+/**
+ * Checks if there is an active session form the client and returns the user data if found.
+ * @param {String} encodedSession 
+ * @returns user object from session if active session & user found. Else, null.
+ */
+export async function UserFromSession(encodedSession) {
+    const session = encodedSession.split(":")[1].split(".")[0];
+    if (session) {
+        const collection = mongoose.connection.db.collection("sessions");
+        const storedSession = await collection.findOne({ _id: session });
+        console.log("Session found: ", storedSession);
+        if (storedSession) {
+            // the objects are nested rather oddly. Hence, this structure
+            const user = storedSession.session.user.user;
+            console.log("User found in Session is: ", user);
+            return user;
+        }
+    }
+    return null;
 }

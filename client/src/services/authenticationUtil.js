@@ -8,7 +8,7 @@ export default async function Authentication(response) {
   if (user) {
     logout();
     user_data = JSON.parse(user);
-  }  
+  }
   if (response?.type === "success") {
     user_data = await getUserInfoWithGoogle(
       response.authentication.accessToken
@@ -32,12 +32,21 @@ async function getUserInfoWithGoogle(token) {
 }
 
 export async function logout() {
-  await AsyncStorage.removeItem("@user");
+  await AsyncStorage.removeItem("cookies");
+  await AsyncStorage.removeItem("user");
+  // remove the cookie header from axios
+  axios.defaults.headers.Cookie = "";
 }
 
 export async function CASLogout() {
-  AsyncStorage.removeItem("cookies");
-  // remove the cookie from axios
-  axios.defaults.headers.Cookie = "";
+  logout();
   await Api.get("/auth/cas/logout");
+}
+
+/**
+ * @returns {} - The user data if found; otherwise, null.
+ */
+export async function LoginWithActiveSession() {
+  const response = await Api.get("/auth/login", { withCredentials: true });
+  return response.status === 200 ? response : null;
 }
