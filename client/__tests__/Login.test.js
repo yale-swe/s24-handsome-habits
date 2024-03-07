@@ -24,8 +24,8 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 }));
 
 jest.mock('../src/services/authenticationUtil.js', () => ({
-  Authentication: jest.fn(),
-  CASLogout: jest.fn(),
+  Authentication: jest.fn().mockResolvedValue(true),
+  CASLogout:  jest.fn().mockResolvedValue(true),
 }));
 
 jest.mock('../src/services/userService', () => ({
@@ -34,6 +34,13 @@ jest.mock('../src/services/userService', () => ({
 
 jest.mock('../src/services/userService', () => ({
   findUser: jest.fn().mockRejectedValue(new Error('User not found')),
+}));
+
+jest.mock('@react-native-cookies/cookies', () => ({
+  get: jest.fn(),
+  set: jest.fn(),
+  clearAll: jest.fn(),
+  clearByName: jest.fn(),
 }));
 
 describe('Login Component', () => {

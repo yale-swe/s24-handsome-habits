@@ -25,7 +25,8 @@ describe("Authentication and logout", () => {
   it("logout removes user data from storage", async () => {
     await logout();
 
-    expect(AsyncStorage.removeItem).toHaveBeenCalledWith("@user");
+    expect(AsyncStorage.removeItem).toHaveBeenCalledWith("cookies");
+    expect(AsyncStorage.removeItem).toHaveBeenCalledWith("user");
   });
 
   // Simple test for login
