@@ -1,4 +1,4 @@
-import Points from '../db/models/pointsTable.js';
+import Points from '../db/models/points.js';
 
 export async function createPoints(user_id) {
     try {
