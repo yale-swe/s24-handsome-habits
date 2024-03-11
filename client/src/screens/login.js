@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { WebView } from "react-native-webview";
 import Authentication, {
   LoginWithActiveSession,
+  logout,
 } from "../services/authenticationUtil";
 import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
@@ -20,7 +21,7 @@ const Login = (props) => {
   };
 
   const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
-  const [, setLoading] = useState(true);
+  // const [, setLoading] = useState(true);
   const [showWebView, setShowWebView] = useState(false);
   const [, response, promptAsync] = Google.useAuthRequest({
     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
@@ -65,7 +66,7 @@ const Login = (props) => {
             var userData = await user.data;
             userData = decodeURIComponent(JSON.stringify(userData.user));
             console.log("User data: ", userData);
-            
+
             // Save user data on client side
             AsyncStorage.setItem("user", userData);
 
@@ -73,11 +74,9 @@ const Login = (props) => {
             props.navigation.navigate("Home");
           }
         } catch (error) {
+          logout(); // clear cookies on sign in error/ invalid session
           console.error("Error checking for cookies:", error);
-          setLoading(false);
         }
-      } else {
-        setLoading(false);
       }
     };
     actions();
