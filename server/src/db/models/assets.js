@@ -28,7 +28,7 @@ const assetsSchema = new mongoose.Schema({
     clothes: [String],
     objects: [String],
     backgrounds: [String]
-    
+
 });
 
 const Assets = mongoose.model('Assets', assetsSchema);

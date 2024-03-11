@@ -1,11 +1,17 @@
 import User from '../db/models/user.js';
+import { createPoints } from './pointsController.js';
+import { createInitialAssets } from './assetsController.js';
 import { StatusCodes } from 'http-status-codes';
 import mongoose from 'mongoose';
 
 export async function createUser(user) {
     try {
         const newUser = new User(user);
-        return newUser.save();
+        await newUser.save();
+        // User id is the primary key for user; default id by MongoDB
+        createPoints(newUser._id);
+        createInitialAssets(newUser._id);
+        return newUser;
     } catch (err) {
         console.log('User already exists');
         return null;
