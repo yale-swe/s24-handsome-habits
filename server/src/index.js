@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import authRouter from './routes/authRouter.js';
-import router from './routes/apiRouter.js';
+import router from './routes/ApiRouter.js';
 import passportConfig from './controllers/authentication/strategies/passport-config.js';
 import 'dotenv/config';
 import Category from './db/models/category.js'
@@ -29,9 +29,9 @@ export async function connectToDatabase() {
             app.listen(port);
             initializeBaseCategories();
         }
-        ).catch((err) => { console.log(err); });
-    }
-    
+    ).catch((err) => { console.log(err); });
+}
+
 async function initializeBaseCategories() {
     // if we don't have 4 categories, initialize the base categories in the database
     if (await Category.countDocuments() < 4) {
@@ -42,7 +42,7 @@ async function initializeBaseCategories() {
                 category_name: base_habit,
             });
             if (!new_category) {
-                const newCategory = new Category({category_name: base_habit});
+                const newCategory = new Category({ category_name: base_habit });
                 newCategory.save();
             }
         }

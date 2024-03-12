@@ -1,5 +1,6 @@
 import passport from "passport";
 import { UserFromSession } from "../userController.js";
+import { StatusCodes } from "http-status-codes";
 
 /**
  * Authenticates a user using Yale's CAS system.
@@ -19,10 +20,15 @@ export function CASLogin(req, res, next) {
     console.log("Logging in with Yale CAS");
     passport.authenticate("yalecas", (err, user) => {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json({ error: err.message });
         }
+
         if (!user) {
-            return res.status(401).json({ error: "Authentication failed" });
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({ error: "Authentication failed" });
         }
 
         console.log("User Session: ", req.session);
@@ -57,13 +63,19 @@ export function LoginWithActiveSession(req, res) {
                 // Redirect to the user data page
                 const userData = JSON.stringify(user); // Convert user data to a string
                 const encodedUserData = encodeURIComponent(userData); // Encode the user data
-                res.status(200).send({ user: encodedUserData });
+                res
+                    .status(StatusCodes.OK)
+                    .send({ user: encodedUserData });
             } else {
-                res.status(401).send({ error: "No user found. Sign in again" });
+                res
+                    .status(StatusCodes.UNAUTHORIZED)
+                    .send({ error: "No user found. Sign in again" });
             }
         });
     } else {
-        res.status(401).send({ error: "No active session found. Sign in again" });
+        res
+            .status(StatusCodes.UNAUTHORIZED)
+            .send({ error: "No active session found. Sign in again" });
     }
 }
 
@@ -75,7 +87,7 @@ export async function CASLogout(req, res) {
             if (err) {
                 console.error("Session destruction error:", err);
                 return res
-                    .status(500)
+                    .status(StatusCodes.INTERNAL_SERVER_ERROR)
                     .send({ error: "Could not log out, please try again." });
             }
             console.log("Session destroyed");
@@ -87,6 +99,8 @@ export async function CASLogout(req, res) {
         });
     } catch (error) {
         console.error("Error logging out:", error);
-        res.status(500).send({ error: "Could not log out, please try again." });
+        res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .send({ error: "Could not log out, please try again." });
     }
 }

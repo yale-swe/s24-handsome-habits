@@ -1,16 +1,19 @@
 import Authentication, { logout } from "../src/services/authenticationUtil.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Api from "../src/services/apiUtil.js";
+import { AuthApi } from "../src/services/apiUtil.js";
 
-// Mocking AsyncStorage and Api
+// Mocking AsyncStorage
 jest.mock("@react-native-async-storage/async-storage", () => ({
   getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
 }));
 
+// Mock AuthApi
 jest.mock("../src/services/apiUtil.js", () => ({
-  post: jest.fn(),
+  AuthApi: {
+    post: jest.fn(),
+  },
 }));
 
 describe("Authentication and logout", () => {
@@ -19,7 +22,7 @@ describe("Authentication and logout", () => {
     AsyncStorage.getItem.mockClear();
     AsyncStorage.setItem.mockClear();
     AsyncStorage.removeItem.mockClear();
-    Api.post.mockClear();
+    AuthApi.post.mockClear();
   });
 
   it("logout removes user data from storage", async () => {
@@ -35,16 +38,18 @@ describe("Authentication and logout", () => {
       type: "success",
       authentication: { accessToken: "token123" },
     };
-    Api.post.mockResolvedValue({ data: { user: "testUser" } });
+
+    // Mock the response from the server
+    AuthApi.post.mockResolvedValue({ data: { user: "testUser" } });
     AsyncStorage.getItem.mockResolvedValue(null); // Simulate no user logged in initially
 
     const userData = await Authentication(mockResponse);
 
-    expect(Api.post).toHaveBeenCalledWith("/auth/google/login", {
+    expect(AuthApi.post).toHaveBeenCalledWith("/google/login", {
       token: "token123",
     });
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(
-      "@user",
+      "user",
       JSON.stringify({ user: "testUser" })
     );
     expect(userData).toEqual(JSON.stringify({ user: "testUser" }));

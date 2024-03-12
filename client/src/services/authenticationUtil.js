@@ -1,6 +1,7 @@
-import Api from "./apiUtil";
+import { AuthApi } from "./apiUtil";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusCodes } from "http-status-codes";
 
 export default async function Authentication(response) {
   var user_data = null;
@@ -23,8 +24,8 @@ export default async function Authentication(response) {
 
 async function getUserInfoWithGoogle(token) {
   try {
-    const user = await Api.post("/auth/google/login", { token: token });
-    await AsyncStorage.setItem("@user", JSON.stringify(user.data));
+    const user = await AuthApi.post("/google/login", { token: token });
+    await AsyncStorage.setItem("user", JSON.stringify(user.data));
     return JSON.stringify(user.data);
   } catch (e) {
     console.error("Error getting user info with Google", e);
@@ -40,13 +41,19 @@ export async function logout() {
 
 export async function CASLogout() {
   logout();
-  await Api.get("/auth/cas/logout");
+  await AuthApi.get("/cas/logout");
 }
 
 /**
  * @returns {} - The user data if found; otherwise, null.
  */
 export async function LoginWithActiveSession() {
-  const response = await Api.get("/auth/login", { withCredentials: true });
+  const response = await AuthApi.get("/login", { withCredentials: true });
+  
+  // Clear session if session is invalid / unauthorized user
+  if (response.status == StatusCodes.UNAUTHORIZED) {
+    logout();
+  }
+
   return response.status === 200 ? response : null;
 }

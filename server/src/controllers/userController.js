@@ -51,6 +51,20 @@ export async function deleteUser(username) {
 }
 
 /**
+ *
+ * @param {any} req from the client
+ * @description uses the UserFromSession function to check for session
+ * @returns user object from session if active session & user found. Else, null.
+ */
+export async function UserFromRequest(req) {
+  // console.log("Request from postman: ", req);
+  if (req.cookies["connect.sid"]) {
+    const encodedSession = req.cookies["connect.sid"];
+    return await UserFromSession(encodedSession);
+  }
+}
+
+/**
  * Checks if there is an active session form the client and returns the user data if found.
  * @param {String} encodedSession
  * @returns user object from session if active session & user found. Else, null.
