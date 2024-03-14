@@ -1,4 +1,3 @@
-import { Int32 } from 'mongodb';
 import mongoose from 'mongoose';
 
 /**
@@ -21,7 +20,7 @@ import mongoose from 'mongoose';
 
 // Habit schema
 const habitSchema = new mongoose.Schema({
-   //mongoose creates automatically a unique _id for each row
+    //mongoose creates automatically a unique _id for each row
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -29,7 +28,7 @@ const habitSchema = new mongoose.Schema({
         ref: 'User'
     },
     title: { type: String },
-    category: { 
+    category: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: false,
@@ -38,22 +37,22 @@ const habitSchema = new mongoose.Schema({
     },
     description: { type: String },
     date_and_time: { type: Date },
-    details: { 
+    details: {
         eating: {
-            eating_tag: {type: String, default: ''},
-            healthy_meal: {type: Boolean, default: false}
+            eating_tag: { type: String, default: '' },
+            healthy_meal: { type: Boolean, default: false }
         },
         sleep: {
-            sleep_duration: {type: Int32, default: 0},
-            quality_of_sleep: {type: Int32, default: 0}
+            sleep_duration: { type: Number, default: 0 },
+            quality_of_sleep: { type: Number, default: 0 }
         },
         study: {
-            study_duration: {type: Int32, default: 0},
-            study_productivity: {type: Int32, default: 0}
+            study_duration: { type: Number, default: 0 },
+            study_productivity: { type: Number, default: 0 }
         },
-        workout: { 
-            workout_tag: {type: String, default: ''},
-            workout_duration: {type: Int32, default: 0}
+        workout: {
+            workout_tag: { type: String, default: '' },
+            workout_duration: { type: Number, default: 0 }
         },
         any: mongoose.Schema.Types.Mixed
 
