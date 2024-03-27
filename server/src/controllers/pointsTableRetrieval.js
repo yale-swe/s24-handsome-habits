@@ -1,4 +1,3 @@
-import User from '../db/models/user.js';
 import PointsTable from '../db/models/pointstable.js';
 import { StatusCodes } from 'http-status-codes';
 
