@@ -11,6 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Typography, Buttons, Colors } from "../styles";
 import PropTypes from "prop-types";
 import CookieManager from "@react-native-cookies/cookies";
+import { serverURL } from "../services/apiUtil";
 
 const Login = (props) => {
   Login.propTypes = {
@@ -19,8 +20,6 @@ const Login = (props) => {
     }).isRequired,
   };
 
-  const serverURL = process.env.EXPO_PUBLIC_SERVER_URL;
-  // const [, setLoading] = useState(true);
   const [showWebView, setShowWebView] = useState(false);
   const [, response, promptAsync] = Google.useAuthRequest({
     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
