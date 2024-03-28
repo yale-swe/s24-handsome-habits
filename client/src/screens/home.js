@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
-
 import { Buttons, Typography, Colors } from "../styles";
+import BottomBar from "../components/BottomBar";
 
-// eslint-disable-next-line
 const Home = (props) => {
-
   Home.propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
@@ -15,6 +13,7 @@ const Home = (props) => {
   return (
     // show the user's coins and wellness points
     <View style={styles.container}>
+     <BottomBar />
       <Text style={Typography.header3}>Home Page</Text>
       <Image
         source={require("../assets/images/bulldog.png")}
