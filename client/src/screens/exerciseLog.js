@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { Buttons, Typography, Colors } from "../styles";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
