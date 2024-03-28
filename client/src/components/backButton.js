@@ -8,7 +8,7 @@ const backButton = (props) => {
   return (
     <>
       <TouchableOpacity onPress={props.onPress} style={styles.backButton}>
-            <Text>fhiejoi</Text>
+            <Text style={styles.buttonText}>{'<'}HELLO</Text>
         </TouchableOpacity>
     </>
 
@@ -26,12 +26,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     margin: 10,
     backgroundColor: Colors.Colors.navy,
-    ...Typography.defaultFont,
+    // ...Typography.defaultFont,
   },
   backButton : {
     ...Buttons.backButton,
     backgroundColor: Colors.Colors.navy,
   },
+  buttonText: {
+    ...Typography.passion,
+    color: "white",
+  }
 });
 
 export default backButton;
