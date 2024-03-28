@@ -8,7 +8,7 @@ const Home = (props) => {
 
   Home.propTypes = {
     navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired, 
+      navigate: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -19,10 +19,10 @@ const Home = (props) => {
         source={require("../assets/images/bulldog.png")}
         style={styles.bulldog}
       />
-      <TouchableOpacity onPress={() => props.navigation.navigate('Exercise')} style={Buttons.habitButton}>
+      <TouchableOpacity onPress={() => props.navigation.navigate("Exercise")} style={Buttons.habitButton}>
         <Text>Go to Exercise Page</Text>
       </TouchableOpacity>
-  
+
     </View>
   );
 };

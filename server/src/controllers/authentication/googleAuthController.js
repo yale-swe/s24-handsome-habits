@@ -1,9 +1,9 @@
 /**
- * 
+ *
  * @param {
- * } req 
- * @param {*} res 
- * @returns 
+ * } req
+ * @param {*} res
+ * @returns
  */
 export async function GoogleLogin(req, res) {
     console.log("Logging in with Google")
@@ -13,7 +13,7 @@ export async function GoogleLogin(req, res) {
 
     if (!token) return;
 
-    // Fetch user info from Google with the token received 
+    // Fetch user info from Google with the token received
     try {
         const response = await fetch(
             "https://www.googleapis.com/userinfo/v2/me", {

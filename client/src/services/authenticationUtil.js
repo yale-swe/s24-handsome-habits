@@ -52,6 +52,7 @@ export async function LoginWithActiveSession() {
   let response = null;
   await AsyncStorage.removeItem("cookies");
 
+
   try {
     response = await AuthApi.get("/login", { withCredentials: true });
   } catch (err) {

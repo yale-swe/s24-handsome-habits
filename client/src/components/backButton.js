@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Buttons, Typography, Colors } from "../styles";
+import { StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Buttons, Colors } from "../styles";
 import PropTypes from "prop-types";
 
 
@@ -8,7 +7,7 @@ const backButton = (props) => {
   return (
     <>
       <TouchableOpacity onPress={props.onPress} style={styles.backButton}>
-            <Text style={styles.buttonText}>{'<'}HELLO</Text>
+        <Image source={require("../assets/images/backarrow.png")} style={styles.arrow} />
         </TouchableOpacity>
     </>
 
@@ -26,16 +25,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     margin: 10,
     backgroundColor: Colors.Colors.navy,
-    // ...Typography.defaultFont,
   },
   backButton : {
     ...Buttons.backButton,
     backgroundColor: Colors.Colors.navy,
   },
-  buttonText: {
-    ...Typography.passion,
-    color: "white",
-  }
+  arrow: {
+    width: 18,
+    height: 18,
+    margin: 3,
+  },
 });
 
 export default backButton;

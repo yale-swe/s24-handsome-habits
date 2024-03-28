@@ -9,25 +9,25 @@ const Exercise = (props) => {
 
     Exercise.propTypes = {
         navigation: PropTypes.shape({
-            navigate: PropTypes.func.isRequired, 
+            navigate: PropTypes.func.isRequired,
         }).isRequired,
     };
 
-    
+
   return (
     <View style={styles.container}>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Home')} style={Buttons.habitButton}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Home")} style={Buttons.habitButton}>
             <Text>Go Back to Home</Text>
         </TouchableOpacity>
         <QuoteBox quoteText="the grind doesn’t stop." image={require("../assets/images/bulldog_workout.png")}> </QuoteBox>
         <View style={styles.logButtonContainer}>
 
-          <TouchableOpacity onPress={() => props.navigation.navigate('ExerciseLog')} style={styles.logButton}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("ExerciseLog")} style={styles.logButton}>
               <Text style={styles.logButtonText}>Log a Workout</Text>
           </TouchableOpacity>
         </View>
 
-      
+
     </View>
   );
 };

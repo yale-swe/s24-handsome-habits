@@ -4,11 +4,11 @@ export const semiBoldFont = { fontFamily: "OpenSans-SemiBold" };
 export const passion = { fontFamily: "PassionOne-Regular" };
 export const passionBold = { fontFamily: "PassionOne-Bold" };
 
-export const header1 = { 
-    fontSize: 70, 
-    color: "#000", 
-    textAlign: "center", 
-    ...boldFont 
+export const header1 = {
+    fontSize: 70,
+    color: "#000",
+    textAlign: "center",
+    ...boldFont
 };
 
 export const header3 = {
@@ -40,4 +40,3 @@ export const buttonText = {
     fontSize: 20,
     ...boldFont,
 };
- 

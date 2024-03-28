@@ -1,12 +1,12 @@
-import PointsTable from '../db/models/pointstable.js';
-import { StatusCodes } from 'http-status-codes';
+import PointsTable from "../db/models/pointstable.js";
+import { StatusCodes } from "http-status-codes";
 
 export async function createPointsTable(pointsTable) {
     try {
         const newPointsTable = new PointsTable(pointsTable);
         return newPointsTable.save();
     } catch (err) {
-        console.log('User already has a points table');
+        console.log("User already has a points table");
         return null;
     }
 }
