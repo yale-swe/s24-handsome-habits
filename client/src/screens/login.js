@@ -60,7 +60,6 @@ const Login = (props) => {
         console.log("Cookies found");
         try {
           const user = await LoginWithActiveSession();
-          console.log("User aaaa: ", user);
           if (user) {
             var userData = await user.data;
             userData = decodeURIComponent(JSON.stringify(userData.user));
