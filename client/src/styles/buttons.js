@@ -31,7 +31,7 @@ export const logButton = {
     padding: 10,
     alignItems: "center",
     justifyContent: "center",
-    width: 300,
+    width: 250,
     height: 60,
 
 };

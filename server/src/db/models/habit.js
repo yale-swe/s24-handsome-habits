@@ -52,7 +52,8 @@ const habitSchema = new mongoose.Schema({
         },
         workout: {
             workout_tag: { type: String, default: '' },
-            workout_duration: { type: Number, default: 0 }
+            workout_duration: { type: Number, default: 0 },
+            workout_intensity: { type: String, default: '' }
         },
         any: mongoose.Schema.Types.Mixed
 

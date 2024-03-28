@@ -9,7 +9,6 @@
         "start": "nodemon src/index.js",
         "user_test": "nodemon src/tests/testUser.js",
         "lint": "eslint ."
-
     },
     "keywords": [],
     "author": "",
@@ -23,7 +22,7 @@
         "express-session": "^1.18.0",
         "http-status-codes": "^2.3.0",
         "mongodb": "^6.3.0",
-        "mongoose": "^8.1.1",
+        "mongoose": "^8.2.4",
         "nodemon": "^3.0.3",
         "passport": "^0.7.0",
         "passport-cas2": "^0.0.12",

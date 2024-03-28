@@ -8,7 +8,8 @@ const backButton = (props) => {
   return (
     <>
       <TouchableOpacity onPress={props.onPress} style={styles.backButton}>
-            <Text style={styles.buttonText}>{'<'}HELLO</Text>
+        <Image source={require("../assets/images/backarrow.png")} style={styles.arrow} />
+            {/* <Text style={styles.buttonText}>{'<'}</Text> */}
         </TouchableOpacity>
     </>
 
@@ -32,10 +33,11 @@ const styles = StyleSheet.create({
     ...Buttons.backButton,
     backgroundColor: Colors.Colors.navy,
   },
-  buttonText: {
-    ...Typography.passion,
-    color: "white",
-  }
+  arrow: {
+    width: 18,
+    height: 18,
+    margin: 3,
+  },
 });
 
 export default backButton;
