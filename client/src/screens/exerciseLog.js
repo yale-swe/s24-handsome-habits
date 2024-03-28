@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { Buttons, Typography, Colors } from "../styles";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
@@ -77,26 +76,6 @@ const ExerciseLog = (props) => {
           onChangeText={setDuration}
         />
         <TouchableOpacity style={styles.logButton} onPress={logExercise }>
-            <Text style={styles.logButtonText}>Add Workout</Text>
-        </TouchableOpacity>
-        <BackButton onPress={() => props.navigation.navigate('Exercise')}/>
-        <View style={styles.logContainer}>
-        <TextInput
-          style={styles.titleInput}
-          placeholder="Title"
-        />
-        <View style={{flexDirection: "row"}}>
-          <Text style={styles.subHeading}>Time</Text>
-          {/* <TextInput
-            style={styles.input}
-            placeholder="Time"
-          /> */}
-        </View>
-        <TextInput
-          style={styles.input}
-          placeholder="Duration"
-        />
-        <TouchableOpacity style={styles.logButton}>
             <Text style={styles.logButtonText}>Add Workout</Text>
         </TouchableOpacity>
 
