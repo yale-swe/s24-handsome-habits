@@ -3,16 +3,16 @@ import { logout } from "./authenticationUtil";
 import { StatusCodes } from "http-status-codes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export async function getPointInfo(user_id) {
+export async function getPointInfo() {
     try {
         const response = await Api.get("/points"); // GET request to find points
         
-        const rawPoints = response.data;
+        const rawPoints = response.data.points;
         
-        const wellness = rawPoints.points.exercise_points +
-                         rawPoints.points.sleeping_points +
-                         rawPoints.points.eating_points +
-                         rawPoints.points.studying_points;
+        let wellness = rawPoints.exercise_points +
+                         rawPoints.sleeping_points +
+                         rawPoints.eating_points +
+                         rawPoints.studying_points;
         
         // if wellness is max, slightly decrease it so
         // that the range of emotion is 0-4
