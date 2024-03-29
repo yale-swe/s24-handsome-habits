@@ -24,6 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
  */
 
 export async function addHabit(newHabit) {
+export async function addHabit(newHabit) {
     try {
 
         const response = await Api.post("/habits/add", {
