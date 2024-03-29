@@ -7,11 +7,8 @@ import { addHabit } from "../services/habitService";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
-
 // eslint-disable-next-line
 const ExerciseLog = (props) => {
-
 
   // inputs
   const [title, setTitle] = useState("");
@@ -51,8 +48,6 @@ const ExerciseLog = (props) => {
     return date;
   }
 
-
-
   // Get the formatted current time
   const getTime = () => {
 
@@ -65,7 +60,6 @@ const ExerciseLog = (props) => {
       minute: "2-digit",
       hour12: true,
     }).toLowerCase();
-
 
     return formattedTime;
   }
@@ -98,8 +92,6 @@ const ExerciseLog = (props) => {
     setDuration("");
     setTime("");
     setDescription("");
-
-
   };
 
     ExerciseLog.propTypes = {
