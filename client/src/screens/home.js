@@ -13,6 +13,7 @@ const Home = (props) => {
   };
 
   return (
+    // show the user's coins and wellness points
     <View style={styles.container}>
       <Text style={Typography.header3}>Home Page</Text>
       <Image
