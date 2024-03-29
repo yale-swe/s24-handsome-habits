@@ -4,7 +4,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import BackButton from "../components/backButton";
 import { addHabit } from "../services/habitService";
-import { addHabit } from "../services/habitService";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
