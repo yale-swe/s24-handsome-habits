@@ -22,6 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
  * }
  * @returns {JSON|null} - The added habit data if successful; otherwise, null.
  */
+
 export async function addHabit(newHabit) {
     try {
 
