@@ -46,6 +46,11 @@ export async function getPointInfo() {
  */
 export async function updatePoints(newPoints) {
     try {
+        newPoints.exercise_points = Math.min(newPoints.exercise_points, 26);
+        newPoints.eating_points   = Math.min(newPoints.eating_points, 25);
+        newPoints.sleeping_points = Math.min(newPoints.sleeping_points, 27);
+        newPoints.studying_points = Math.min(newPoints.studying_points, 22);
+        
         const response = await Api.post("/points/update", {
             points: newPoints,
         }); // Post request to update points
