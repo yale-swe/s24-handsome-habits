@@ -21,6 +21,19 @@ export const header4 = {
     ...boldFont,
 };
 
+export const message = {
+    fontSize: 15,
+    textAlign: "center",
+    // fontStyle: "italic", it looks like this might not have an italic font
+    ...boldFont,
+}
+
+export const coins = {
+    fontSize: 15,
+    textAlign: "center",
+    color: "#FFB706",
+};
+
 export const buttonText = {
     color: "white",
     fontSize: 20,
