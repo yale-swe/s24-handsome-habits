@@ -51,6 +51,7 @@ export async function CASLogout() {
 export async function LoginWithActiveSession() {
   let response = null;
   await AsyncStorage.removeItem("cookies");
+  
 
 
   try {
