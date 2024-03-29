@@ -8,6 +8,16 @@ Handsome Habits makes personal wellness fun by linking your habits to the well-b
 
 For Yale students, balance often seems unachievable. While Yale students are often very successful, this comes at the expense of their overall wellness. Handsome Habits makes wellness simple and enjoyable by providing a gamified view for maintaining personal wellness. By logging meals, sleep, study sessions, and workouts, users can earn wellness points to keep Handsome Dan happy and coins to buy him accessories. Conversely, if habits start to fall behind, Handsome Dan will become sad and disheveled to motivate the user to get back on track.
 
+## Dependencies
+`brew install node`
+
+`brew install watchman`
+
+`npm install -g expo-cli`
+
+`gem install cocoapods`
+
+Ensure XCode and the XCode simulator are installed
 
 ## Required Setup
 `cd client; 
