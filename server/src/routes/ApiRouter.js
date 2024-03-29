@@ -27,7 +27,7 @@ router.post("/points/update", async (req, res) => {
   return res.status(StatusCodes.OK).json({ points: updatedPoints });
 });
 
-router.post("/points", async (req, res) => {
+router.get("/points", async (req, res) => {
   const user = await UserFromRequest(req);
   if (!user) {
     return res
