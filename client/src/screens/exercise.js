@@ -67,6 +67,18 @@ const styles = StyleSheet.create({
   logButtonText: {
     color: "white",
     ...Typography.header4,
+  },
+  logButtonContainer: {
+    alignItems: "center",
+
+  },
+  logButton: {
+    backgroundColor: Colors.Colors.navy,
+    ...Buttons.logButton,
+  },
+  logButtonText: {
+    color: "white",
+    ...Typography.header4,
   }
 });
 
