@@ -1,6 +1,6 @@
 import api from "./apiUtil";
 
-export async function findUser() {
+export async function findUserFromRequest() {
     console.log("Trying to find user");
     try {
         const response = await api.get("/api/user", {

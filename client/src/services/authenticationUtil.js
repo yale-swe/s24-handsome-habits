@@ -2,10 +2,11 @@ import { AuthApi } from "./apiUtil";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusCodes } from "http-status-codes";
+import { saveLoginCookies } from "./HelpersUtil";
 
 export default async function Authentication(response) {
   var user_data = null;
-  const user = await AsyncStorage.getItem("@user");
+  const user = await AsyncStorage.getItem("user");
   if (user) {
     logout();
     user_data = JSON.parse(user);
@@ -25,7 +26,10 @@ export default async function Authentication(response) {
 async function getUserInfoWithGoogle(token) {
   try {
     const user = await AuthApi.post("/google/login", { token: token });
-    await AsyncStorage.setItem("user", JSON.stringify(user.data));
+    console.log("What is this ? ", user);
+    // await AsyncStorage.setItem("user", JSON.stringify(user.data));
+    // console.log("xx ", user.headers);
+    saveLoginCookies(user);
     return JSON.stringify(user.data);
   } catch (e) {
     console.error("Error getting user info with Google", e);

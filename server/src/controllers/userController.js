@@ -6,32 +6,67 @@ import mongoose from "mongoose";
 
 export async function createUser(user) {
   try {
-    let newUser = new User(user);
-    newUser = await newUser.save();
-    // User id is the primary key for user; default _id by MongoDB
-    createPoints(newUser._id);
-    createInitialAssets(newUser._id);
-    return newUser;
+    let createdUser =
+      (await findUserByAccountID(user.account_id)) ||
+      (await findUserByEmail(user.email));
+    console.log("Created user: ", createdUser);
+
+    if (!createdUser) {
+      createdUser = new User(user);
+      createdUser = await createdUser.save();
+      // User id is the primary key for user; default _id by MongoDB
+      createPoints(createdUser._id);
+      createInitialAssets(createdUser._id);
+    } else {
+      console.log("User already exists");
+    }
+
+    return createdUser;
   } catch (err) {
     console.log("Error creating user: ", err);
     return null;
   }
 }
 
-export async function findUser(req, res) {
+/** Account ID would be the netID of the user */
+export async function findUserByAccountID(account_id) {
+  try {
+    return await User.findOne({
+      account_id: account_id,
+    });
+  } catch (error) {
+    console.log("Error finding user by account ID: ", error);
+    return null;
+  }
+}
+
+/** Email is unique so can be used for lookup
+ * This function is used during Google login
+ */
+export async function findUserByEmail(email) {
+  try {
+    return await User.findOne({
+      email: email,
+    });
+  } catch (error) {
+    console.log("Error finding user by Email: ", error);
+    return null;
+  }
+}
+
+export async function findUserFromRequest(req, res) {
   console.log("Finding user");
   console.log(req.session);
+
   if (!req.session.user) {
     console.log("Not logged in");
     return res
       .status(StatusCodes.UNAUTHORIZED)
       .json({ message: "User not authenticated" });
   }
-  try {
-    const user = await User.findOne({
-      account_id: req.session.user.user.id,
-    });
 
+  try {
+    const user = await findUserByAccountID(req.session.user.account_id);
     if (!user) {
       return res
         .status(StatusCodes.NOT_FOUND)

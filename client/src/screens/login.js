@@ -10,8 +10,8 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Typography, Buttons, Colors } from "../styles";
 import PropTypes from "prop-types";
-import CookieManager from "@react-native-cookies/cookies";
 import { serverURL } from "../services/apiUtil";
+import {saveLoginCookies} from "../services/HelpersUtil";
 
 const Login = (props) => {
   Login.propTypes = {
@@ -86,9 +86,7 @@ const Login = (props) => {
   const handleWebViewNavigationStateChange = async (newNavState) => {
     const { url } = newNavState;
     if (url.includes(`${serverURL}/userdata?data=`)) {
-      const cookies = await CookieManager.get(url, true);
-      AsyncStorage.setItem("cookies", JSON.stringify(cookies));
-      axios.defaults.headers.Cookie = cookies["connect.sid"];
+      saveLoginCookies(url);
       // console.log("Async cookies: ", await AsyncStorage.getItem("cookies"));
       // todo: Do better checks here to confirm the user information if cookies are used
       // const encodedUserData = url.split("data=")[1];
