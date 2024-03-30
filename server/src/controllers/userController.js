@@ -6,8 +6,8 @@ import mongoose from "mongoose";
 
 export async function createUser(user) {
   try {
-    const newUser = await new User(user);
-    await newUser.save();
+    let newUser = new User(user);
+    newUser = await newUser.save();
     // User id is the primary key for user; default _id by MongoDB
     createPoints(newUser._id);
     createInitialAssets(newUser._id);
@@ -15,6 +15,7 @@ export async function createUser(user) {
     return newUser;
   } catch (err) {
     console.log("Error creating user: ", err);
+    console.log("User already exists");
     return null;
   }
 }

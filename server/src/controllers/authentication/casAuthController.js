@@ -34,7 +34,11 @@ export function CASLogin(req, res, next) {
     }
 
     console.log("User Session: ", req.session);
+    console.log("User Session: ", req.session);
 
+    // Store user information in session upon successful authentication
+    // Adjust according to the user object structures
+    req.session.user = { user };
     // Store user information in session upon successful authentication
     // Adjust according to the user object structures
     req.session.user = { user };
@@ -42,10 +46,18 @@ export function CASLogin(req, res, next) {
     // You can now redirect the user or send a response as needed
     // For example, redirect to a page with user data
     const userData = JSON.stringify(user); // Convert user data to a string
+    // You can now redirect the user or send a response as needed
+    // For example, redirect to a page with user data
+    const userData = JSON.stringify(user); // Convert user data to a string
 
     // Encode the user data
     const encodedUserData = encodeURIComponent(userData);
+    // Encode the user data
+    const encodedUserData = encodeURIComponent(userData);
 
+    // Redirect with the user data
+    res.redirect(`${process.env.HOST_URL}/userdata?data=${encodedUserData}`);
+  })(req, res, next);
     // Redirect with the user data
     res.redirect(`${process.env.HOST_URL}/userdata?data=${encodedUserData}`);
   })(req, res, next);
@@ -93,6 +105,19 @@ export async function CASLogout(req, res) {
       console.log("Session destroyed");
       // Optional: Clear the cookie on client side
       res.clearCookie("connect.sid"); // Adjust cookie name based on your setup
+  console.log("Logging out");
+  // place this in a try catch block to handle errors
+  try {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Session destruction error:", err);
+        return res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .send({ error: "Could not log out, please try again." });
+      }
+      console.log("Session destroyed");
+      // Optional: Clear the cookie on client side
+      res.clearCookie("connect.sid"); // Adjust cookie name based on your setup
 
       // Redirect to CAS logout URL or send a response
       res.redirect(`${process.env.HOST_URL}/cas/logout`);
@@ -104,3 +129,4 @@ export async function CASLogout(req, res) {
       .send({ error: "Could not log out, please try again." });
   }
 }
+
