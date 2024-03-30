@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 /**
  * Mongoose model for Habit.
- * 
- * @requires mongoose
- * 
- * @description
- * Represents a habit in the database 
  *
- * 
+ * @requires mongoose
+ *
+ * @description
+ * Represents a habit in the database
+ *
+ *
  * @typedef {Object} Habit
  * @property {mongoose.Schema.Types.ObjectId} user_id - user_id for the habit.
  * @property {String} title - title given to the habit by the user.
@@ -25,21 +25,21 @@ const habitSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: false,
-        ref: 'User'
+        ref: "User"
     },
     title: { type: String },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: false,
-        ref: 'Category'
+        ref: "Category"
 
     },
     description: { type: String },
     date_and_time: { type: Date },
     details: {
         eating: {
-            eating_tag: { type: String, default: '' },
+            eating_tag: { type: String, default: "" },
             healthy_meal: { type: Boolean, default: false }
         },
         sleep: {
@@ -51,14 +51,15 @@ const habitSchema = new mongoose.Schema({
             study_productivity: { type: Number, default: 0 }
         },
         workout: {
-            workout_tag: { type: String, default: '' },
-            workout_duration: { type: Number, default: 0 }
+            workout_tag: { type: String, default: "" },
+            workout_duration: { type: Number, default: 0 },
+            workout_intensity: { type: String, default: "" }
         },
         any: mongoose.Schema.Types.Mixed
 
     }
 });
 
-const Habit = mongoose.model('Habit', habitSchema);
+const Habit = mongoose.model("Habit", habitSchema);
 
 export default Habit;

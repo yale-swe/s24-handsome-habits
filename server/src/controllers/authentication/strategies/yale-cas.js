@@ -2,7 +2,7 @@ import { Strategy as CasStrategy } from "passport-cas2";
 import User from "../../../db/models/user.js";
 import { createUser } from "../../userController.js";
 import yalies from "yalies";
-import 'dotenv/config';
+import "dotenv/config";
 const yalies_api = new yalies.API(process.env.YALIES_API_KEY);
 
 /**

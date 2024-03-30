@@ -14,6 +14,11 @@ plugins:
   - react
 rules: 
   react/react-in-jsx-scope: off
+  quotes: ["error", "double"]
+  no-trailing-spaces: "error"
 settings:
   react:
     version: detect
+
+
+

@@ -7,7 +7,7 @@ const backButton = (props) => {
   return (
     <>
       <TouchableOpacity onPress={props.onPress} style={styles.backButton}>
-            <Image source={require("../assets/images/backarrow.png")} style={styles.arrow} />
+        <Image source={require("../assets/images/backarrow.png")} style={styles.arrow} />
         </TouchableOpacity>
     </>
 
@@ -25,13 +25,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     margin: 10,
     backgroundColor: Colors.Colors.navy,
-    ...Typography.defaultFont,
   },
   backButton : {
     ...Buttons.backButton,
     backgroundColor: Colors.Colors.navy,
   },
-arrow: {
+  arrow: {
     width: 18,
     height: 18,
     margin: 3,

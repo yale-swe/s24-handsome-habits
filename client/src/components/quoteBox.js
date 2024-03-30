@@ -1,13 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Buttons, Typography } from "../styles";
+import { StyleSheet, Text, View, Image } from "react-native";
+import { Typography } from "../styles";
 import PropTypes from "prop-types";
 
 
 const QuoteBox = (props) => {
   return (
     <View style={styles.container}>
-         
+
         <Text style={styles.quoteText}>{props.quoteText}</Text>
         <Image source={props.image} style={styles.image}/>
       <StatusBar style="auto" />
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
- 
+
 });
 
 export default QuoteBox;

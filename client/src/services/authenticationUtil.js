@@ -39,6 +39,7 @@ export async function logout() {
   // remove the cookie header from axios
   axios.defaults.headers.Cookie = "";
   console.log("Logging out and deleting user cookies");
+  console.log("Logging out and deleting user cookies");
 }
 
 export async function CASLogout() {
@@ -69,5 +70,7 @@ export async function LoginWithActiveSession() {
     return response?.status === 200 ? response : null;
   }
 }
+
+
 
 
