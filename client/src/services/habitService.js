@@ -2,6 +2,7 @@ import Api from "./apiUtil";
 import { logout } from "./authenticationUtil";
 import { StatusCodes } from "http-status-codes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { updatePointswithChange } from "./PointsService";
 
 /**
  * Adds a new habit for the user.
@@ -25,20 +26,67 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export async function addHabit(newHabit) {
     try {
 
-        const response = await Api.post("/habits/add", {
+        const habit_response = await Api.post("/habits/add", {
             habit: newHabit,
         }); // Post request to add a new exercise habit
 
-        // Save new points in client's local storage
-        AsyncStorage.setItem("habit", JSON.stringify(response.data));
+        // Save new habit in client's local storage
+        AsyncStorage.setItem("habit", JSON.stringify(habit_response.data));
 
-        return response.data;
+        // Update points based on the new habit
+        let { points, coins } = calculatePoints(newHabit);
+        if (newHabit.category_name == "Exercising") { updatePointswithChange("exercise_points", points) };
+        if (newHabit.category_name == "Eating") { updatePointswithChange("eating_points", points) };
+        if (newHabit.category_name == "Sleeping") { updatePointswithChange("sleeping_points", points) };
+        if (newHabit.category_name == "Studying") { updatePointswithChange("studying_points", points) };
+
+        updatePointswithChange("coins", coins);
+
+
+
+        return habit_response.data;
+
     } catch (err) {
         if (err.response && err.response.status === StatusCodes.UNAUTHORIZED) {
             logout(); // Session is expired/invalid, so logout
         }
         return null;
     }
+}
+
+
+function calculatePoints(newHabit) {
+
+
+    let points = 0;
+    let coins = 0;
+
+    switch(newHabit.category_name) {
+
+        case "Exercising":
+
+
+            // 5 points per 5 minutes (for only full 5 minutes)
+            points += Math.floor(newHabit.details.workout.workout_duration / 5) * 5;
+
+            // default 3 coins
+            coins += 3;
+
+            // 1 additional coin for medium intensity, high intensity, and over 30 minutes
+            if (newHabit.details.workout.workout_intensity == "Medium"){ coins += 1};
+            if (newHabit.details.workout.workout_intensity == "High"){ coins += 1};
+            if (newHabit.details.workout.workout_duration > 30){ coins += 1};
+
+            break;
+        
+        case "Eating":
+
+            
+    }
+
+    return { points, coins };
+
+
 }
 
 /**

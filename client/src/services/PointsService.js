@@ -9,14 +9,14 @@ export async function getPointInfo() {
 
     const rawPoints = response.data.points;
 
-    // let wellness = rawPoints.exercise_points +
-    //                  rawPoints.sleeping_points +
-    //                  rawPoints.eating_points +
-    //                  rawPoints.studying_points;
+    let wellness = rawPoints.exercise_points +
+                     rawPoints.sleeping_points +
+                     rawPoints.eating_points +
+                     rawPoints.studying_points;
 
-    // // if wellness is max, slightly decrease it so
-    // // that the range of emotion is 0-4
-    // wellness = wellness == 100 ? 99 : wellness;
+    // if wellness is max, slightly decrease it so
+    // that the range of emotion is 0-4
+    wellness = wellness == 100 ? 99 : wellness;
 
     // Adds wellness and emotion values to the points object
     const userPoints = getQualityPoints(rawPoints);
@@ -72,8 +72,10 @@ export async function updatePoints(newPoints) {
  * @returns {JSON} - The updated points if successful; otherwise, null.
  */
 export async function updatePointswithChange(category, pointChange) {
+    
   let categoryPoints = categoryPointName(category);
   let currentPoints = AsyncStorage.getItem("points");
+
 
   if (currentPoints == null) {
     currentPoints = await getPointInfo();
