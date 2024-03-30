@@ -35,12 +35,12 @@ export async function getPointInfo() {
 /**
  * @param {JSON} newPoints - The new points to update.
  * @newPoints could contain one or more of the following:
- * { 
- *   coins: Number, 
- *   exercise_points: Number, 
- *   eating_points: Number, 
- *   sleeping_points: Number, 
- *   studying_points: Number 
+ * {
+ *   coins: Number,
+ *   exercise_points: Number,
+ *   eating_points: Number,
+ *   sleeping_points: Number,
+ *   studying_points: Number
  * }
  * @returns {} - The user data if found; otherwise, null.
  */

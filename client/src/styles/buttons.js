@@ -24,3 +24,23 @@ export const habitButton = {
     alignItems: "center",
     justifyContent: "center",
 };
+
+export const logButton = {
+    color: "white",
+    borderRadius: 10,
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 250,
+    height: 50,
+
+};
+
+export const backButton = {
+    color: "white",
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+    alignItems: "center",
+    justifyContent: "center",
+};

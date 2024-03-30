@@ -1,13 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 /**
  * Mongoose model for Points.
- * 
+ *
  * @requires mongoose
- * 
+ *
  * @description
  * A table representing a user's coins and wellness points by habit.
- * 
+ *
  * @typedef {Object} Points
  * @property {mongoose.Schema.Types.ObjectId} user_id - The user's unique  object id which ties them to the points table.
  * @property {Number} coins - The number of coins posessed by the user.
@@ -24,7 +24,7 @@ const pointsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: true,
-        ref: 'User'
+        ref: "User"
     },
     coins: { type: Number, default: 0 },
     exercise_points: { type: Number, default: 26 },
@@ -34,6 +34,6 @@ const pointsSchema = new mongoose.Schema({
     date_created: { type: Date, default: Date.now }
 });
 
-const Points = mongoose.model('Points', pointsSchema);
+const Points = mongoose.model("Points", pointsSchema);
 
 export default Points;

@@ -147,7 +147,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 100,
-    ...Typography.mainFont,
   },
   lowerContainer: {
     paddingTop: 30,
