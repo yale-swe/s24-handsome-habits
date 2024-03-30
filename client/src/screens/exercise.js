@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Buttons, Typography, Colors } from "../styles";
 import PropTypes from "prop-types";
 import QuoteBox from "../components/quoteBox";
+import QuoteBox from "../components/quoteBox";
 
 
 // eslint-disable-next-line
@@ -56,6 +57,18 @@ const styles = StyleSheet.create({
     color: "white",
     ...Typography.header4,
   },
+  logButtonContainer: {
+    alignItems: "center",
+
+  },
+  logButton: {
+    backgroundColor: Colors.Colors.navy,
+    ...Buttons.logButton,
+  },
+  logButtonText: {
+    color: "white",
+    ...Typography.header4,
+  }
   logButtonContainer: {
     alignItems: "center",
 
