@@ -11,9 +11,11 @@ export async function createUser(user) {
     // User id is the primary key for user; default _id by MongoDB
     createPoints(newUser._id);
     createInitialAssets(newUser._id);
+    console.log("New user: ", newUser);
     return newUser;
   } catch (err) {
     console.log("Error creating user: ", err);
+    console.log("User already exists");
     return null;
   }
 }

@@ -24,7 +24,7 @@ export function CASLogin(req, res, next) {
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ error: err.message });
     }
-    
+
     // Necessary to await actual user object and not use a promise
     user = await user;
     if (!user) {
@@ -45,6 +45,7 @@ export function CASLogin(req, res, next) {
 
     // Encode the user data
     const encodedUserData = encodeURIComponent(userData);
+
 
     // Redirect with the user data
     res.redirect(`${process.env.HOST_URL}/userdata?data=${encodedUserData}`);
@@ -81,6 +82,7 @@ export function LoginWithActiveSession(req, res) {
 
 export async function CASLogout(req, res) {
   console.log("Logging out");
+
   // place this in a try catch block to handle errors
   try {
     req.session.destroy((err) => {
@@ -104,3 +106,4 @@ export async function CASLogout(req, res) {
       .send({ error: "Could not log out, please try again." });
   }
 }
+

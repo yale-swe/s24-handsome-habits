@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 /**
  * Mongoose model for Assets.
- * 
- * @requires mongoose
- * 
- * @description
- * Represents a user's Assets in the database 
  *
- * 
+ * @requires mongoose
+ *
+ * @description
+ * Represents a user's Assets in the database
+ *
+ *
  * @typedef {Object} Assets
  * @property {mongoose.Schema.Types.ObjectId} user_id - user_id for the Assets.
  * @property {String[]} clothes - list of clothing items a user owns.
@@ -23,7 +23,7 @@ const assetsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: true,
-        ref: 'User'
+        ref: "User"
     },
     clothes: [String],
     objects: [String],
@@ -31,6 +31,6 @@ const assetsSchema = new mongoose.Schema({
 
 });
 
-const Assets = mongoose.model('Assets', assetsSchema);
+const Assets = mongoose.model("Assets", assetsSchema);
 
 export default Assets;

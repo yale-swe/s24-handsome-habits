@@ -38,6 +38,8 @@ export async function logout() {
   await AsyncStorage.removeItem("user");
   // remove the cookie header from axios
   axios.defaults.headers.Cookie = "";
+  console.log("Logging out and deleting user cookies");
+  console.log("Logging out and deleting user cookies");
 }
 
 export async function CASLogout() {
@@ -50,6 +52,8 @@ export async function CASLogout() {
  */
 export async function LoginWithActiveSession() {
   let response = null;
+  await AsyncStorage.removeItem("cookies");
+
   try {
     response = await AuthApi.get("/login", { withCredentials: true });
   } catch (err) {
@@ -66,3 +70,7 @@ export async function LoginWithActiveSession() {
     return response?.status === 200 ? response : null;
   }
 }
+
+
+
+
