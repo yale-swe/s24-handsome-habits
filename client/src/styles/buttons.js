@@ -17,8 +17,8 @@ export const buttonTextArea = {
 };
 
 export const habitButton = {
-    backgroundColor: "#FFB706",
     padding: 10,
+    backgroundColor: "#FFB706",
     borderRadius: 10,
     margin: 10,
     alignItems: "center",
@@ -36,11 +36,22 @@ export const logButton = {
 
 };
 
+// export const backButton = {
+//     color: "white",
+//     padding: 10,
+//     borderRadius: 10,
+//     margin: 10,
+//     alignItems: "center",
+//     justifyContent: "center",
+// };
 export const backButton = {
-    color: "white",
-    padding: 10,
-    borderRadius: 10,
+    backgroundColor: "#0D3A4F",
+    borderRadius: 5,
     margin: 10,
-    alignItems: "center",
+    width: 28,
+    height: 29,
+    color: "white",
     justifyContent: "center",
-};
+    alignItems: "center",
+
+}

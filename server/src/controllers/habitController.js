@@ -35,3 +35,43 @@ export async function addHabit(user_id, newHabit) {
         return null;
     }
 }
+
+/**
+ * Retrieves all habits for a specific user and category.
+ *
+ * @param {mongoose.Schema.Types.ObjectId} user_id - The user's ID.
+ * @param {String} categoryName - The name of the category.
+ * @returns {Promise<Array>} An array of habit objects on success, or an empty array if no habits found.
+ */
+export async function retrieveHabitsByCategory(user_id, categoryName) {
+    try {
+        // Find the category ID by its name
+        const category = await Category.findOne({ category_name: categoryName });
+        if (!category) {
+            throw new Error(`Category ${categoryName} not found`);
+        }
+
+        // Retrieve all habits for the given user and category ID
+        const habits = await Habit.find({ user_id: user_id, category: category._id });
+        return habits;
+    } catch (err) {
+        console.error("Error retrieving habits:", err);
+        throw err;
+    }
+}
+
+/**
+ * Deletes a habit based on its ID.
+ *
+ * @param {mongoose.Schema.Types.ObjectId} habitId - The ID of the habit to delete.
+ * @returns {Promise<boolean>} True if the habit was successfully deleted, false otherwise.
+ */
+export async function deleteHabit(habitId) {
+    try {
+        const result = await Habit.deleteOne({ _id: habitId });
+        return result.deletedCount === 1;
+    } catch (err) {
+        console.error("Error deleting habit:", err);
+        return false;
+    }
+}
