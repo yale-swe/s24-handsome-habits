@@ -6,26 +6,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export async function getPointInfo() {
     try {
         const response = await Api.get("/points"); // GET request to find points
-
         const rawPoints = response.data.points;
 
-        let wellness = rawPoints.exercise_points +
-                         rawPoints.sleeping_points +
-                         rawPoints.eating_points +
-                         rawPoints.studying_points;
+        // Adds wellness and emotion values to the points object
+        const userPoints = getQualityPoints(rawPoints);
+        AsyncStorage.setItem("points", JSON.stringify(userPoints));
 
-        // if wellness is max, slightly decrease it so
-        // that the range of emotion is 0-4
-        wellness = wellness == 100 ? 99 : wellness;
-
-        const emotion = Math.floor(wellness / 20);
-
-        rawPoints.points.wellness_points = wellness;
-        rawPoints.points.emotion_value = emotion;
-
-        return rawPoints;
-
-    } catch(err) {
+        return userPoints;
+    } catch (err) {
         if (err.response.status == StatusCodes.UNAUTHORIZED) {
             logout(); // Session is expired/invalid, so logout
         }
@@ -42,7 +30,7 @@ export async function getPointInfo() {
  *   sleeping_points: Number,
  *   studying_points: Number
  * }
- * @returns {} - The user data if found; otherwise, null.
+ * @returns {JSON} - The points data if updated correctly; otherwise, null.
  */
 export async function updatePoints(newPoints) {
     try {
@@ -56,7 +44,7 @@ export async function updatePoints(newPoints) {
         }); // Post request to update points
 
         // Save new points in client's local storage
-        AsyncStorage["points"] = JSON.stringify(response.data);
+        AsyncStorage.setItem("points", JSON.stringify(response.data));
 
         return response.data;
     } catch (err) {
@@ -66,3 +54,66 @@ export async function updatePoints(newPoints) {
         return null;
     }
 }
+
+
+/**
+ * @description Update the points of a category by a specified amount.
+ * @param {String} category - The category to update.
+ * @param {Number} pointChange - The change in points.
+ * @returns {JSON} - The updated points if successful; otherwise, null.
+ */
+export async function updatePointswithChange(category, pointChange) {
+    let categoryPoints = categoryPointName(category);
+    let currentPoints = AsyncStorage.getItem("points");
+
+    if (currentPoints == null) {
+        currentPoints = await getPointInfo();
+    }
+
+    currentPoints[categoryPoints] += pointChange;
+
+    return updatePoints(currentPoints);
+}
+
+
+/**
+ * @param {*} points
+ * @description Quality points are wellness and emotional points.
+ * Get the wellness and emotional points of the user
+ * @returns New points object, including the wellness and emotion values
+ */
+export const getQualityPoints = (points) => {
+    let wellness =
+        points.exercise_points +
+        points.sleeping_points +
+        points.eating_points +
+        points.studying_points;
+
+    // if wellness is max, slightly decrease it so
+    // that the range of emotion is 0-4
+    wellness = wellness == 100 ? 99 : wellness;
+
+    const emotion = Math.floor(wellness / 20);
+
+    points.wellness_points = wellness;
+    points.emotion_value = emotion;
+    return points;
+}
+
+
+// toLower the category name and concatenate with "_points"
+/** Returns the name of the category point in the database */
+const categoryPointName = (category) => {
+    switch (category) {
+        case "exercise":
+            return "exercise_points";
+        case "eating":
+            return "eating_points";
+        case "sleeping":
+            return "sleeping_points";
+        case "studying":
+            return "studying_points";
+        default:
+            return null;
+    }
+};
