@@ -1,14 +1,17 @@
-import { Buttons, Typography, Colors } from "../styles";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { Colors } from "../styles";
+import { StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import PropTypes from "prop-types";
 
 const HorizontalSelect = (props) => {
 
     HorizontalSelect.propTypes = {
         label: PropTypes.string,
+        options: PropTypes.arrayOf(PropTypes.string),
+        selectedOption: PropTypes.string,
+        setSelectedOption: PropTypes.func,
       };
     return (
-        
+
         <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -26,9 +29,9 @@ const HorizontalSelect = (props) => {
             </TouchableOpacity>
             ))}
       </ScrollView>
-        
+
 );
-} 
+}
 
 const styles = StyleSheet.create({
 

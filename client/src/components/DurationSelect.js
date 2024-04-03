@@ -1,5 +1,5 @@
-import { Buttons, Typography, Colors } from "../styles";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { Colors } from "../styles";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
 import PropTypes from "prop-types";
 
 const DurationSelect = (props) => {
@@ -29,7 +29,7 @@ const DurationSelect = (props) => {
     }
 
     return (
-        
+
         <View style={styles.durationContainer}>
             <View style={styles.durationButton}>
                 <TouchableOpacity onPress={decrement} style={styles.button}>
@@ -46,13 +46,13 @@ const DurationSelect = (props) => {
                     <Text>+</Text>
                 </TouchableOpacity>
             </View>
-            
-        </View>
-            
 
-        
+        </View>
+
+
+
 );
-} 
+}
 
 const styles = StyleSheet.create({
 

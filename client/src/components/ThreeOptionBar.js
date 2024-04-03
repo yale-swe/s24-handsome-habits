@@ -1,5 +1,5 @@
-import { Buttons, Typography, Colors } from "../styles";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { Colors } from "../styles";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 
 const ThreeOptionBar = (props) => {
@@ -27,16 +27,16 @@ const ThreeOptionBar = (props) => {
             </View>
             ))}
         </>
-        
+
 );
-} 
+}
 
 const styles = StyleSheet.create({
 
     intensityLine: {
         // position: "absolute",
         // top: "50%",
-    
+
         position: "absolute",
         marginLeft: 5,
         marginTop: 12,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.Colors.skyBlue,
         borderWidth: 1,
         backgroundColor: Colors.Colors.columbiaBlue,
-    
+
       },
       intensityCircle : {
         width: 30,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         marginBottom: 3,
         marginTop: 10,
         width: "100%",
-    
+
       },
 
 

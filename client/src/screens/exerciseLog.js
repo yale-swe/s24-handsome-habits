@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Touchable } from "react-native";
-import { Buttons, Typography, Colors } from "../styles";
+import { StyleSheet, Text, View } from "react-native";
+import { Typography, Colors } from "../styles";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import BackButton from "../components/backButton";
@@ -80,17 +80,17 @@ const ExerciseLog = (props) => {
             </View>
             <View style={{flexDirection: "row", marginBottom: 15}}>
               <Text style={styles.subHeading}>Time</Text>
-              <TimeSelect 
-                date={time} 
-                setDate={setTime} 
-                open={open} 
+              <TimeSelect
+                date={time}
+                setDate={setTime}
+                open={open}
                 setOpen={setOpen}
                 dateIsConfirmed={dateIsConfirmed}
                 setIsConfirmed={setIsConfirmed}/>
             </View>
             <View style={{flexDirection: "row", marginBottom: 15}}>
               <Text style={styles.subHeading}>Duration</Text>
-              <DurationSelect 
+              <DurationSelect
                 label="minutes"
                 increment={5}
                 min={0}
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // width: "80%",
   },
-  
+
   titleInput: {
     backgroundColor: Colors.Colors.lightYellow,
     ...Typography.header4,
@@ -182,8 +182,8 @@ const styles = StyleSheet.create({
     paddingEnd: 10,
     justifyContent: "center",
   },
-  
-  // 
+
+  //
   // intensityLine: {
   //   // position: "absolute",
   //   // top: "50%",

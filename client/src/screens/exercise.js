@@ -22,7 +22,7 @@ const Exercise = (props) => {
         <QuoteBox quoteText="the grind doesn’t stop." image={require("../assets/images/bulldog_workout.png")}> </QuoteBox>
         <View style={styles.logButtonContainer}>
 
-          <TouchableOpacity onPress={() => props.navigation.navigate('ExerciseLog')} style={styles.logButton}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("ExerciseLog")} style={styles.logButton}>
               <Text style={styles.logButtonText}>Log a Workout</Text>
           </TouchableOpacity>
         </View>
@@ -35,8 +35,6 @@ const Exercise = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Colors.yellow,
-    ...Typography.defaultFont,
     backgroundColor: Colors.Colors.yellow,
     ...Typography.defaultFont,
   },
@@ -56,30 +54,7 @@ const styles = StyleSheet.create({
     color: "white",
     ...Typography.header4,
   },
-  logButtonContainer: {
-    alignItems: "center",
 
-  },
-  logButton: {
-    backgroundColor: Colors.Colors.navy,
-    ...Buttons.logButton,
-  },
-  logButtonText: {
-    color: "white",
-    ...Typography.header4,
-  },
-  logButtonContainer: {
-    alignItems: "center",
-
-  },
-  logButton: {
-    backgroundColor: Colors.Colors.navy,
-    ...Buttons.logButton,
-  },
-  logButtonText: {
-    color: "white",
-    ...Typography.header4,
-  }
 });
 
 export default Exercise;

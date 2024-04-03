@@ -1,8 +1,7 @@
-import { Buttons, Typography, Colors } from "../styles";
-import { Button, StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { Colors } from "../styles";
+import { StyleSheet, Text, TouchableOpacity, } from "react-native";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import DatePicker from 'react-native-date-picker';
+import DatePicker from "react-native-date-picker";
 
 
 const TimeSelect = (props) => {
@@ -49,13 +48,13 @@ const TimeSelect = (props) => {
               }}
              />
             <TouchableOpacity style={styles.smallInput} onPress={() => props.setOpen(true)}>
-                <Text style={{ color: props.dateIsConfirmed ? 'black' : 'grey' }}>{getTime()}</Text>
+                <Text style={{ color: props.dateIsConfirmed ? "black" : "grey" }}>{getTime()}</Text>
             </TouchableOpacity>
         </>
-        
-        
+
+
 );
-} 
+}
 
 const styles = StyleSheet.create({
 

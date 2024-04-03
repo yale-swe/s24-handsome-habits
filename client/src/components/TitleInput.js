@@ -1,5 +1,5 @@
-import { Buttons, Typography, Colors } from "../styles";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { Typography, Colors } from "../styles";
+import { StyleSheet, TextInput } from "react-native";
 import PropTypes from "prop-types";
 
 const TitleInput = (props) => {
@@ -15,9 +15,9 @@ const TitleInput = (props) => {
             value={props.value}
             onChangeText={props.onChangeText}
       />
-        
+
 );
-} 
+}
 
 const styles = StyleSheet.create({
 

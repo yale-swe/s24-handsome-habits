@@ -1,5 +1,5 @@
-import { Buttons, Typography, Colors } from "../styles";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { Colors } from "../styles";
+import { StyleSheet, TextInput } from "react-native";
 import PropTypes from "prop-types";
 
 const DescriptionInputs = (props) => {
@@ -17,7 +17,7 @@ const DescriptionInputs = (props) => {
                   onChangeText={props.onChangeText}
         />
     );
-} 
+}
 
 const styles = StyleSheet.create({
 

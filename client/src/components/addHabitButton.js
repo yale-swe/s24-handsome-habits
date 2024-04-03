@@ -1,5 +1,5 @@
 import { Buttons, Typography, Colors } from "../styles";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 
 const AddHabitButton = (props) => {
@@ -13,7 +13,7 @@ const AddHabitButton = (props) => {
             <Text style={styles.logButtonText}>{props.text}</Text>
         </TouchableOpacity>
     );
-} 
+}
 
 const styles = StyleSheet.create({
     logButton: {
