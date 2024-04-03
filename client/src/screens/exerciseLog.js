@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Touchable } from "react-native";
 import { Buttons, Typography, Colors } from "../styles";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -11,64 +11,26 @@ import DescriptionInput from "../components/DescriptionInput";
 import ThreeOptionBar from "../components/ThreeOptionBar";
 import HorizontalSelect from "../components/HorizontalSelect";
 import TitleInput from "../components/TitleInput";
+import TimeSelect from "../components/TimeSelect";
+import DurationSelect from "../components/DurationSelect";
 
 // eslint-disable-next-line
 const ExerciseLog = (props) => {
 
   // inputs
   const [title, setTitle] = useState("");
-  const [duration, setDuration] = useState("");
-  const [time, setTime] = useState("");
+  const [duration, setDuration] = useState("0");
+  const [time, setTime] = useState(new Date());
   const [description, setDescription] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedIntensity, setSelectedIntensity] = useState("");
+  const [open, setOpen] = useState(false);
+  const [dateIsConfirmed, setIsConfirmed] = useState(false);
+
+
 
   const typeOptions = ["Run", "Weights", "Walk", "Yoga", "Swimming", "Stretching", "Cardio", "Other"];
   const intensityOptions = ["Low", "Medium", "High"];
-
-  // Create a Date object for the entered time and current date
-  const addDate = (formattedTime) => {
-
-    // Get the current date
-    const date = new Date();
-
-    // Get the hours, minutes, and AM/PM from the formatted time
-    const [time, AMPM] = formattedTime.split(" ");
-    let [hours, minutes] = time.split(":");
-    hours = parseInt(hours);
-    minutes = parseInt(minutes);
-
-    // Adjust hours for 24 hour time
-    if (AMPM === "pm" && hours != 12) {
-      hours += 12;
-    }
-    else if (AMPM === "am" && hours == 12) {
-      hours = 0;
-    }
-
-    // Set the hours, minutes, seconds, and milliseconds of the date object
-    date.setHours(hours, minutes, 0, 0);
-
-    // Return in local time
-    return date;
-  }
-
-  // Get the formatted current time
-  const getTime = () => {
-
-    // Get the current time
-    const date = new Date();
-
-    // Format the time as such "12:00pm"
-    let formattedTime = date.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    }).toLowerCase();
-
-    return formattedTime;
-  }
-
 
   const logExercise = () => {
 
@@ -86,7 +48,7 @@ const ExerciseLog = (props) => {
         workout: {
           workout_tag: selectedType, workout_duration: duration, workout_intensity: selectedIntensity
       }},
-      date_and_time: addDate(time),
+      date_and_time: time,
 
     }
 
@@ -94,11 +56,12 @@ const ExerciseLog = (props) => {
     console.log("Adding workout: ", newExercise);
 
     setTitle("");
-    setDuration("");
-    setTime("");
+    setDuration("0");
+    setTime(new Date());
     setDescription("");
     setSelectedIntensity("");
     setSelectedType("");
+    setIsConfirmed(false);
   };
 
     ExerciseLog.propTypes = {
@@ -112,25 +75,28 @@ const ExerciseLog = (props) => {
             <BackButton onPress={() => props.navigation.navigate("Exercise")}/>
           </View>
           <View style={styles.logContainer}>
-            <View style={{marginBottom: 45}}>
+            <View style={{marginBottom: 35}}>
               <TitleInput value={title} onChangeText={setTitle}/>
             </View>
             <View style={{flexDirection: "row", marginBottom: 15}}>
               <Text style={styles.subHeading}>Time</Text>
-              <TextInput
-                style={[styles.smallInput, {width: 80}]}
-                placeholder={getTime()}
-                value={time}
-                onChangeText={setTime}
-              />
+              <TimeSelect 
+                date={time} 
+                setDate={setTime} 
+                open={open} 
+                setOpen={setOpen}
+                dateIsConfirmed={dateIsConfirmed}
+                setIsConfirmed={setIsConfirmed}/>
             </View>
             <View style={{flexDirection: "row", marginBottom: 15}}>
               <Text style={styles.subHeading}>Duration</Text>
-              <TextInput
-                style={[styles.smallInput, {width: 110}]}
-                placeholder="(minutes)"
-                value={duration}
-                onChangeText={setDuration}
+              <DurationSelect 
+                label="minutes"
+                increment={5}
+                min={0}
+                max={240}
+                duration={duration}
+                setDuration={setDuration}
               />
             </View>
             <View style={{marginBottom: 10}}>
@@ -212,6 +178,9 @@ const styles = StyleSheet.create({
     height: 25,
     marginStart: 10,
     textAlign: "center",
+    paddingStart: 10,
+    paddingEnd: 10,
+    justifyContent: "center",
   },
   
   // 

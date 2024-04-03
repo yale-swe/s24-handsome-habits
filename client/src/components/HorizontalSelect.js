@@ -5,9 +5,7 @@ import PropTypes from "prop-types";
 const HorizontalSelect = (props) => {
 
     HorizontalSelect.propTypes = {
-        options: PropTypes.arrayOf(PropTypes.string),
-        selectedOption: PropTypes.string,
-        setSelectedOption: PropTypes.func,
+        label: PropTypes.string,
       };
     return (
         
