@@ -11,11 +11,9 @@ import { StatusCodes } from "http-status-codes";
  * @returns {void}
  * @throws {InternalServerError} - If there is an error during authentication.
  * @throws {UnauthorizedError} - If authentication fails.
- *
  * @example
  * router.get('/auth/cas/login', casAuthController.CASLogin);
  */
-
 export function CASLogin(req, res, next) {
   console.log("Logging in with Yale CAS");
   passport.authenticate("yalecas", async (err, user) => {

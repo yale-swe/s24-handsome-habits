@@ -56,8 +56,8 @@ const habitSchema = new mongoose.Schema({
             workout_intensity: { type: String, default: "" }
         },
         any: mongoose.Schema.Types.Mixed
-
-    }
+    },
+    last_updated: { type: Date, default: Date.now }
 });
 
 const Habit = mongoose.model("Habit", habitSchema);
