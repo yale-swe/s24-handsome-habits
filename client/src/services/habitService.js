@@ -48,13 +48,7 @@ export async function addHabit(newHabit) {
  */
 export async function retrieveHabitsByCategory(category_name) {
     try {
-        // Replace ':categoryName' with the actual category name in the request URL
         const response = await Api.get(`/habits/${category_name}`);
-
-        // Check if the response is empty or not found
-        if (response.status === StatusCodes.NOT_FOUND) {
-            return []; // Return an empty array if no habits are found
-        }
 
         if (response.status === StatusCodes.OK && response.data && response.data.habits) {
             return response.data.habits; // Return the habits if the call was successful
@@ -63,13 +57,23 @@ export async function retrieveHabitsByCategory(category_name) {
         // If the response status is OK but no data found, return null
         return null;
     } catch (err) {
-        if (err.response && err.response.status === StatusCodes.UNAUTHORIZED) {
-            logout(); // Session is expired/invalid, so logout
+        // Handle specific HTTP errors
+        if (err.response) {
+            if (err.response.status === StatusCodes.UNAUTHORIZED) {
+                logout(); // Session is expired/invalid, so logout
+                return null; // Return after logout to stop further execution
+            }
+
+            if (err.response.status === StatusCodes.NOT_FOUND) {
+                return []; // Return an empty array if no habits are found
+            }
         }
+
         console.error("Error retrieving habits by category:", err);
         return null;
     }
 }
+
 
 /**
  * Deletes a habit for the user.
