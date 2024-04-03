@@ -22,7 +22,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
  * }
  * @returns {JSON|null} - The added habit data if successful; otherwise, null.
  */
-
 export async function addHabit(newHabit) {
     try {
 
@@ -39,5 +38,65 @@ export async function addHabit(newHabit) {
             logout(); // Session is expired/invalid, so logout
         }
         return null;
+    }
+}
+
+/**
+ * Retrieves habits by category for the logged-in user.
+ * @param {String} category_name - The category name to retrieve habits for.
+ * @returns {Array|null} - An array of habit objects if successful; otherwise, null.
+ */
+export async function retrieveHabitsByCategory(category_name) {
+    try {
+        const response = await Api.get(`/habits/${category_name}`);
+
+        if (response.status === StatusCodes.OK && response.data && response.data.habits) {
+            return response.data.habits; // Return the habits if the call was successful
+        }
+
+        // If the response status is OK but no data found, return null
+        return null;
+    } catch (err) {
+        // Handle specific HTTP errors
+        if (err.response) {
+            if (err.response.status === StatusCodes.UNAUTHORIZED) {
+                logout(); // Session is expired/invalid, so logout
+                return null; // Return after logout to stop further execution
+            }
+
+            if (err.response.status === StatusCodes.NOT_FOUND) {
+                return []; // Return an empty array if no habits are found
+            }
+        }
+
+        console.error("Error retrieving habits by category:", err);
+        return null;
+    }
+}
+
+
+/**
+ * Deletes a habit for the user.
+ * @param {String} habitId - The ID of the habit to delete.
+ * @returns {boolean} - True if the habit was successfully deleted; otherwise, false.
+ */
+export async function deleteHabit(habitId) {
+    try {
+        const response = await Api.delete(`/habits/${habitId}`);
+
+        if (response.status === StatusCodes.OK) {
+            return true; // Habit was successfully deleted
+        }
+
+        // If the response status is OK but action was not successful, log the issue and return false
+        console.error("Error deleting habit:", response.data);
+        return false;
+    } catch (err) {
+        if (err.response && err.response.status === StatusCodes.UNAUTHORIZED) {
+            logout(); // Session is expired/invalid, so logout
+        } else {
+            console.error("Error deleting habit:", err);
+        }
+        return false;
     }
 }

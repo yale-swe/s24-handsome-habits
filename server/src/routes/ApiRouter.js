@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { findUser, UserFromRequest } from "../controllers/userController.js";
 import { updatePoints, findPoints } from "../controllers/pointsController.js";
-import { addHabit } from "../controllers/habitController.js";
+import { addHabit, retrieveHabitsByCategory, deleteHabit} from "../controllers/habitController.js";
 import { StatusCodes } from "http-status-codes";
 
 const router = Router();
@@ -65,5 +65,45 @@ router.get("/points", async (req, res) => {
   return res.status(StatusCodes.OK).json({ points: foundPoints });
 });
 
+
+// Route to get habits by category for a user
+router.get("/habits/:categoryName", async (req, res) => {
+  const user = await UserFromRequest(req);
+  if (!user) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({ error: "User not authenticated" });
+  }
+
+  const categoryName = req.params.categoryName;
+  try {
+    const habits = await retrieveHabitsByCategory(user._id, categoryName);
+    if (habits.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: "No habits found for this category" });
+    }
+    return res.status(StatusCodes.OK).json({ habits });
+  } catch (err) {
+    console.error(err);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Error retrieving habits" });
+  }
+});
+
+// Route to delete a habit
+router.delete("/habits/:habitId", async (req, res) => {
+  const user = await UserFromRequest(req);
+  if (!user) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({ error: "User not authenticated" });
+  }
+
+  const habitId = req.params.habitId;
+  try {
+    const success = await deleteHabit(habitId);
+    if (!success) {
+      return res.status(StatusCodes.NOT_FOUND).json({ error: "Habit not found or error deleting habit" });
+    }
+    return res.status(StatusCodes.OK).json({ message: "Habit deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Error deleting habit" });
+  }
+});
 
 export default router;
