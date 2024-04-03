@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import DescriptionInput from "../components/DescriptionInput";
 import ThreeOptionBar from "../components/ThreeOptionBar";
 import HorizontalSelect from "../components/HorizontalSelect";
+import TitleInput from "../components/TitleInput";
 
 // eslint-disable-next-line
 const ExerciseLog = (props) => {
@@ -111,12 +112,9 @@ const ExerciseLog = (props) => {
             <BackButton onPress={() => props.navigation.navigate("Exercise")}/>
           </View>
           <View style={styles.logContainer}>
-            <TextInput
-              style={[styles.titleInput, {marginBottom: 20}]}
-              placeholder="Title"
-              value={title}
-              onChangeText={setTitle}
-            />
+            <View style={{marginBottom: 45}}>
+              <TitleInput value={title} onChangeText={setTitle}/>
+            </View>
             <View style={{flexDirection: "row", marginBottom: 15}}>
               <Text style={styles.subHeading}>Time</Text>
               <TextInput
@@ -138,24 +136,6 @@ const ExerciseLog = (props) => {
             <View style={{marginBottom: 10}}>
               <Text style={[styles.subHeading, {textAlign: "left"}]}>Workout Type</Text>
               <HorizontalSelect options={typeOptions} selectedOption={selectedType} setSelectedOption={setSelectedType}/>
-{/* 
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.typesContainer}
-              >
-                {typeOptions.map((type, index) => (
-                  <TouchableOpacity
-                  key={index}
-                  activeOpacity={1}
-                  style={[styles.typeButton, type === selectedType && styles.selectedTypeButton]}
-                  onPress={() => setSelectedType(type)}>
-                    <Text>
-                      {type}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView> */}
 
             </View>
             <View style={{marginBottom: 30}}>
