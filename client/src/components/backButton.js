@@ -1,3 +1,4 @@
+
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Buttons, Colors } from "../styles";
 import PropTypes from "prop-types";

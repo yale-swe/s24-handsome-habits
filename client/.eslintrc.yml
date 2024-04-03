@@ -16,6 +16,8 @@ rules:
   react/react-in-jsx-scope: off
   quotes: ["error", "double"]
   no-trailing-spaces: "error"
+  react/prop-types: "off"
+  react/no-unescaped-entities: "off"
 settings:
   react:
     version: detect

@@ -18,7 +18,7 @@ import mongoose from "mongoose";
 const categorySchema = new mongoose.Schema({
     //mongoose creates automatically a unique _id for each row
     category_detail_keys: [String],
-    category_name: {type: String},
+    category_name: {type: String, unique: true},
 
 });
 

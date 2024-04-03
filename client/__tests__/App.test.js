@@ -8,6 +8,7 @@ import App from "../src/App.js";
 jest.mock("../src/screens/login", () => "LoginScreen");
 jest.mock("../src/screens/home", () => "HomeScreen");
 
+//jest.mock("@react-native-vector-icons/MaterialCommunityIcons", () => ({}));
 // Mocking the navigation container and stack navigator
 jest.mock("@react-navigation/native", () => {
   return {
@@ -21,6 +22,13 @@ jest.mock("@react-navigation/native-stack", () => ({
     Navigator: ({children}) => <>{children}</>,
     Screen: (props) => <>{props.children}</>,
   }),
+}));
+
+// Mocking AsyncStorage
+jest.mock("@react-native-async-storage/async-storage", () => ({
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
 }));
 
 describe("App Navigation Structure", () => {
