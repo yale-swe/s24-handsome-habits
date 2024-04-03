@@ -30,10 +30,22 @@ export const header5 = {
     ...boldFont,
 };
 
+export const message = {
+    fontSize: 15,
+    textAlign: "center",
+    ...boldFont,
+};
+
 export const header6 = {
     fontSize: 14,
     textAlign: "center",
     ...boldFont,
+};
+
+export const coins = {
+    fontSize: 15,
+    textAlign: "center",
+    color: "#FFB706",
 };
 
 export const buttonText = {
