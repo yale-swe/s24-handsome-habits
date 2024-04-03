@@ -4,9 +4,12 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import BackButton from "../components/backButton";
 import { addHabit } from "../services/habitService";
-import AddHabitButton from "../components/addHabitButton";
+import AddHabitButton from "../components/AddHabitButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DescriptionInput from "../components/DescriptionInput";
+import ThreeOptionBar from "../components/ThreeOptionBar";
+import HorizontalSelect from "../components/HorizontalSelect";
 
 // eslint-disable-next-line
 const ExerciseLog = (props) => {
@@ -16,8 +19,8 @@ const ExerciseLog = (props) => {
   const [duration, setDuration] = useState("");
   const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedType, setSelectedType] = useState(null);
-  const [selectedIntensity, setSelectedIntensity] = useState(null);
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedIntensity, setSelectedIntensity] = useState("");
 
   const typeOptions = ["Run", "Weights", "Walk", "Yoga", "Swimming", "Stretching", "Cardio", "Other"];
   const intensityOptions = ["Low", "Medium", "High"];
@@ -93,6 +96,8 @@ const ExerciseLog = (props) => {
     setDuration("");
     setTime("");
     setDescription("");
+    setSelectedIntensity("");
+    setSelectedType("");
   };
 
     ExerciseLog.propTypes = {
@@ -132,7 +137,8 @@ const ExerciseLog = (props) => {
             </View>
             <View style={{marginBottom: 10}}>
               <Text style={[styles.subHeading, {textAlign: "left"}]}>Workout Type</Text>
-
+              <HorizontalSelect options={typeOptions} selectedOption={selectedType} setSelectedOption={setSelectedType}/>
+{/* 
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -149,38 +155,18 @@ const ExerciseLog = (props) => {
                     </Text>
                   </TouchableOpacity>
                 ))}
-              </ScrollView>
+              </ScrollView> */}
 
             </View>
             <View style={{marginBottom: 30}}>
               <Text style={[styles.subHeading, {textAlign: "left"}]}>Intensity</Text>
               <View style={styles.instensityContainer}>
-                <View style={styles.intensityLine}/>
-                  {intensityOptions.map((intensity, index) => (
-                    <View style={styles.intensityOptionContainer} key={index} >
-                      <Text style={styles.intensityLabel}>{intensity}</Text>
-                      <TouchableOpacity
-                      activeOpacity={1}
-                      style={[
-                        styles.intensityCircle,
-                        intensity === selectedIntensity && styles.selectedIntensityCircle,
-                        index === 1 ? { left: "50%", marginLeft: -15 } : {}]}
-                      onPress={() => setSelectedIntensity(intensity)}>
-
-                      </TouchableOpacity>
-                    </View>
-                  ))}
+                <ThreeOptionBar options={intensityOptions} selectedOption={selectedIntensity} setSelectedOption={setSelectedIntensity}/>
               </View>
 
             </View>
             <View style={styles.descriptionContainer}>
-              <TextInput
-                  style={[styles.descriptionInput]}
-                  multiline={true}
-                  placeholder="Description"
-                  value={description}
-                  onChangeText={setDescription}
-                />
+              <DescriptionInput value={description} onChangeText={setDescription}/>
             </View>
             <View style={styles.logButtonContainer}>
               <AddHabitButton text="Add Workout" onPress={logExercise}/>
@@ -227,13 +213,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // width: "80%",
   },
-  typesContainer: {
-    flexDirection: "row",
-    paddingRight: 10,
-    paddingTop: 10,
-    // width: "80%",
-    paddingLeft: 0,
-  },
+  
   titleInput: {
     backgroundColor: Colors.Colors.lightYellow,
     ...Typography.header4,
@@ -242,14 +222,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 25,
   },
-  logButton: {
-    ...Buttons.logButton,
-    backgroundColor: Colors.Colors.navy,
-  },
-  logButtonText : {
-    color: "white",
-    ...Typography.header4,
-  },
+
   subHeading: {
     ...Typography.header5,
   },
@@ -260,77 +233,38 @@ const styles = StyleSheet.create({
     marginStart: 10,
     textAlign: "center",
   },
-  descriptionContainer: {
-    // marginBottom: 10,
-  },
-  intensityOptionContainer: {
-    // alignItems: "center",
-    // justifyContent: "center",
+  
+  // 
+  // intensityLine: {
+  //   // position: "absolute",
+  //   // top: "50%",
 
-    // width: "33%",
-  },
+  //   position: "absolute",
+  //   marginLeft: 5,
+  //   marginTop: 12,
+  //   top: "50%",
+  //   width: "90%",
+  //   height: 10,
+  //   zIndex: 0,
+  //   borderColor: Colors.Colors.skyBlue,
+  //   borderWidth: 1,
+  //   backgroundColor: Colors.Colors.columbiaBlue,
 
-  descriptionInput: {
-    backgroundColor: Colors.Colors.lightYellow,
-    borderRadius: 5,
-    textAlign: "left",
-    textAlignVertical: "top",
-    height: 125,
-    paddingTop: 10,
-    paddingLeft: 10,
-    // paddingBottom: 10,
-    paddingRight: 10,
-  },
-  typeButton: {
-    backgroundColor: Colors.Colors.columbiaBlue,
-    padding: 5,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    borderStyle: "dashed",
-    borderColor: Colors.Colors.skyBlue,
-    borderWidth: 2,
-    margin: 5,
-  },
-  selectedTypeButton: {
-    backgroundColor: Colors.Colors.skyBlue,
-    // padding: 5,
-    // paddingHorizontal: 20,
-    // borderRadius: 30,
-    // borderStyle: "solid",
-    // borderColor: "black",
-    // borderWidth: 2,
-    // margin: 5,
-  },
-  intensityLine: {
-    // position: "absolute",
-    // top: "50%",
-
-    position: "absolute",
-    marginLeft: 5,
-    marginTop: 12,
-    top: "50%",
-    width: "90%",
-    height: 10,
-    zIndex: 0,
-    borderColor: Colors.Colors.skyBlue,
-    borderWidth: 1,
-    backgroundColor: Colors.Colors.columbiaBlue,
-
-  },
-  intensityCircle : {
-    width: 30,
-    height: 30,
-    marginTop: 5,
-    backgroundColor: Colors.Colors.columbiaBlue,
-    borderRadius: 20,
-    borderWidth: 1,
-    // position: "absolute",
-    borderColor: Colors.Colors.skyBlue,
-    zIndex: 1,
-  },
-  selectedIntensityCircle: {
-    backgroundColor: Colors.Colors.skyBlue,
-  },
+  // },
+  // intensityCircle : {
+  //   width: 30,
+  //   height: 30,
+  //   marginTop: 5,
+  //   backgroundColor: Colors.Colors.columbiaBlue,
+  //   borderRadius: 20,
+  //   borderWidth: 1,
+  //   // position: "absolute",
+  //   borderColor: Colors.Colors.skyBlue,
+  //   zIndex: 1,
+  // },
+  // selectedIntensityCircle: {
+  //   backgroundColor: Colors.Colors.skyBlue,
+  // },
   intensityLabel: {
     // textAlign: "center",
     marginBottom: 3,
