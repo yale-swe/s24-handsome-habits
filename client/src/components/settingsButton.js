@@ -11,7 +11,7 @@ const SettingsButton = (props) => {
           style={styles.settingsButtonImage}
           resizeMode="contain"
         />
-      </TouchableOpacity>{" "}
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );

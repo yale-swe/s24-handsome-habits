@@ -8,14 +8,14 @@ const CoinsButton = (props) => {
     <View style={styles.container}>
       <TouchableOpacity onPress={props.onPress} style={props.style}>
         <View style={styles.buttonContainer}>
-          <Text style={Typography.coins}> {props.coinAmount} </Text>{" "}
-        </View>{" "}
+          <Text style={Typography.coins}> {props.coinAmount} </Text>
+        </View>
         <Image
           source={props.logo}
           style={styles.coinsButtonImage}
           resizeMode="contain"
         />
-      </TouchableOpacity>{" "}
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );

@@ -11,7 +11,7 @@ const HabitButton = (props) => {
           style={styles.habitButtonImage}
           resizeMode="contain"
         />
-      </TouchableOpacity>{" "}
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
