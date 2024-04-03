@@ -56,6 +56,7 @@ const Home = (props) => {
           onPress={() => props.navigation.navigate("Exercise")}
         />
       </View>
+      <Text testID="messageTest">Hello</Text>
       <WellnessBar wellnessPoints={(pointsInfo != null) ? pointsInfo.wellness_points : 0}/>
       <DansWords danMessage={"Woof! Welcome to Handsome Habits!"}/>
       <EmotionVisualizer/>
