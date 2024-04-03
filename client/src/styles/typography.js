@@ -24,16 +24,17 @@ export const header4 = {
     ...boldFont,
 };
 
-export const header5 = {
-    fontSize: 16,
+export const message = {
+    fontSize: 15,
     textAlign: "center",
+    // fontStyle: "italic", it looks like this might not have an italic font
     ...boldFont,
-};
+}
 
-export const header6 = {
-    fontSize: 14,
+export const coins = {
+    fontSize: 15,
     textAlign: "center",
-    ...boldFont,
+    color: "#FFB706",
 };
 
 export const buttonText = {

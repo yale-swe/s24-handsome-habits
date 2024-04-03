@@ -5,14 +5,23 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export async function getPointInfo() {
     try {
-        const response = await Api.get("/points"); // GET request to find points
-        const rawPoints = response.data.points;
+        let response = await Api.get("/points"); // GET request to find points
 
-        // Adds wellness and emotion values to the points object
-        const userPoints = getQualityPoints(rawPoints);
-        AsyncStorage.setItem("points", JSON.stringify(userPoints));
+        let rawPoints = response.data.points;
 
-        return userPoints;
+        let wellness = rawPoints.exercise_points +
+                       rawPoints.sleeping_points +
+                       rawPoints.eating_points   +
+                       rawPoints.studying_points;
+
+        // if wellness is max, slightly decrease it so
+        // that the range of emotion is 0-4
+        let emotion = Math.floor((wellness == 100) ? 99 : wellness / 20);
+
+        rawPoints.wellness_points = wellness;
+        rawPoints.emotion_value = emotion;
+
+        return rawPoints;
     } catch (err) {
         if (err.response.status == StatusCodes.UNAUTHORIZED) {
             logout(); // Session is expired/invalid, so logout

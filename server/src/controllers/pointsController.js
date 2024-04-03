@@ -13,7 +13,7 @@ export async function createPoints(user_id) {
 export async function findPoints(user_id) {
     console.log("Finding points");
     try {
-        const foundPoints = await Points.findOne({
+        let foundPoints = await Points.findOne({
             user_id: user_id,
         });
 

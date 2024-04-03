@@ -55,7 +55,7 @@ router.get("/points", async (req, res) => {
       .json({ error: "User not authenticated" });
   }
 
-  const foundPoints = await findPoints(user._id);
+  let foundPoints = await findPoints(user._id);
   if (!foundPoints) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
