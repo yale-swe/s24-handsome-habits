@@ -12,7 +12,7 @@ const EmotionVisualizer = () => {
 
 // WellnessBar.propTypes = {
 //     emotion: PropTypes.any,
-//   };
+//   }; for julian :)
 
   const styles = StyleSheet.create({
     bulldog: {
