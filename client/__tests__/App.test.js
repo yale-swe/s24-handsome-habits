@@ -7,6 +7,8 @@ import App from "../src/App.js";
 // Mocking the screens
 jest.mock("../src/screens/login", () => "LoginScreen");
 jest.mock("../src/screens/home", () => "HomeScreen");
+jest.mock("../src/screens/exercise", () => "ExerciseScreen");
+jest.mock("../src/screens/exerciseLog", () => "ExerciseLogScreen");
 
 //jest.mock("@react-native-vector-icons/MaterialCommunityIcons", () => ({}));
 // Mocking the navigation container and stack navigator
