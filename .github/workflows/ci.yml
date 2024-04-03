@@ -23,6 +23,10 @@ jobs:
       run: |
         cd server
         npm run lint
+    - name: Run server Jest tests
+      run: |
+        cd server
+        npm test
 
     # Install dependencies, run lint, and tests in the client directory
     - name: Install client dependencies
