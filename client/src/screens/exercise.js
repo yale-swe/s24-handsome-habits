@@ -44,6 +44,7 @@ const Exercise = (props) => {
 
   return (
     <View style={styles.container}>
+
       <View style={styles.upperBox}>
         <View style={styles.backButtonContainer}>
             <BackButton onPress={() => props.navigation.navigate("Home")}/>
@@ -56,6 +57,7 @@ const Exercise = (props) => {
           <View style={styles.messageContainer}>
             <Text style={Typography.boldItalic}>       the grind doesn't stop.</Text>
           </View>
+
         </View>
       </View>
       <View style={styles.lowerBox}>
@@ -134,6 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Colors.navy,
     ...Buttons.logButton,
   },
+
 });
 
 export default Exercise;
