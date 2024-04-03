@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
-import { Buttons} from "../styles";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import { Buttons } from "../styles";
 import HabitButton from "../components/habitButton";
 import SettingsButton from "../components/settingsButton";
 import CoinsButton from "../components/coinsButton";
@@ -10,6 +12,8 @@ import DansWords from "../components/dansWords";
 import EmotionVisualizer from "../components/emotionVisualizer";
 import { getPointInfo } from "../services/PointsService";
 import { useFocusEffect } from "@react-navigation/native";
+import { Buttons, Typography, Colors } from "../styles";
+import BottomBar from "../components/BottomBar";
 
 const Home = (props) => {
   Home.propTypes = {
@@ -43,44 +47,18 @@ const Home = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topButtonsContainer}>
-        <SettingsButton
-          logo={require("../assets/images/bulldoghead.png")}
-          style={Buttons.settingsButton}
-          onPress={() => props.navigation.navigate("Exercise")}
-        />
-        <CoinsButton
-          coinAmount={(pointsInfo != null) ? pointsInfo.coins : 0}
-          logo={require("../assets/images/coin.png")}
-          style={Buttons.coinsButton}
-          onPress={() => props.navigation.navigate("Exercise")}
-        />
-      </View>
-      <WellnessBar wellnessPoints={(pointsInfo != null) ? pointsInfo.wellness_points : 0}/>
-      <DansWords danMessage={"Woof! Welcome to Handsome Habits!"}/>
-      <EmotionVisualizer/>
-      <View style={styles.habitButtonContainer}>
-        <HabitButton
-          logo={require("../assets/images/eating_icon.png")}
-          style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("Exercise")}
-        />
-        <HabitButton
-          logo={require("../assets/images/exercising_icon.png")}
-          style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("Exercise")}
-        />
-        <HabitButton
-          logo={require("../assets/images/sleeping_icon.png")}
-          style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("Exercise")}
-        />
-        <HabitButton
-          logo={require("../assets/images/studying_icon.png")}
-          style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("Exercise")}
-        />
-      </View>
+      <BottomBar />
+      <Text style={Typography.header3}> Home Page </Text>{" "}
+      <Image
+        source={require("../assets/images/bulldog.png")}
+        style={styles.bulldog}
+      />{" "}
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate("Exercise")}
+        style={Buttons.habitButton}
+      >
+        <Text> Go to Exercise Page </Text>{" "}
+      </TouchableOpacity>
     </View>
   );
 };

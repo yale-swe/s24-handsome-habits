@@ -3,16 +3,19 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import PropTypes from "prop-types";
 import { Typography } from "../styles";
 
-
 const CoinsButton = (props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={props.onPress} style={props.style}>
         <View style={styles.buttonContainer}>
-          <Text style={Typography.coins}>{props.coinAmount}</Text>
-        </View>
-        <Image source={props.logo} style={styles.coinsButtonImage} resizeMode="contain" />
-      </TouchableOpacity>
+          <Text style={Typography.coins}> {props.coinAmount} </Text>{" "}
+        </View>{" "}
+        <Image
+          source={props.logo}
+          style={styles.coinsButtonImage}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>{" "}
       <StatusBar style="auto" />
     </View>
   );
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  }
+  },
 });
 
 export default CoinsButton;
