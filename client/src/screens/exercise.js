@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   upperBox: {
-    width: 392,
-    height: 260.36,
+    width: "auto",
+    height: "auto",
     backgroundColor: "white",
     borderRadius: 10,
     zIndex:1,
@@ -96,7 +96,9 @@ const styles = StyleSheet.create({
     padding: 35,
     paddingLeft: 20,
     paddingRight: 20,
+    alignItems: "center",
     zIndex: 0,
+
   },
   imageAndTextcontainer: {
     width: 392,
@@ -131,7 +133,6 @@ const styles = StyleSheet.create({
   logButton: {
     backgroundColor: Colors.Colors.navy,
     ...Buttons.logButton,
-    marginLeft:50,
   },
 });
 
