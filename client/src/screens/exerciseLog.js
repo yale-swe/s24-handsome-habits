@@ -32,7 +32,7 @@ const ExerciseLog = (props) => {
   const typeOptions = ["Run", "Weights", "Walk", "Yoga", "Swimming", "Stretching", "Cardio", "Other"];
   const intensityOptions = ["Low", "Medium", "High"];
 
-  const logExercise = () => {
+  const logExercise = async() => {
 
     const cookies = AsyncStorage.getItem("cookies");
     if (cookies) {
@@ -52,8 +52,9 @@ const ExerciseLog = (props) => {
 
     }
 
-    addHabit(newExercise);
+    await addHabit(newExercise);
     console.log("Adding workout: ", newExercise);
+    props.navigation.navigate("Exercise");
 
     setTitle("");
     setDuration("0");

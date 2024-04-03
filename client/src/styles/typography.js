@@ -3,6 +3,7 @@ export const boldFont = { fontFamily: "OpenSans-Bold" };
 export const semiBoldFont = { fontFamily: "OpenSans-SemiBold" };
 export const passion = { fontFamily: "PassionOne-Regular" };
 export const passionBold = { fontFamily: "PassionOne-Bold" };
+export const boldItalic = {fontFamily: "OpenSans-BoldItalic", fontSize:28};
 
 export const header1 = {
     fontSize: 70,
