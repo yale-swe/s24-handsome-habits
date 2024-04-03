@@ -8,8 +8,6 @@ import BackButton from "../components/backButton";
 import WorkoutLogList from "../components/workoutLogList.js"; // Import the WorkoutLogList component
 
 
-
-
 // eslint-disable-next-line
 const Exercise = (props) => {
 
