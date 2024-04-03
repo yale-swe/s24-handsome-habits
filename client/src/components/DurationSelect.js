@@ -10,7 +10,7 @@ const DurationSelect = (props) => {
         increment: PropTypes.number,
         min: PropTypes.number,
         max: PropTypes.number,
-        duration: PropTypes.number,
+        duration: PropTypes.string,
         setDuration: PropTypes.func,
       };
 
