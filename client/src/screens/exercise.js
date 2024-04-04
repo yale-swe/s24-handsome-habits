@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   upperBox: {
+    paddingTop: 65,
     width: "auto",
     height: "auto",
     backgroundColor: "white",

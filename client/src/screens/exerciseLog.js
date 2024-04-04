@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.Colors.yellow,
     alignItems: "center",
+    paddingTop: 65,
   },
 
   backButtonContainer: {

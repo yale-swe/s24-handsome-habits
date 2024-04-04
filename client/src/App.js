@@ -17,8 +17,8 @@ export default function App() {
           component={Home}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Exercise" component={Exercise} />
-        <Stack.Screen name="ExerciseLog" component={ExerciseLog} />
+        <Stack.Screen name="Exercise" component={Exercise} options={{ headerShown: false }} />
+        <Stack.Screen name="ExerciseLog" component={ExerciseLog} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
