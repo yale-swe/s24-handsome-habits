@@ -34,12 +34,12 @@ async function getUserInfoWithGoogle(token) {
 
 export async function logout() {
   console.log("Logging out and deleting user cookies");
-  await AsyncStorage.removeItem("cookies");
-  await AsyncStorage.removeItem("user");
   // remove the cookie header from axios
   axios.defaults.headers.Cookie = "";
-  console.log("Logging out and deleting user cookies");
-  console.log("Logging out and deleting user cookies");
+  await AsyncStorage.removeItem("cookies");
+  await AsyncStorage.removeItem("user");
+  await AsyncStorage.removeItem("points");
+  await AsyncStorage.removeItem("habit");
 }
 
 export async function CASLogout() {
@@ -70,7 +70,3 @@ export async function LoginWithActiveSession() {
     return response?.status === 200 ? response : null;
   }
 }
-
-
-
-

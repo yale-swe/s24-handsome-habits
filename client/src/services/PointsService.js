@@ -6,17 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export async function getPointInfo() {
   try {
     const response = await Api.get("/points"); // GET request to find points
-
     const rawPoints = response.data.points;
-
-    let wellness = rawPoints.exercise_points +
-                     rawPoints.sleeping_points +
-                     rawPoints.eating_points +
-                     rawPoints.studying_points;
-
-    // if wellness is max, slightly decrease it so
-    // that the range of emotion is 0-4
-    wellness = wellness == 100 ? 99 : wellness;
 
     // Adds wellness and emotion values to the points object
     const userPoints = getQualityPoints(rawPoints);
@@ -44,21 +34,22 @@ export async function getPointInfo() {
  */
 export async function updatePoints(newPoints) {
   try {
-    newPoints.exercise_points = Math.min(newPoints.exercise_points  || 0, 26);
+    newPoints.exercise_points = Math.min(newPoints.exercise_points || 0, 26);
     newPoints.eating_points = Math.min(newPoints.eating_points || 0, 25);
     newPoints.sleeping_points = Math.min(newPoints.sleeping_points || 0, 27);
     newPoints.studying_points = Math.min(newPoints.studying_points || 0, 22);
 
-    console.log("NEW POINTS", newPoints);
+    console.log("New Points", newPoints);
 
     const response = await Api.post("/points/update", {
       points: newPoints,
     }); // Post request to update points
 
     // Save new points in client's local storage
-    await AsyncStorage.setItem("points", JSON.stringify(response.data));
+    console.log("Harry's response from server", response.data.points);
+    await AsyncStorage.setItem("points", JSON.stringify(response.data.points));
 
-    return response.data;
+    return response.data.points;
   } catch (err) {
     if (err.response && err.response.status == StatusCodes.UNAUTHORIZED) {
       logout(); // Session is expired/invalid, so logout
@@ -69,28 +60,20 @@ export async function updatePoints(newPoints) {
 
 /**
  * @description Update the points of a category by a specified amount.
- * @param {String} category - The category to update.
+ * @param {String} category - The category to update. Eg. "Exercising", "Eating"...etc.
  * @param {Number} pointChange - The change in points.
  * @returns {JSON} - The updated points if successful; otherwise, null.
  */
 export async function updatePointswithChange(category, pointChange) {
-
-    console.log("Updating points service", category, pointChange);
-
-    
-  let categoryPoints = categoryPointName(category);
+  let categoryPoints = categoryPointName(category.toLowerCase());
   let currentPoints = await AsyncStorage.getItem("points");
-
+  currentPoints = JSON.parse(currentPoints);
 
   if (currentPoints == null) {
     currentPoints = await getPointInfo();
   }
 
-  
   currentPoints[categoryPoints] += pointChange;
-
-  console.log("Updated points service", currentPoints);
-
   return updatePoints(currentPoints);
 }
 
@@ -122,7 +105,7 @@ export const getQualityPoints = (points) => {
 /** Returns the name of the category point in the database */
 const categoryPointName = (category) => {
   switch (category) {
-    case "exercise":
+    case "exercising":
       return "exercise_points";
     case "eating":
       return "eating_points";
@@ -131,6 +114,6 @@ const categoryPointName = (category) => {
     case "studying":
       return "studying_points";
     default:
-      return null;
+      return "coins";
   }
 };
