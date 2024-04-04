@@ -46,7 +46,7 @@ export async function updatePoints(newPoints) {
     }); // Post request to update points
 
     // Save new points in client's local storage
-    console.log("Harry's response from server", response.data.points);
+    console.log("Updated points from server", response.data.points);
     await AsyncStorage.setItem("points", JSON.stringify(response.data.points));
 
     return response.data.points;
@@ -60,12 +60,13 @@ export async function updatePoints(newPoints) {
 
 /**
  * @description Update the points of a category by a specified amount.
- * @param {String} category - The category to update. Eg. "Exercising", "Eating"...etc.
- * @param {Number} pointChange - The change in points.
+ * @param {String} category - The category to update with pointChange.point; Eg. "Exercising", "Eating"...etc.
+ * @param {JSON} pointChange - JSON object containing points change for category and coin change
+ * Eg. { "points": 5, "coins": 3 }
  * @returns {JSON} - The updated points if successful; otherwise, null.
  */
 export async function updatePointswithChange(category, pointChange) {
-  let categoryPoints = categoryPointName(category.toLowerCase());
+  const categoryPoints = categoryPointName(category.toLowerCase());
   let currentPoints = await AsyncStorage.getItem("points");
   currentPoints = JSON.parse(currentPoints);
 
@@ -73,7 +74,8 @@ export async function updatePointswithChange(category, pointChange) {
     currentPoints = await getPointInfo();
   }
 
-  currentPoints[categoryPoints] += pointChange;
+  currentPoints[categoryPoints] += pointChange.points;
+  currentPoints.coins += pointChange.coins;
   return updatePoints(currentPoints);
 }
 

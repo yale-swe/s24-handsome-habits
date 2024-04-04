@@ -18,6 +18,13 @@ rules:
   no-trailing-spaces: "error"
   react/prop-types: "off"
   react/no-unescaped-entities: "off"
+  curly: ["error", "all"] 
+  eol-last: ["error", "always"]
+  no-multiple-empty-lines: ["error", {"max": 1, "maxEOF": 1 }]
+  max-lines: ["error", { "max": 300, "skipBlankLines": true, "skipComments": true }]
+  prefer-const: ["error", { "destructuring": "any", "ignoreReadBeforeAssign": false }]
+  complexity: ["error", { "max": 10}]
+  max-depth: ["error", 4]
 settings:
   react:
     version: detect

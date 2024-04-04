@@ -21,7 +21,7 @@ const EmotionVisualizer = () => {
       const StringUserObject = JSON.parse(stringUser);
       const userObject = StringUserObject.slice(1, -1);
       const parsedUserObject = JSON.parse(userObject);
-      const college = parsedUserObject.college.toLowerCase();
+      const college = parsedUserObject.college?.toLowerCase();
 
       switch (college) {
         case "pierson":
