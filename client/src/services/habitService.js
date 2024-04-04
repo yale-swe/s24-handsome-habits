@@ -33,6 +33,7 @@ export async function addHabit(newHabit) {
         // Save new habit in client's local storage
         AsyncStorage.setItem("habit", JSON.stringify(habit_response.data));
 
+        console.log("category_name", newHabit.category_name);
         // Update points based on the new habit
         let { points, coins } = calculatePoints(newHabit);
         if (newHabit.category_name == "Exercising") { updatePointswithChange("exercise_points", points) };

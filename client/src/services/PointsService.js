@@ -44,21 +44,23 @@ export async function getPointInfo() {
  */
 export async function updatePoints(newPoints) {
   try {
-    newPoints.exercise_points = Math.min(newPoints.exercise_points, 26);
-    newPoints.eating_points = Math.min(newPoints.eating_points, 25);
-    newPoints.sleeping_points = Math.min(newPoints.sleeping_points, 27);
-    newPoints.studying_points = Math.min(newPoints.studying_points, 22);
+    newPoints.exercise_points = Math.min(newPoints.exercise_points  || 0, 26);
+    newPoints.eating_points = Math.min(newPoints.eating_points || 0, 25);
+    newPoints.sleeping_points = Math.min(newPoints.sleeping_points || 0, 27);
+    newPoints.studying_points = Math.min(newPoints.studying_points || 0, 22);
+
+    console.log("NEW POINTS", newPoints);
 
     const response = await Api.post("/points/update", {
       points: newPoints,
     }); // Post request to update points
 
     // Save new points in client's local storage
-    AsyncStorage.setItem("points", JSON.stringify(response.data));
+    await AsyncStorage.setItem("points", JSON.stringify(response.data));
 
     return response.data;
   } catch (err) {
-    if (err.response.status == StatusCodes.UNAUTHORIZED) {
+    if (err.response && err.response.status == StatusCodes.UNAUTHORIZED) {
       logout(); // Session is expired/invalid, so logout
     }
     return null;
@@ -72,16 +74,22 @@ export async function updatePoints(newPoints) {
  * @returns {JSON} - The updated points if successful; otherwise, null.
  */
 export async function updatePointswithChange(category, pointChange) {
+
+    console.log("Updating points service", category, pointChange);
+
     
   let categoryPoints = categoryPointName(category);
-  let currentPoints = AsyncStorage.getItem("points");
+  let currentPoints = await AsyncStorage.getItem("points");
 
 
   if (currentPoints == null) {
     currentPoints = await getPointInfo();
   }
 
+  
   currentPoints[categoryPoints] += pointChange;
+
+  console.log("Updated points service", currentPoints);
 
   return updatePoints(currentPoints);
 }
