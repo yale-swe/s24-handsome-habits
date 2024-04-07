@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Buttons, Typography } from "../styles";
 import PropTypes from "prop-types";
 
-
 const LoginButton = (props) => {
   return (
     <View style={styles.container}>

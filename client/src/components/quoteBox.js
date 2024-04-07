@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { Typography } from "../styles";
 import PropTypes from "prop-types";
 
-
 const QuoteBox = (props) => {
   return (
     <View style={styles.container}>
