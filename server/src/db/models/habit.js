@@ -44,11 +44,12 @@ const habitSchema = new mongoose.Schema({
         },
         sleep: {
             sleep_duration: { type: Number, default: 0 },
-            quality_of_sleep: { type: Number, default: 0 }
+            quality_of_sleep: { type: String, default: "" },
+            is_nap: { type: Boolean, default: false }
         },
         study: {
             study_duration: { type: Number, default: 0 },
-            study_productivity: { type: Number, default: 0 }
+            study_productivity: { type: String, default: "" }
         },
         workout: {
             workout_tag: { type: String, default: "" },
