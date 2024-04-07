@@ -34,7 +34,9 @@ export async function addHabit(newHabit) {
 
     console.log("category_name", newHabit.category_name);
     // Update points based on the new habit
+    
     const { points, coins } = calculatePoints(newHabit);
+
     updatePointswithChange(newHabit.category_name, {"points": points, "coins": coins});
 
     return habit_response.data;
