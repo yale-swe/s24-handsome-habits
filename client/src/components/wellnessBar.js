@@ -11,9 +11,10 @@ const WellnessBar = (props) => {
 
   const barFullness = Math.floor((wellnessValue / 100) * 344);
   return (
-    <View style={styles.wellnessBarBackground}>
+    <View style={styles.wellnessBarBackground} testID={"wellness-background"}>
       <View
         style={[styles.wellnessBarForeground, { width: barFullness }]}
+        testID={"wellness-foreground"}
       ></View>
     </View>
   );

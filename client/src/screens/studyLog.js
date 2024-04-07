@@ -24,7 +24,6 @@ const StudyLog = (props) => {
   const [open, setOpen] = useState(false);
   const [dateIsConfirmed, setIsConfirmed] = useState(false);
 
-
   // productivity options, can be renamed but must be len() = 3
   const productivityOptions = ["Low", "Medium", "High"];
 

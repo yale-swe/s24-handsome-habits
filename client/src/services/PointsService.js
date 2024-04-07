@@ -34,6 +34,7 @@ export async function getPointInfo() {
  */
 export async function updatePoints(newPoints) {
   try {
+    // ensure that no points are over their maxium. if they are, reduce to maximum
     newPoints.exercise_points = Math.min(newPoints.exercise_points || 0, 26);
     newPoints.eating_points = Math.min(newPoints.eating_points || 0, 25);
     newPoints.sleeping_points = Math.min(newPoints.sleeping_points || 0, 27);
@@ -86,26 +87,23 @@ export async function updatePointswithChange(category, pointChange) {
  * @returns New points object, including the wellness and emotion values
  */
 export const getQualityPoints = (points) => {
-  let wellness =
+  const wellness =
     points.exercise_points +
     points.sleeping_points +
     points.eating_points +
     points.studying_points;
 
   // if wellness is max, slightly decrease it so
-  // that the range of emotion is 0-4
-  wellness = wellness == 100 ? 99 : wellness;
-
-  const emotion = Math.floor(wellness / 20);
+  // that the range of emotion is 0-2
+  const emotion = Math.floor((wellness == 100 ? 99 : wellness) / 33.3);
 
   points.wellness_points = wellness;
   points.emotion_value = emotion;
   return points;
 };
 
-// toLower the category name and concatenate with "_points"
-/** Returns the name of the category point in the database */
-const categoryPointName = (category) => {
+/** Returns the name of the given category's point in the database */
+export const categoryPointName = (category) => {
   switch (category) {
     case "exercising":
       return "exercise_points";

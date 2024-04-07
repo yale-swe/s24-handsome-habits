@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 const SettingsButton = (props) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={props.onPress} style={props.style}>
+    <View style={styles.container} testID={"settings-button-container"}>
+      <TouchableOpacity onPress={props.onPress} style={props.style} testID={props.testID}>
         <Image
           source={props.logo}
           style={styles.settingsButtonImage}
@@ -21,6 +21,7 @@ SettingsButton.propTypes = {
   logo: PropTypes.any,
   style: PropTypes.any,
   onPress: PropTypes.any,
+  testID: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

@@ -47,18 +47,15 @@ const EmotionVisualizer = () => {
   }, []);
 
   return (
-    <View style={styles.bulldogContainer}>
+    <View style={styles.bulldogContainer} testID={"emotions-testing"}>
       <Image
         source={avatarLink}
-        style={styles.bulldog}
+        style={styles.clothes}
+        testID={"emotions-image"}
       />
     </View>
   );
 };
-
-// WellnessBar.propTypes = {
-//     emotion: PropTypes.any,
-//   }; for julian :)
 
 const styles = StyleSheet.create({
   bulldog: {
@@ -74,7 +71,16 @@ const styles = StyleSheet.create({
     height: 384,
     bottom: 20,
     alignItems: "center",
+    justifyContent: "center",
     paddingTop: 40,
+  },
+  clothes: {
+    position: "absolute",
+    zIndex: 1,
+    width: 200,
+    height: 300,
+    bottom: 26,
+    left: 27,
   },
 });
 

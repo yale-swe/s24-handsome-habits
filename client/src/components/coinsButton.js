@@ -5,15 +5,16 @@ import { Typography } from "../styles";
 
 const CoinsButton = (props) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={props.onPress} style={props.style}>
-        <View style={styles.buttonContainer}>
+    <View style={styles.container} testID={"coins-button-container"}>
+      <TouchableOpacity onPress={props.onPress} style={props.style} testID={props.testID}>
+        <View style={styles.coinButtonContainer} testID={"coins-info-container"}>
           <Text style={Typography.coins}> {props.coinAmount} </Text>
         </View>
         <Image
           source={props.logo}
           style={styles.coinsButtonImage}
           resizeMode="contain"
+          testID={"coins-button-image"}
         />
       </TouchableOpacity>
       <StatusBar style="auto" />
@@ -26,6 +27,7 @@ CoinsButton.propTypes = {
   logo: PropTypes.any,
   style: PropTypes.any,
   onPress: PropTypes.any,
+  testID: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
     width: 27,
     height: 27,
   },
-  buttonContainer: {
+  coinButtonContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
