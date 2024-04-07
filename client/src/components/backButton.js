@@ -1,18 +1,17 @@
-
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Buttons, Colors } from "../styles";
 import PropTypes from "prop-types";
-
 
 const backButton = (props) => {
   return (
     <>
       <TouchableOpacity onPress={props.onPress} style={styles.backButton}>
-        <Image source={require("../assets/images/backarrow.png")} style={styles.arrow} />
-        </TouchableOpacity>
+        <Image
+          source={require("../assets/images/backarrow.png")}
+          style={styles.arrow}
+        />
+      </TouchableOpacity>
     </>
-
-
   );
 };
 
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: Colors.Colors.navy,
   },
-  backButton : {
+  backButton: {
     ...Buttons.backButton,
     backgroundColor: Colors.Colors.navy,
   },

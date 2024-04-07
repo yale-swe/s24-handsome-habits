@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Colors } from "../styles";
 
-
 const WorkoutLogItem = ({ title, duration, time, tags, onDelete }) => {
   // Format the date and time from the backend response
     const formatDateAndTime = (dateString) => {

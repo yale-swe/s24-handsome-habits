@@ -7,7 +7,6 @@ import { retrieveHabitsByCategory } from "../services/habitService";
 import BackButton from "../components/backButton";
 import WorkoutLogList from "../components/workoutLogList.js"; // Import the WorkoutLogList component
 
-
 // eslint-disable-next-line
 const Exercise = (props) => {
 
@@ -33,14 +32,12 @@ const Exercise = (props) => {
     fetchWorkoutLogs();
   }, []); // The empty array ensures this effect runs only once when the component mounts
 
-
   useFocusEffect(
     // Fetch workout logs when the component mounts after a navigation ction
     React.useCallback(() => {
       fetchWorkoutLogs();
     }, [])
   );
-
 
   return (
     <View style={styles.container}>
@@ -66,7 +63,6 @@ const Exercise = (props) => {
               <Text style={styles.logButtonText}>Log a Workout</Text>
         </TouchableOpacity>
       </View>
-
 
     </View>
   );

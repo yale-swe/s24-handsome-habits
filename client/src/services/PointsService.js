@@ -66,7 +66,7 @@ export async function updatePoints(newPoints) {
  * @returns {JSON} - The updated points if successful; otherwise, null.
  */
 export async function updatePointswithChange(category, pointChange) {
-  let categoryPoints = categoryPointName(category.toLowerCase());
+  const categoryPoints = categoryPointName(category.toLowerCase());
   let currentPoints = await AsyncStorage.getItem("points");
   currentPoints = JSON.parse(currentPoints);
 
