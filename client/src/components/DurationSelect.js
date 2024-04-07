@@ -20,7 +20,10 @@ const DurationSelect = (props) => {
 
   // on input change, set the duration to the new value
   const handleInputChange = (text) => {
-    const newDuration = parseInt(text) || 0;
+    let newDuration = parseInt(text) || 0;
+    if (newDuration < props.min || newDuration > props.max) {
+      newDuration = 0;
+    }
     props.setDuration(newDuration.toString());
   };
 
@@ -53,6 +56,7 @@ const DurationSelect = (props) => {
           value={props.duration}
           keyboardType="numeric"
           activeOpacity={1}
+          testID="durationInput"
         />
         <TouchableOpacity onPress={increment} style={styles.button}>
           <Text>+</Text>
