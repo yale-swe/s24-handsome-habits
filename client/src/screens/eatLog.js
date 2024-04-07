@@ -27,17 +27,17 @@ const EatLog = (props) => {
   // meal options, can be easily added to or removed from
   const typeOptions = ["Snack", "Breakfast", "Lunch", "Dinner", "Other"];
 
-  // function to log exercise through habitService
-  const logExercise = async () => {
+  // function to log meal through habitService
+  const logMeal = async () => {
     const cookies = AsyncStorage.getItem("cookies");
     if (cookies) {
       axios.defaults.headers.Cookie = cookies;
     }
 
     // Same object that will be stored in db
-    const newExercise = {
+    const newMeal = {
       title: title,
-      category_name: "Exercising",
+      category_name: "Eating",
       description: description,
       details: {
         eating: {
@@ -49,10 +49,10 @@ const EatLog = (props) => {
     };
 
     // call service function
-    await addHabit(newExercise);
-    console.log("Adding workout: ", newExercise);
+    await addHabit(newMeal);
+    console.log("Adding meal: ", newMeal);
 
-    props.navigation.navigate("Exercise");
+    props.navigation.navigate("Home");
 
     // reset inputs
     setTitle("");
@@ -72,7 +72,7 @@ const EatLog = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Exercise")} />
+        <BackButton onPress={() => props.navigation.navigate("Home")} />
       </View>
 
       <View style={styles.logContainer}>
@@ -111,7 +111,7 @@ const EatLog = (props) => {
         </View>
 
         <View style={styles.logButtonContainer}>
-          <AddHabitButton text="Add Meal" onPress={logExercise} />
+          <AddHabitButton text="Add Meal" onPress={logMeal} />
         </View>
       </View>
     </View>

@@ -75,12 +75,12 @@ const Home = (props) => {
         <HabitButton
           logo={require("../assets/images/sleeping_icon.png")}
           style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("Exercise")}
+          onPress={() => props.navigation.navigate("SleepLog")}
         />
         <HabitButton
           logo={require("../assets/images/studying_icon.png")}
           style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("Exercise")}
+          onPress={() => props.navigation.navigate("StudyLog")}
         />
       </View>
     </View>
