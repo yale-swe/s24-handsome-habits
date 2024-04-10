@@ -40,6 +40,5 @@
         "testEnvironment": "jest-environment-node",
         "transform": {},
         "type": "module"
-        
     }
 }
