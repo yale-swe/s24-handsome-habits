@@ -18,7 +18,7 @@ jobs:
     - name: Install server dependencies
       run: |
         cd server
-        npm install
+        npm ci
     - name: Run server lint
       run: |
         cd server
