@@ -26,7 +26,7 @@ const HorizontalSelect = (props) => {
             option === props.selectedOption && styles.selectedTypeButton,
           ]}
           onPress={() => props.setSelectedOption(option)}
-          testID="touchable"
+          testID="touchableHorizontal"
         >
           <Text>{option}</Text>
         </TouchableOpacity>

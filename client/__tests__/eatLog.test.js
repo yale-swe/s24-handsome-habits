@@ -1,6 +1,6 @@
 import React from "react";
 import { fireEvent, render, act } from "@testing-library/react-native";
-import ExerciseLog from "../src/screens/ExerciseLog"; // Adjust the import path as necessary
+import EatLog from "../src/screens/EatLog"; // Adjust the import path as necessary
 import * as habitService from "../src/services/habitService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -19,12 +19,12 @@ jest.mock("axios", () => ({
     },
 }));
 
-describe("ExerciseLog Page", () => {
+describe("EatLog Page", () => {
     const mockNavigate = jest.fn();
 
-    const exerciseSetup = () => {
+    const eatSetup = () => {
         const utils = render(
-            <ExerciseLog navigation={{ navigate: mockNavigate }} />
+            <EatLog navigation={{ navigate: mockNavigate }} />
         );
         return {
             ...utils,
@@ -42,60 +42,57 @@ describe("ExerciseLog Page", () => {
 
     // Test if all components are rendered correctly
     it("renders all components correctly", () => {
-        const { getByText, getByTestId } = exerciseSetup();
+        const { getByText, getByTestId } = eatSetup();
 
         // Check for all labels
-        expect(getByText("Duration")).toBeTruthy();
-        expect(getByText("Workout Type")).toBeTruthy();
-        expect(getByText("Intensity")).toBeTruthy();
+        expect(getByText("Healthy?")).toBeTruthy();
+        expect(getByText("Meal Type")).toBeTruthy();
         expect(getByText("Time")).toBeTruthy();
-        expect(getByText("Add Workout")).toBeTruthy();
+        expect(getByText("Add Meal")).toBeTruthy();
 
         // Check for all components
         expect(getByTestId("BackButton")).toBeTruthy();
         expect(getByTestId("TitleInput")).toBeTruthy();
         expect(getByTestId("TimeSelect")).toBeTruthy();
-        expect(getByTestId("DurationSelect")).toBeTruthy();
         expect(getByTestId("HorizontalSelect")).toBeTruthy();
-        expect(getByTestId("ThreeOptionBar")).toBeTruthy();
         expect(getByTestId("DescriptionInput")).toBeTruthy();
         expect(getByTestId("AddHabitButton")).toBeTruthy();
     });
 
-    // Test if the back button navigates back to the Exercise screen
-    it("navigates back to Exercise screen on back button press", () => {
-        const { getByTestId } = exerciseSetup();
+    // Test if the back button navigates back to the Eat screen
+    it("navigates back to Eat screen on back button press", () => {
+        const { getByTestId } = eatSetup();
 
         const backButton = getByTestId("touchableBack");
         fireEvent.press(backButton); // click the button part of component
-        expect(mockNavigate).toHaveBeenCalledWith("Exercise"); // check if navigate was called with correct argument
+        expect(mockNavigate).toHaveBeenCalledWith("Home"); // check if navigate was called with correct argument
     });
 
-    // Test if the logExercise function works correctly
-    it("correctly logs exercise and navigates", async () => {
-        const { getByTestId } = exerciseSetup();
+    // Test if the logEat function works correctly
+    it("correctly logs eat and navigates", async () => {
+        const { getByTestId } = eatSetup();
 
-        // Assume you trigger logExercise via some UI interaction, e.g., pressing a "Log Exercise" button
+        // Assume you trigger logEat via some UI interaction, e.g., pressing a "Log Eat" button
         fireEvent.press(getByTestId("AddHabitButton"));
 
         await act(async () => {
             expect(AsyncStorage.getItem).toHaveBeenCalledWith("cookies"); // check async storage was called
 
-            // Check addHabit was called with the expected newExercise object
+            // Check addHabit was called with the expected newEat object
             expect(habitService.addHabit).toHaveBeenCalledWith(
                 expect.objectContaining({
                     title: expect.any(String),
-                    category_name: "Exercising",
+                    category_name: "Eating",
                 })
             );
         });
 
         // Verify navigation
-        expect(mockNavigate).toHaveBeenCalledWith("Exercise");
+        expect(mockNavigate).toHaveBeenCalledWith("Home");
     });
 
     it("matches the snapshot", () => {
-        const { toJSON } = exerciseSetup();
+        const { toJSON } = eatSetup();
         expect(toJSON()).toMatchSnapshot();
     });
 });

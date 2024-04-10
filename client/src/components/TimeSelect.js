@@ -50,7 +50,7 @@ const TimeSelect = (props) => {
       <TouchableOpacity
         style={styles.smallInput}
         onPress={() => props.setOpen(true)}
-        testID="touchable"
+        testID="touchableTime"
       >
         <Text style={{ color: props.dateIsConfirmed ? "black" : "grey" }}>
           {getTime()}

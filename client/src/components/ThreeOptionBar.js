@@ -23,7 +23,7 @@ const ThreeOptionBar = (props) => {
               index === 1 ? { left: "50%", marginLeft: -15 } : {},
             ]}
             onPress={() => props.setSelectedOption(option)}
-            testID="touchable"
+            testID="touchableThree"
           ></TouchableOpacity>
         </View>
       ))}

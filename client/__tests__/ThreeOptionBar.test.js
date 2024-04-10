@@ -36,7 +36,7 @@ describe("Three Option Bar Component", () => {
         options.forEach((option) => {
             expect(getByText(option)).toBeTruthy(); // check for each option
         });
-        const buttons = getAllByTestId("touchable"); // get all three buttons
+        const buttons = getAllByTestId("touchableThree"); // get all three buttons
         expect(buttons.length).toBe(3); // check for three buttons
     });
 
@@ -44,7 +44,7 @@ describe("Three Option Bar Component", () => {
     it("triggers onPress when pressed", () => {
         const { getAllByTestId } = threeSetup();
 
-        const buttons = getAllByTestId("touchable"); // get all three buttons
+        const buttons = getAllByTestId("touchableThree"); // get all three buttons
         buttons.forEach((button) => {
             fireEvent.press(button); // press each button
         });
@@ -55,7 +55,7 @@ describe("Three Option Bar Component", () => {
     it("updates selected option correctly", () => {
         const { getAllByTestId } = threeSetup();
 
-        const buttons = getAllByTestId("touchable"); // get all three buttons
+        const buttons = getAllByTestId("touchableThree"); // get all three buttons
         buttons.forEach((button, index) => {
             fireEvent.press(button); // press each button
             expect(mockSetSelectedOption).toHaveBeenNthCalledWith(

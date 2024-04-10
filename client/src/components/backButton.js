@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const backButton = (props) => {
   return (
     <View testID={props.testID}>
-      <TouchableOpacity onPress={props.onPress} style={styles.backButton} testID="touchable">
+      <TouchableOpacity onPress={props.onPress} style={styles.backButton} testID="touchableBack">
         <Image
           source={require("../assets/images/backarrow.png")}
           style={styles.arrow}

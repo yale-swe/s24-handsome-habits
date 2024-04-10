@@ -21,7 +21,7 @@ describe("Back Button Component", () => {
         const mockOnPress = jest.fn();
         const { getByTestId } = render(<BackButton onPress={mockOnPress} testID={testID} />);
 
-        const button = getByTestId("touchable"); // get the pressable part of the button
+        const button = getByTestId("touchableBack"); // get the pressable part of the button
         fireEvent.press(button);
 
         // Expect the mock onPress function to have been called exactly once

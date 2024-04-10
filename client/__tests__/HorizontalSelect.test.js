@@ -36,7 +36,7 @@ describe("Horizontal Select Component", () => {
         options.forEach((option) => {
             expect(getByText(option)).toBeTruthy(); // check for each option
         });
-        const buttons = getAllByTestId("touchable"); // get all buttons
+        const buttons = getAllByTestId("touchableHorizontal"); // get all buttons
         expect(buttons.length).toBe(options.length); // check for same number of buttons
     });
 
@@ -44,7 +44,7 @@ describe("Horizontal Select Component", () => {
     it("triggers onPress when pressed", () => {
         const { getAllByTestId } = horizontalSetup();
 
-        const buttons = getAllByTestId("touchable"); // get all three buttons
+        const buttons = getAllByTestId("touchableHorizontal"); // get all three buttons
         buttons.forEach((button) => {
             fireEvent.press(button); // press each button
         });
@@ -55,7 +55,7 @@ describe("Horizontal Select Component", () => {
     it("updates selected option correctly", () => {
         const { getAllByTestId } = horizontalSetup();
 
-        const buttons = getAllByTestId("touchable"); // get all three buttons
+        const buttons = getAllByTestId("touchableHorizontal"); // get all three buttons
         buttons.forEach((button, index) => {
             fireEvent.press(button); // press each button
             expect(mockSetSelectedOption).toHaveBeenNthCalledWith(
