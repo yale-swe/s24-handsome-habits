@@ -6,6 +6,7 @@
     "main": "index.js",
     "scripts": {
         "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+        "test-coverage": "NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
         "start": "nodemon src/index.js",
         "user_test": "nodemon src/tests/testUser.js",
         "lint": "eslint .",
