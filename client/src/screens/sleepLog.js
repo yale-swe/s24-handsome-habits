@@ -14,7 +14,6 @@ import TimeSelect from "../components/TimeSelect";
 import DurationSelect from "../components/DurationSelect";
 import ToggleSwitch from "../components/ToggleSwitch";
 
-
 // eslint-disable-next-line
 const SleepLog = (props) => {
   // inputs
@@ -26,7 +25,6 @@ const SleepLog = (props) => {
   const [open, setOpen] = useState(false);
   const [dateIsConfirmed, setIsConfirmed] = useState(false);
   const [isToggle, setToggle] = useState(false);
-
 
   // quality options, can be renamed but must be len() = 3
   const qualityOptions = ["Low", "Medium", "High"];

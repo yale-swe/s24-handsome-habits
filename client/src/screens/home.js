@@ -47,13 +47,13 @@ const Home = (props) => {
         <SettingsButton
           logo={require("../assets/images/bulldoghead.png")}
           style={Buttons.settingsButton}
-          onPress={() => props.navigation.navigate("Exercise")}
+          onPress={() => props.navigation.navigate("TShop")}
         />
         <CoinsButton
           coinAmount={pointsInfo != null ? pointsInfo.coins : 0}
           logo={require("../assets/images/coin.png")}
           style={Buttons.coinsButton}
-          onPress={() => props.navigation.navigate("Exercise")}
+          onPress={() => props.navigation.navigate("Shop")}
         />
       </View>
       <WellnessBar
