@@ -12,11 +12,11 @@ const TimeSelect = (props) => {
     // Format the time as such "12:00pm"
     const formattedTime = date
       .toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
         hour12: true,
       })
-      .toLowerCase();
+      .toLowerCase().replace(/\s/g, "");
 
     return formattedTime;
   };
@@ -50,6 +50,7 @@ const TimeSelect = (props) => {
       <TouchableOpacity
         style={styles.smallInput}
         onPress={() => props.setOpen(true)}
+        testID="touchable"
       >
         <Text style={{ color: props.dateIsConfirmed ? "black" : "grey" }}>
           {getTime()}

@@ -17,7 +17,7 @@ describe("Back Button Component", () => {
     });
 
     it("triggers onPress when pressed", () => {
-        
+
         const mockOnPress = jest.fn();
         const { getByTestId } = render(<BackButton onPress={mockOnPress} testID={testID} />);
 
