@@ -22,7 +22,9 @@ describe("ExerciseLog Page", () => {
 
     // Test if all components are rendered correctly
     it("renders all components correctly", () => {
-        const { getByText, getByPlaceholderText } = render(<ExerciseLog navigation={{ navigate: jest.fn() }} />);
+        const { getByText, getByPlaceholderText } = render(
+            <ExerciseLog navigation={{ navigate: jest.fn() }} />
+        );
 
         expect(getByText("Add Workout")).toBeTruthy(); // Check for AddHabitButton
 
@@ -37,24 +39,27 @@ describe("ExerciseLog Page", () => {
 
     // Test if the title input updates the title state
     it("updates title state on input change", () => {
+        const testTitle = "Morning Run";
+        const { getByPlaceholderText } = render(
+            <ExerciseLog navigation={{ navigate: jest.fn() }} />
+        );
 
-    const testTitle = "Morning Run";
-    const { getByPlaceholderText } = render(<ExerciseLog navigation={{ navigate: jest.fn() }} />);
+        // Assuming your TitleInput component has a placeholder text. If not, consider using getByTestId or another query method.
+        const titleInput = getByPlaceholderText("Title"); // Adjust the placeholder text as per your component
 
-    // Assuming your TitleInput component has a placeholder text. If not, consider using getByTestId or another query method.
-    const titleInput = getByPlaceholderText("Title"); // Adjust the placeholder text as per your component
+        fireEvent.changeText(titleInput, testTitle);
 
-    fireEvent.changeText(titleInput, testTitle);
-
-    // Assert that the input's value has changed to what you've typed
-    expect(titleInput.props.value).toBe(testTitle);
+        // Assert that the input's value has changed to what you've typed
+        expect(titleInput.props.value).toBe(testTitle);
     });
 
     it("calls logExercise when Add Workout button is pressed", async () => {
         habitService.addHabit.mockResolvedValue(true); // Mock the addHabit service to resolve
         const navigateMock = jest.fn();
 
-        const { getByText } = render(<ExerciseLog navigation={{ navigate: navigateMock }} />);
+        const { getByText } = render(
+            <ExerciseLog navigation={{ navigate: navigateMock }} />
+        );
         const addButton = getByText("Add Workout");
 
         fireEvent.press(addButton);
@@ -65,5 +70,4 @@ describe("ExerciseLog Page", () => {
             expect(navigateMock).toHaveBeenCalledWith("Exercise");
         });
     });
-
 });
