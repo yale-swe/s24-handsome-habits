@@ -7,9 +7,10 @@ const AddHabitButton = (props) => {
     AddHabitButton.propTypes = {
         text: PropTypes.string,
         onPress: PropTypes.any,
+        testID: PropTypes.string,
       };
     return (
-        <TouchableOpacity style={styles.logButton} onPress={props.onPress}>
+        <TouchableOpacity style={styles.logButton} onPress={props.onPress} testID={props.testID}>
             <Text style={styles.logButtonText}>{props.text}</Text>
         </TouchableOpacity>
     );

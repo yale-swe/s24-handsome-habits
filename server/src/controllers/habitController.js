@@ -15,7 +15,7 @@ import Category from "../db/models/category.js";
  *   details: {  -- just one of the following details objects
  *      eating: { eating_tag: String, healthy_meal: Boolean },
         sleep: {sleep_duration: Number, quality_of_sleep: Number },
-        study: { study_duration: Number, study_productivity: Number },
+        study: { study_duration: Number, study_productivity: String },
         workout: { workout_tag: "String, workout_duration: Number, workout_intensity: String }
  *   },
  *   date_and_time: Date,

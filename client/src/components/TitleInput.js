@@ -6,6 +6,7 @@ const TitleInput = (props) => {
   TitleInput.propTypes = {
     value: PropTypes.any,
     onChangeText: PropTypes.func,
+    testID: PropTypes.string,
   };
 
   return (
@@ -14,6 +15,7 @@ const TitleInput = (props) => {
       placeholder="Title"
       value={props.value}
       onChangeText={props.onChangeText}
+      testID={props.testID}
     />
   );
 };

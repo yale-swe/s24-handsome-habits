@@ -24,7 +24,6 @@ const StudyLog = (props) => {
   const [open, setOpen] = useState(false);
   const [dateIsConfirmed, setIsConfirmed] = useState(false);
 
-
   // productivity options, can be renamed but must be len() = 3
   const productivityOptions = ["Low", "Medium", "High"];
 
@@ -73,12 +72,12 @@ const StudyLog = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Home")} />
+        <BackButton onPress={() => props.navigation.navigate("Home")} testID="BackButton"/>
       </View>
 
       <View style={styles.logContainer}>
         <View style={styles.titleContainer}>
-          <TitleInput value={title} onChangeText={setTitle} />
+          <TitleInput value={title} onChangeText={setTitle} testID="TitleInput"/>
         </View>
 
         <View style={styles.timeContainer}>
@@ -90,6 +89,7 @@ const StudyLog = (props) => {
             setOpen={setOpen}
             dateIsConfirmed={dateIsConfirmed}
             setIsConfirmed={setIsConfirmed}
+            testID="TimeSelect"
           />
         </View>
 
@@ -102,6 +102,7 @@ const StudyLog = (props) => {
             max={700}
             duration={duration}
             setDuration={setDuration}
+            testID="DurationSelect"
           />
         </View>
 
@@ -112,16 +113,17 @@ const StudyLog = (props) => {
               options={productivityOptions}
               selectedOption={selectedProductivity}
               setSelectedOption={setSelectedProductivity}
+              testID="ThreeOptionBar"
             />
           </View>
         </View>
 
         <View style={styles.descriptionContainer}>
-          <DescriptionInput value={description} onChangeText={setDescription} />
+          <DescriptionInput value={description} onChangeText={setDescription} testID="DescriptionInput"/>
         </View>
 
         <View style={styles.logButtonContainer}>
-          <AddHabitButton text="Add Study Session" onPress={logStudy} />
+          <AddHabitButton text="Add Study Session" onPress={logStudy} testID="AddHabitButton"/>
         </View>
       </View>
     </View>

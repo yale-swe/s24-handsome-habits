@@ -1,5 +1,5 @@
 import { Colors } from "../styles";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import PropTypes from "prop-types";
 import DatePicker from "react-native-date-picker";
 
@@ -12,11 +12,11 @@ const TimeSelect = (props) => {
     // Format the time as such "12:00pm"
     const formattedTime = date
       .toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
         hour12: true,
       })
-      .toLowerCase();
+      .toLowerCase().replace(/\s/g, "");
 
     return formattedTime;
   };
@@ -28,9 +28,10 @@ const TimeSelect = (props) => {
     setOpen: PropTypes.func,
     dateIsConfirmed: PropTypes.bool,
     setIsConfirmed: PropTypes.func,
+    testID: PropTypes.string,
   };
   return (
-    <>
+    <View testID={props.testID}>
       <DatePicker
         mode="time"
         modal
@@ -49,12 +50,13 @@ const TimeSelect = (props) => {
       <TouchableOpacity
         style={styles.smallInput}
         onPress={() => props.setOpen(true)}
+        testID="touchableTime"
       >
         <Text style={{ color: props.dateIsConfirmed ? "black" : "grey" }}>
           {getTime()}
         </Text>
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 
