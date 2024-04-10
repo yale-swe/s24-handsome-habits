@@ -1,6 +1,6 @@
 import React from "react";
 import { fireEvent, render, act } from "@testing-library/react-native";
-import SleepLog from "../src/screens/SleepLog"; // Adjust the import path as necessary
+import SleepLog from "../src/screens/sleepLog";
 import * as habitService from "../src/services/habitService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
