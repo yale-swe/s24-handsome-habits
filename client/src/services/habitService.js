@@ -25,14 +25,13 @@ import { updatePointswithChange } from "./PointsService";
  */
 export async function addHabit(newHabit) {
   try {
+
     const habit_response = await Api.post("/habits/add", {
       habit: newHabit,
     }); // Post request to add a new exercise habit
-
     // Save new habit in client's local storage
     AsyncStorage.setItem("habit", JSON.stringify(habit_response.data));
 
-    console.log("category_name", newHabit.category_name);
     // Update points based on the new habit
 
     const { points, coins } = calculatePoints(newHabit);
@@ -48,7 +47,7 @@ export async function addHabit(newHabit) {
   }
 }
 
-function calculatePoints(newHabit) {
+export function calculatePoints(newHabit) {
   let points = 0;
   let coins = 0;
 
