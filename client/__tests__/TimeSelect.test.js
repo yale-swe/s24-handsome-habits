@@ -26,7 +26,7 @@ jest.mock("react-native-date-picker", () => {
 describe("Time Select Component", () => {
     // setup
     const timeSetup = (openBool = false) => {
-        const date = new Date("2021-01-01T12:00:00Z");
+        const date = new Date("2021-01-01T11:25:00Z");
         const open = openBool;
         const mockDateIsConfirmed = false;
         const testID = "TimeSelect";
@@ -57,7 +57,7 @@ describe("Time Select Component", () => {
 
     // set to fixed date for consistent testing
     beforeAll(() => {
-        MockDate.set(new Date("2021-01-01T12:00:00Z"));
+        MockDate.set(new Date("2021-01-01T11:25:00Z"));
     });
 
     // renders with the correct initial time
@@ -65,7 +65,7 @@ describe("Time Select Component", () => {
 
         const { getByTestId, getByText } = timeSetup();
         expect(getByTestId("TimeSelect")).toBeTruthy(); // check component
-        expect(getByText("7:00am")).toBeTruthy(); // check correct time
+        expect(getByText("6:25am")).toBeTruthy(); // check correct time
     });
 
     // without open modal, tests if button works
