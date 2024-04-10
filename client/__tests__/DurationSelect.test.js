@@ -1,6 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react-native";
 import DurationSelect from "../src/components/DurationSelect";
+import DurationSelect from "../src/components/DurationSelect";
 
 // Mocks
 
