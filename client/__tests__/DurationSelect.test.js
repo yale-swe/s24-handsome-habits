@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react-native";
-import DurationSelect from "../src/components/DurationSelect"; 
-
+import DurationSelect from "../src/components/DurationSelect";
 
 // Mocks
 
@@ -27,7 +26,6 @@ const updateAndRerenderDuration = (rerender, mockSetDuration, newDuration) => {
 describe("Duration Select Component", () => {
 
     const mockSetDuration = jest.fn();
-
 
     // Setup function to render the DurationSelect component
     const durationSetup = (initialDuration = "5") => {
@@ -74,9 +72,6 @@ describe("Duration Select Component", () => {
         fireEvent.changeText(input, "60"); // number at max
         expect(mockSetDuration).toHaveBeenCalledWith("60"); // function called with new duration
 
-
-
-
     });
 
     // Test that functions are called on 0 on invalid input
@@ -107,8 +102,6 @@ describe("Duration Select Component", () => {
 
         fireEvent.press(decrementButton); // decrement from 5
         expect(mockSetDuration).toHaveBeenCalledWith("0");
-
-
 
     });
 });
