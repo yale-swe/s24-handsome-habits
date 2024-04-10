@@ -19,10 +19,9 @@ export async function findPoints(user_id) {
 
         if (!foundPoints) {
             console.log("User's points not found");
-            return null;
-        } else {
-            return foundPoints;
         }
+
+        return foundPoints;
     } catch (error) {
         console.log("Error finding points");
         return null;
@@ -30,7 +29,12 @@ export async function findPoints(user_id) {
 }
 
 export async function deletePoints(user_id) {
-    return Points.deleteOne({ user_id: user_id });
+    try {
+        return Points.deleteOne({ user_id: user_id });
+    } catch (err) {
+        console.log("Error deleting points");
+        return null;
+    }
 }
 
 /**
