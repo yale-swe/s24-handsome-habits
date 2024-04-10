@@ -9,6 +9,7 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
 
 describe("Duration Select Component", () => {
 
+
     const mockSetDuration = jest.fn();
 
     // Setup function to render the DurationSelect component
