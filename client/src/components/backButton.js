@@ -1,22 +1,24 @@
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Buttons, Colors } from "../styles";
+import { View } from "react-native";
 import PropTypes from "prop-types";
 
 const backButton = (props) => {
   return (
-    <>
-      <TouchableOpacity onPress={props.onPress} style={styles.backButton}>
+    <View testID={props.testID}>
+      <TouchableOpacity onPress={props.onPress} style={styles.backButton} testID="touchable">
         <Image
           source={require("../assets/images/backarrow.png")}
           style={styles.arrow}
         />
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 
 backButton.propTypes = {
   onPress: PropTypes.any,
+  testID: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

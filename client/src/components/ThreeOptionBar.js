@@ -7,10 +7,11 @@ const ThreeOptionBar = (props) => {
     options: PropTypes.arrayOf(PropTypes.string),
     selectedOption: PropTypes.string,
     setSelectedOption: PropTypes.func,
+    testID: PropTypes.string,
   };
   return (
     <>
-      <View style={styles.intensityLine} />
+      <View style={styles.intensityLine} testID={props.testID}/>
       {props.options.map((option, index) => (
         <View style={styles.intensityOptionContainer} key={index}>
           <Text style={styles.optionLabel}>{option}</Text>

@@ -2,19 +2,20 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react-native";
 import DurationSelect from "../src/components/DurationSelect";
 
-// Mocks
-
+// Mock storage
 jest.mock("@react-native-async-storage/async-storage", () => ({
     getItem: jest.fn(),
 }));
 
 describe("Duration Select Component", () => {
+
     const mockSetDuration = jest.fn();
 
     // Setup function to render the DurationSelect component
-    const durationSetup = (initialDuration = "5") => {
+    const durationSetup = (initialDuration = "0") => {
         const utils = render(
             <DurationSelect
+                label="minutes"
                 increment={5}
                 min={0}
                 max={60}

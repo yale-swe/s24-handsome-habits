@@ -16,6 +16,7 @@ const DurationSelect = (props) => {
     max: PropTypes.number,
     duration: PropTypes.string,
     setDuration: PropTypes.func,
+    testID: PropTypes.string,
   };
 
   // on input change, set the duration to the new value
@@ -42,7 +43,7 @@ const DurationSelect = (props) => {
   };
 
   return (
-    <View style={styles.durationContainer}>
+    <View style={styles.durationContainer} testID={props.testID}>
       <View style={styles.durationButton}>
         <TouchableOpacity onPress={decrement} style={styles.button}>
           <Text>-</Text>

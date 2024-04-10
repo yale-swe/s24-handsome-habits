@@ -8,12 +8,14 @@ const HorizontalSelect = (props) => {
     options: PropTypes.arrayOf(PropTypes.string),
     selectedOption: PropTypes.string,
     setSelectedOption: PropTypes.func,
+    testID: PropTypes.string,
   };
   return (
     <ScrollView
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.typesContainer}
+      testID={props.testID}
     >
       {props.options.map((option, index) => (
         <TouchableOpacity

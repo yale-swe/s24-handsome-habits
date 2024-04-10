@@ -1,5 +1,5 @@
 import { Colors } from "../styles";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import PropTypes from "prop-types";
 import DatePicker from "react-native-date-picker";
 
@@ -28,9 +28,10 @@ const TimeSelect = (props) => {
     setOpen: PropTypes.func,
     dateIsConfirmed: PropTypes.bool,
     setIsConfirmed: PropTypes.func,
+    testID: PropTypes.string,
   };
   return (
-    <>
+    <View testID={props.testID}>
       <DatePicker
         mode="time"
         modal
@@ -54,7 +55,7 @@ const TimeSelect = (props) => {
           {getTime()}
         </Text>
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 
