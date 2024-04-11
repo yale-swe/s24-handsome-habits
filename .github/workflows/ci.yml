@@ -26,7 +26,9 @@ jobs:
     - name: Run server Jest tests
       run: |
         cd server
-        npm test
+        npm test -- --coverage
+      env:
+        TZ: 'America/New_York'
 
     # Install dependencies, run lint, and tests in the client directory
     - name: Install client dependencies
@@ -40,4 +42,6 @@ jobs:
     - name: Run client Jest tests
       run: |
         cd client
-        npm test
+        npm test -- --coverage
+      env:
+        TZ: 'America/New_York'

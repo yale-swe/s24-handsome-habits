@@ -73,7 +73,7 @@ const Home = (props) => {
         <HabitButton
           logo={require("../assets/images/eating_icon.png")}
           style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("EatLog")}
+          onPress={() => props.navigation.navigate("Eat")}
           testID={"eating-button"}
         />
         <HabitButton
@@ -85,14 +85,14 @@ const Home = (props) => {
         <HabitButton
           logo={require("../assets/images/sleeping_icon.png")}
           style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("SleepLog")}
           testID={"sleeping-button"}
+          onPress={() => props.navigation.navigate("Sleep")}
         />
         <HabitButton
           logo={require("../assets/images/studying_icon.png")}
           style={Buttons.habitButton}
-          onPress={() => props.navigation.navigate("StudyLog")}
           testID={"studying-button"}
+          onPress={() => props.navigation.navigate("Study")}
         />
       </View>
     </View>

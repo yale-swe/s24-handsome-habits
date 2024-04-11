@@ -1,46 +1,23 @@
 import React from "react";
-import { fireEvent, render, waitFor } from "@testing-library/react-native";
-import Login from "../src/screens/login.js";
-import * as Google from "expo-auth-session/providers/google";
+import { fireEvent, render } from "@testing-library/react-native";
+import Login from "../src/screens/login";
 
-// Mocking Google Authentication and logout function
-jest.mock("expo-auth-session/providers/google", () => ({
-  useAuthRequest: jest.fn().mockReturnValue([
-    {}, // mock request
-    Promise.resolve({ type: "success" }), // mock response
-    jest.fn(), // mock promptAsync function
-  ]),
-}));
-
+/// Mock WebView
 jest.mock("react-native-webview", () => ({
-  WebView: () => "WebView",
+  WebView: jest.fn().mockImplementation(({ source }) => (
+    // eslint-disable-next-line
+    <div testID="mockedWebView">{source.uri}</div>
+  ))
 }));
 
+// Mock other dependencies
 jest.mock("@react-native-async-storage/async-storage", () => ({
   setItem: jest.fn().mockResolvedValue(null),
-  getItem: jest.fn().mockResolvedValue(null),
-  removeItem: jest.fn().mockResolvedValue(null),
-  clear: jest.fn().mockResolvedValue(null),
-}));
-
-jest.mock("../src/services/authenticationUtil.js", () => ({
-  Authentication: jest.fn().mockResolvedValue(true),
-  CASLogout:  jest.fn().mockResolvedValue(true),
-}));
-
-jest.mock("../src/services/userService", () => ({
-  findUser: jest.fn().mockRejectedValue(new Error("User not found")),
-}));
-
-jest.mock("../src/services/userService", () => ({
-  findUser: jest.fn().mockRejectedValue(new Error("User not found")),
+  getItem: jest.fn().mockResolvedValue(JSON.stringify({ "connect.sid": "dummy_cookie" })),
 }));
 
 jest.mock("@react-native-cookies/cookies", () => ({
-  get: jest.fn(),
-  set: jest.fn(),
-  clearAll: jest.fn(),
-  clearByName: jest.fn(),
+  get: jest.fn().mockResolvedValue({ "connect.sid": "dummy_cookie" }),
 }));
 
 describe("Login Component", () => {
@@ -48,21 +25,21 @@ describe("Login Component", () => {
     const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);
     expect(getByText("Welcome to")).toBeTruthy();
     expect(getByText("Handsome Habits")).toBeTruthy();
-    expect(getByText("Sign in with Google")).toBeTruthy();
     expect(getByText("Sign in with Yale CAS")).toBeTruthy();
   });
 
-  it("calls Google sign-in on button press", async () => {
-    const promptAsyncMock = jest.fn();
-    Google.useAuthRequest.mockImplementation(() => ([{}, {}, promptAsyncMock]));
+  it("renders the CAS WebView with correct props on button press", () => {
+    const { getByText, getByTestId } = render(<Login navigation={{ navigate: jest.fn() }} />);
 
-    const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);
-    const googleSignInButton = getByText("Sign in with Google");
+    // Trigger the function to show WebView
+    const casLoginButton = getByText("Sign in with Yale CAS");
+    fireEvent.press(casLoginButton);
 
-    fireEvent.press(googleSignInButton);
-    await waitFor(() => {
-      expect(promptAsyncMock).toHaveBeenCalled();
-    });
+    // Check if WebView is rendered
+    const webView = getByTestId("mockedWebView");
+    expect(webView).toBeTruthy();
+
+    // Check the props of WebView, specifically the URI
+    expect(webView.props.children).toBe("http://localhost:8000/auth/cas/login");
   });
-
 });

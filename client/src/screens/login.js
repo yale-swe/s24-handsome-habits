@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { WebView } from "react-native-webview";
-import Authentication, {
+import  {
   LoginWithActiveSession,
 } from "../services/authenticationUtil";
-import * as Google from "expo-auth-session/providers/google";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -21,30 +20,12 @@ const Login = (props) => {
   };
 
   const [showWebView, setShowWebView] = useState(false);
-  const [, response, promptAsync] = Google.useAuthRequest({
-    iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
-  });
 
   function handleLoginWithCAS() {
 
     // Display the WebView for CAS login
     setShowWebView(true);
   }
-
-  // For handling response from Google Auth
-  useEffect(() => {
-    (async () => {
-      if (response?.type === "success") {
-        try {
-          if (await Authentication(response)) {
-            props.navigation.navigate("Home");
-          }
-        } catch (error) {
-          console.error("Error logging in with Google:", error);
-        }
-      }
-    })();
-  }, [response]);
 
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.
@@ -115,12 +96,6 @@ const Login = (props) => {
             logo={require("../assets/images/ylogo.png")}
             style={styles.YloginButton}
             onPress={handleLoginWithCAS}
-          />
-          <LoginButton
-            title="Sign in with Google"
-            logo={require("../assets/images/googlelogo.png")}
-            style={styles.GloginButton}
-            onPress={() => promptAsync()}
           />
         </View>
       </View>

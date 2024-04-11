@@ -52,7 +52,7 @@ const EatLog = (props) => {
     await addHabit(newMeal);
     console.log("Adding meal: ", newMeal);
 
-    props.navigation.navigate("Home");
+    props.navigation.navigate("Eat");
 
     // reset inputs
     setTitle("");
@@ -72,7 +72,7 @@ const EatLog = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Home")} testID="BackButton"/>
+        <BackButton onPress={() => props.navigation.navigate("Eat")} testID="BackButton"/>
       </View>
 
       <View style={styles.logContainer}>

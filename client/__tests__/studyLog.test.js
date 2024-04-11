@@ -67,7 +67,7 @@ describe("StudyLog Page", () => {
 
         const backButton = getByTestId("touchableBack");
         fireEvent.press(backButton); // click the button part of component
-        expect(mockNavigate).toHaveBeenCalledWith("Home"); // check if navigate was called with correct argument
+        expect(mockNavigate).toHaveBeenCalledWith("Study"); // check if navigate was called with correct argument
     });
 
     // Test if the logStudy function works correctly
@@ -90,7 +90,7 @@ describe("StudyLog Page", () => {
         });
 
         // Verify navigation
-        expect(mockNavigate).toHaveBeenCalledWith("Home");
+        expect(mockNavigate).toHaveBeenCalledWith("Study");
     });
 
     it("matches the snapshot", () => {

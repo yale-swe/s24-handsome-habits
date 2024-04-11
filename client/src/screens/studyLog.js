@@ -52,7 +52,7 @@ const StudyLog = (props) => {
     await addHabit(newStudy);
     console.log("Adding study session: ", newStudy);
 
-    props.navigation.navigate("Home");
+    props.navigation.navigate("Study");
 
     // reset inputs
     setTitle("");
@@ -72,7 +72,7 @@ const StudyLog = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Home")} testID="BackButton"/>
+        <BackButton onPress={() => props.navigation.navigate("Study")} testID="BackButton"/>
       </View>
 
       <View style={styles.logContainer}>

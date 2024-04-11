@@ -55,7 +55,7 @@ const SleepLog = (props) => {
     await addHabit(newSleep);
     console.log("Adding sleep: ", newSleep);
 
-    props.navigation.navigate("Home");
+    props.navigation.navigate("Sleep");
 
     // reset inputs
     setTitle("");
@@ -76,7 +76,7 @@ const SleepLog = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Home")} testID="BackButton"/>
+        <BackButton onPress={() => props.navigation.navigate("Sleep")} testID="BackButton"/>
       </View>
 
       <View style={styles.logContainer}>
@@ -106,7 +106,7 @@ const SleepLog = (props) => {
           <Text style={styles.subHeading}>Duration</Text>
           <DurationSelect
             label="hours"
-            increment={5}
+            increment={1}
             min={0}
             max={240}
             duration={duration}

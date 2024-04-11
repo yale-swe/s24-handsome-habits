@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Colors } from "../styles";
 
-const WorkoutLogItem = ({ title, duration, time, tags, onDelete }) => {
+const LogItem = ({ title, duration, time, tags, onDelete, duration_unit }) => {
   // Format the date and time from the backend response
     const formatDateAndTime = (dateString) => {
         const date = new Date(dateString);
@@ -20,7 +20,7 @@ const WorkoutLogItem = ({ title, duration, time, tags, onDelete }) => {
         } else if (dateToCompare.getTime() === yesterday.getTime()) {
             datePart = "Yesterday";
         } else {
-            datePart = date.toDateString();
+            datePart = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
         }
 
         const timePart = date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
@@ -42,10 +42,15 @@ const WorkoutLogItem = ({ title, duration, time, tags, onDelete }) => {
                         ))}
                     </View>
                 </View>
-
-                <Text style={styles.details}>{`${duration} minutes | ${formatDateAndTime(time)}`}</Text>
+                <View>
+                {duration != null ? (
+                  <Text style={styles.details}>{`${duration} ${duration_unit} | ${formatDateAndTime(time)}`}</Text>
+                ) : (
+                  <Text style={styles.details}>{formatDateAndTime(time)}</Text>
+                )}
+                </View>
             </View>
-            <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+            <TouchableOpacity onPress={onDelete} style={styles.deleteButton} testID="deleteButton">
                 <Icon name="trash-can-outline" size={30} color="#000" />
             </TouchableOpacity>
       </View>
@@ -115,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WorkoutLogItem;
+export default LogItem;

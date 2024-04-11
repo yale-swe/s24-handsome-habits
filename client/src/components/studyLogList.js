@@ -4,19 +4,19 @@ import LogItem from "./LogItem.js";
 import { deleteHabit} from "../services/habitService.js";
 import { Typography, Colors } from "../styles";
 
-const WorkoutLogList = ({ workouts }) => {
+const StudyLogList = ({ study }) => {
 
-    const [workoutList, setWorkouts] = useState(workouts);
+    const [studyList, setStudy] = useState(study);
 
     useEffect(() => {
-        setWorkouts(workouts);
-    }, [workouts]);
+        setStudy(study);
+    }, [study]);
 
     const handleDelete = async (id) => {
         const success = await deleteHabit(id);
         if (success) {
-          const updatedWorkouts = workoutList.filter(workout => workout._id !== id);
-          setWorkouts(updatedWorkouts);
+          const updatedStudy = studyList.filter(study_session => study_session._id !== id);
+          setStudy(updatedStudy);
         }
       };
 
@@ -24,15 +24,15 @@ const WorkoutLogList = ({ workouts }) => {
     <View style={{width: "auto", flex: 1}}>
       <ScrollView >
           <View style={{padding: 20}}>
-            {workoutList && workoutList.length > 0 ? (
-              workoutList.map((workout, index) => (
-                <View key={workout._id} style={{ marginBottom: index === workoutList.length - 1 ? 0 : 20 }}>
+            {studyList && studyList.length > 0 ? (
+              studyList.map((study_session, index) => (
+                <View key={study_session._id} style={{ marginBottom: index === studyList.length - 1 ? 0 : 20 }}>
                   <LogItem
-                    title={workout.title}
-                    duration={workout.details.workout.workout_duration}
-                    time={workout.date_and_time}
-                    tags={[workout.details.workout.workout_tag, workout.details.workout.workout_intensity]}
-                    onDelete={() => handleDelete(workout._id)}
+                    title={study_session.title}
+                    duration={study_session.details.study.study_duration}
+                    time={study_session.date_and_time}
+                    tags={[study_session.details.study.study_productivity]}
+                    onDelete={() => handleDelete(study_session._id)}
                     duration_unit={"minutes"}
                     />
                   </View>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     marginBottom: 1,
   },
 })
-export default WorkoutLogList;
+export default StudyLogList;
