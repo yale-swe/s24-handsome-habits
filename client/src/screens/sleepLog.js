@@ -76,12 +76,12 @@ const SleepLog = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Home")} />
+        <BackButton onPress={() => props.navigation.navigate("Home")} testID="BackButton"/>
       </View>
 
       <View style={styles.logContainer}>
         <View style={styles.titleContainer}>
-          <TitleInput value={title} onChangeText={setTitle} />
+          <TitleInput value={title} onChangeText={setTitle} testID="TitleInput"/>
         </View>
 
         <View style={styles.timeContainer}>
@@ -93,12 +93,13 @@ const SleepLog = (props) => {
             setOpen={setOpen}
             dateIsConfirmed={dateIsConfirmed}
             setIsConfirmed={setIsConfirmed}
+            testID="TimeSelect"
           />
         </View>
 
         <View style={styles.toggleContainer}>
           <Text style={styles.subHeading}>Nap?</Text>
-          <ToggleSwitch isToggle={isToggle} setToggle={setToggle} />
+          <ToggleSwitch isToggle={isToggle} setToggle={setToggle} testID="ToggleSwitch"/>
         </View>
 
         <View style={styles.durationContainer}>
@@ -110,6 +111,7 @@ const SleepLog = (props) => {
             max={240}
             duration={duration}
             setDuration={setDuration}
+            testID="DurationSelect"
           />
         </View>
 
@@ -120,16 +122,17 @@ const SleepLog = (props) => {
               options={qualityOptions}
               selectedOption={selectedQuality}
               setSelectedOption={setSelectedQuality}
+              testID="ThreeOptionBar"
             />
           </View>
         </View>
 
         <View style={styles.descriptionContainer}>
-          <DescriptionInput value={description} onChangeText={setDescription} />
+          <DescriptionInput value={description} onChangeText={setDescription} testID="DescriptionInput"/>
         </View>
 
         <View style={styles.logButtonContainer}>
-          <AddHabitButton text="Add Sleep" onPress={logSleep} />
+          <AddHabitButton text="Add Sleep" onPress={logSleep} testID="AddHabitButton"/>
         </View>
       </View>
     </View>

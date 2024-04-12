@@ -7,14 +7,16 @@ const DescriptionInputs = (props) => {
     DescriptionInputs.propTypes = {
         value: PropTypes.any,
         onChangeText: PropTypes.func,
+        testID: PropTypes.string,
       };
     return (
         <TextInput
-                  style={[styles.descriptionInput]}
-                  multiline={true}
-                  placeholder="Description"
-                  value={props.value}
-                  onChangeText={props.onChangeText}
+            style={[styles.descriptionInput]}
+            multiline={true}
+            placeholder="Description"
+            value={props.value}
+            onChangeText={props.onChangeText}
+            testID={props.testID}
         />
     );
 }

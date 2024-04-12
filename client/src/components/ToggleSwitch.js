@@ -13,6 +13,7 @@ const ToggleSwitch = (props) => {
       style={styles.container}
       onPress={() => props.setToggle(!props.isToggle)}
       activeOpacity={1}
+      testID="touchableToggle"
     >
       <View style={[ styles.toggle,props.isToggle ? styles.toggleOn : styles.toggleOff]}>
         <View style={styles.circle} />

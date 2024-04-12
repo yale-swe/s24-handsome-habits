@@ -72,12 +72,12 @@ const EatLog = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Home")} />
+        <BackButton onPress={() => props.navigation.navigate("Home")} testID="BackButton"/>
       </View>
 
       <View style={styles.logContainer}>
         <View style={styles.titleContainer}>
-          <TitleInput value={title} onChangeText={setTitle} />
+          <TitleInput value={title} onChangeText={setTitle} testID="TitleInput"/>
         </View>
 
         <View style={styles.timeContainer}>
@@ -89,6 +89,7 @@ const EatLog = (props) => {
             setOpen={setOpen}
             dateIsConfirmed={dateIsConfirmed}
             setIsConfirmed={setIsConfirmed}
+            testID="TimeSelect"
           />
         </View>
 
@@ -98,6 +99,7 @@ const EatLog = (props) => {
             options={typeOptions}
             selectedOption={selectedType}
             setSelectedOption={setSelectedType}
+            testID="HorizontalSelect"
           />
         </View>
 
@@ -107,11 +109,11 @@ const EatLog = (props) => {
         </View>
 
         <View style={styles.descriptionContainer}>
-          <DescriptionInput value={description} onChangeText={setDescription} />
+          <DescriptionInput value={description} onChangeText={setDescription} testID="DescriptionInput"/>
         </View>
 
         <View style={styles.logButtonContainer}>
-          <AddHabitButton text="Add Meal" onPress={logMeal} />
+          <AddHabitButton text="Add Meal" onPress={logMeal} testID="AddHabitButton"/>
         </View>
       </View>
     </View>
