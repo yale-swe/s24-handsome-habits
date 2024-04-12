@@ -54,3 +54,8 @@ export const coins = {
   textAlign: "center",
   color: "#FFB706",
 };
+
+export const weightedHeader5 = {
+  ...header5,
+  fontWeight: "700",
+};

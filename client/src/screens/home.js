@@ -47,7 +47,7 @@ const Home = (props) => {
         <SettingsButton
           logo={require("../assets/images/bulldoghead.png")}
           style={Buttons.settingsButton}
-          onPress={() => props.navigation.navigate("Exercise")}
+          onPress={() => props.navigation.navigate("Settings")}
         />
         <CoinsButton
           coinAmount={pointsInfo != null ? pointsInfo.coins : 0}

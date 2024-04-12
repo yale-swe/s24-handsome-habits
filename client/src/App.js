@@ -7,6 +7,7 @@ import SleepLog from "./screens/sleepLog";
 import StudyLog from "./screens/studyLog";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Settings from "./screens/settings";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="EatLog" component={EatLog} options={{ headerShown: false }}/>
         <Stack.Screen name="SleepLog" component={SleepLog} options={{ headerShown: false }}/>
         <Stack.Screen name="StudyLog" component={StudyLog} options={{ headerShown: false }}/>
+        <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }}/>
 
       </Stack.Navigator>
     </NavigationContainer>
