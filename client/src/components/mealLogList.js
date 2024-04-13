@@ -4,36 +4,45 @@ import LogItem from "./LogItem.js";
 import { deleteHabit} from "../services/habitService.js";
 import { Typography, Colors } from "../styles";
 
-const WorkoutLogList = ({ workouts }) => {
+const MealLogList = ({ meals }) => {
 
-    const [workoutList, setWorkouts] = useState(workouts);
+    const [mealList, setMeals] = useState(meals);
 
     useEffect(() => {
-        setWorkouts(workouts);
-    }, [workouts]);
+        setMeals(meals);
+    }, [meals]);
 
     const handleDelete = async (id) => {
         const success = await deleteHabit(id);
         if (success) {
-          const updatedWorkouts = workoutList.filter(workout => workout._id !== id);
-          setWorkouts(updatedWorkouts);
+          const updatedMeals = mealList.filter(meal => meal._id !== id);
+          setMeals(updatedMeals);
         }
       };
+
+    const isHealthy = (meal) => {
+        if (meal.details.eating.healthy_meal) {
+            return ["healthy", meal.details.eating.eating_tag];
+        }
+        else {
+            return [meal.details.eating.eating_tag];
+        }
+    };
 
   return (
     <View style={{width: "auto", flex: 1}}>
       <ScrollView >
           <View style={{padding: 20}}>
-            {workoutList && workoutList.length > 0 ? (
-              workoutList.map((workout, index) => (
-                <View key={workout._id} style={{ marginBottom: index === workoutList.length - 1 ? 0 : 20 }}>
+            {mealList && mealList.length > 0 ? (
+              mealList.map((meal, index) => (
+                <View key={meal._id} style={{ marginBottom: index === mealList.length - 1 ? 0 : 20 }}>
                   <LogItem
-                    title={workout.title}
-                    duration={workout.details.workout.workout_duration}
-                    time={workout.date_and_time}
-                    tags={[workout.details.workout.workout_tag, workout.details.workout.workout_intensity]}
-                    onDelete={() => handleDelete(workout._id)}
-                    duration_unit={"minutes"}
+                    title={meal.title}
+                    duration={null}
+                    time={meal.date_and_time}
+                    tags={isHealthy(meal)}
+                    onDelete={() => handleDelete(meal._id)}
+                    duration_unit={null}
                     />
                   </View>
               ))
@@ -61,4 +70,4 @@ const styles = StyleSheet.create({
     marginBottom: 1,
   },
 })
-export default WorkoutLogList;
+export default MealLogList;

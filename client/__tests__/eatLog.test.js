@@ -65,7 +65,7 @@ describe("EatLog Page", () => {
 
         const backButton = getByTestId("touchableBack");
         fireEvent.press(backButton); // click the button part of component
-        expect(mockNavigate).toHaveBeenCalledWith("Home"); // check if navigate was called with correct argument
+        expect(mockNavigate).toHaveBeenCalledWith("Eat"); // check if navigate was called with correct argument
     });
 
     // Test if the logEat function works correctly
@@ -88,7 +88,7 @@ describe("EatLog Page", () => {
         });
 
         // Verify navigation
-        expect(mockNavigate).toHaveBeenCalledWith("Home");
+        expect(mockNavigate).toHaveBeenCalledWith("Eat");
     });
 
     it("matches the snapshot", () => {

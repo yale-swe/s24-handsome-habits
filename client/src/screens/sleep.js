@@ -1,0 +1,139 @@
+import React, { useState, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
+import { Typography, Colors, Buttons} from "../styles";
+import PropTypes from "prop-types";
+import { retrieveHabitsByCategory } from "../services/habitService";
+import BackButton from "../components/backButton";
+import SleepLogList from "../components/sleepLogList.js";
+
+// eslint-disable-next-line
+const Sleep = (props) => {
+
+  Sleep.propTypes = {
+      navigation: PropTypes.shape({
+          navigate: PropTypes.func.isRequired,
+      }).isRequired,
+  };
+
+  const [sleepLogs, setSleepLogs] = useState([]);
+
+  const fetchSleepLogs = async () => {
+    try {
+      const habits = await retrieveHabitsByCategory("Sleeping");
+      setSleepLogs(habits); // Update the state with fetched logs
+    } catch (error) {
+      console.error("Error fetching habits:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch sleep logs when the component mounts
+    fetchSleepLogs();
+  }, []); // The empty array ensures this effect runs only once when the component mounts
+
+  useFocusEffect(
+    // Fetch sleep logs when the component mounts after a navigation ction
+    React.useCallback(() => {
+      fetchSleepLogs();
+    }, [])
+  );
+
+  return (
+    <View style={styles.container}>
+
+      <View style={styles.upperBox}>
+        <View style={styles.backButtonContainer}>
+            <BackButton onPress={() => props.navigation.navigate("Home")}/>
+        </View>
+        <View style={styles.imageAndTextcontainer}>
+          <Image
+            source={require("../assets/images/gymdog.png")}
+            style={styles.bulldog}>
+          </Image>
+          <View style={styles.messageContainer}>
+            <Text style={Typography.boldItalic}>       recharge to upcharge.</Text>
+          </View>
+
+        </View>
+      </View>
+      <View style={styles.lowerBox}>
+        <SleepLogList sleep={sleepLogs} />
+        <TouchableOpacity onPress={() => props.navigation.navigate("SleepLog")} style={styles.logButton}>
+              <Text style={styles.logButtonText}>Log your Sleep</Text>
+        </TouchableOpacity>
+      </View>
+
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.Colors.yellow,
+    ...Typography.defaultFont,
+  },
+  backButtonContainer: {
+    alignSelf: "flex-start",
+    marginLeft: 15,
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  upperBox: {
+    paddingTop: 65,
+    width: "auto",
+    height: "auto",
+    backgroundColor: "white",
+    borderRadius: 10,
+    zIndex:1,
+  },
+  lowerBox: {
+    flex: 1,
+    backgroundColor: Colors.Colors.yellow,
+    borderRadius: 10,
+    padding: 35,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignItems: "center",
+    zIndex: 0,
+
+  },
+  imageAndTextcontainer: {
+    width: 392,
+    height: 210.36,
+    backgroundColor: "#white",
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "left",
+  },
+  messageContainer: {
+    flex: 1,
+    paddingLeft: 10,
+    textAlign: "right",
+  },
+  bulldog: {
+    margin: 0,
+    width: 200,
+    height: 210,
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  logButtonText: {
+    color: "white",
+    ...Typography.header4,
+  },
+  logButtonContainer: {
+    alignItems: "center",
+
+  },
+  logButton: {
+    backgroundColor: Colors.Colors.navy,
+    ...Buttons.logButton,
+  },
+
+});
+
+export default Sleep;

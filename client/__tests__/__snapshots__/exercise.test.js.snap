@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercise Screen renders correctly and matches snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#FBCD5A",
+      "flex": 1,
+      "fontFamily": "OpenSans-Regular",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "backgroundColor": "white",
+        "borderRadius": 10,
+        "height": "auto",
+        "paddingTop": 65,
+        "width": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignSelf": "flex-start",
+          "marginBottom": 20,
+          "marginLeft": 15,
+          "marginTop": 10,
+        }
+      }
+    >
+      <View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#0D3A4F",
+              "borderRadius": 5,
+              "color": "white",
+              "height": 29,
+              "justifyContent": "center",
+              "margin": 10,
+              "opacity": 1,
+              "width": 28,
+            }
+          }
+          testID="touchableBack"
+        >
+          <Image
+            source={
+              {
+                "testUri": "../../../src/assets/images/backarrow.png",
+              }
+            }
+            style={
+              {
+                "height": 18,
+                "margin": 3,
+                "width": 18,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "left",
+          "backgroundColor": "#white",
+          "borderRadius": 10,
+          "flexDirection": "row",
+          "height": 210.36,
+          "width": 392,
+        }
+      }
+    >
+      <Image
+        source={
+          {
+            "testUri": "../../../src/assets/images/gymdog.png",
+          }
+        }
+        style={
+          {
+            "height": 210,
+            "margin": 0,
+            "width": 200,
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "flex": 1,
+            "paddingLeft": 10,
+            "textAlign": "right",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "fontFamily": "OpenSans-BoldItalic",
+              "fontSize": 28,
+            }
+          }
+        >
+                 the grind doesn't stop.
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FBCD5A",
+        "borderRadius": 10,
+        "flex": 1,
+        "padding": 35,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "zIndex": 0,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flex": 1,
+          "width": "auto",
+        }
+      }
+    >
+      <RCTScrollView>
+        <View>
+          <View
+            style={
+              {
+                "padding": 20,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "#FFF7E0",
+                  "borderRadius": 10,
+                  "flexDirection": "column",
+                  "height": 90,
+                  "justifyContent": "space-between",
+                  "marginBottom": 1,
+                  "padding": 23,
+                  "width": 330,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "fontFamily": "OpenSans-Bold",
+                    "fontSize": 16,
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Your log is currently empty, my good pal! Get to it!
+              </Text>
+            </View>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#0D3A4F",
+          "borderRadius": 10,
+          "color": "white",
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
+          "padding": 10,
+          "width": 250,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "white",
+            "fontFamily": "OpenSans-Bold",
+            "fontSize": 20,
+            "textAlign": "center",
+          }
+        }
+      >
+        Log a Workout
+      </Text>
+    </View>
+  </View>
+</View>
+`;
