@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 
 const HabitButton = (props) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={props.onPress} style={props.style}>
+    <View style={styles.container} testID={"habit-button-container"}>
+      <TouchableOpacity onPress={props.onPress} style={props.style} testID={props.testID}>
         <Image
           source={props.logo}
           style={styles.habitButtonImage}
           resizeMode="contain"
+          testID={"habit-button-image"}
         />
       </TouchableOpacity>
       <StatusBar style="auto" />
@@ -21,6 +22,7 @@ HabitButton.propTypes = {
   logo: PropTypes.any,
   style: PropTypes.any,
   onPress: PropTypes.any,
+  testID: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

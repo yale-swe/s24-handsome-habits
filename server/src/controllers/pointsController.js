@@ -2,7 +2,9 @@ import Points from "../db/models/points.js";
 
 export async function createPoints(user_id) {
     try {
+        // create a points json for the user
         const newPoints = new Points({ user_id: user_id });
+        // save the points to the db
         return newPoints.save();
     } catch (err) {
         console.log("Points already exists");
@@ -13,6 +15,7 @@ export async function createPoints(user_id) {
 export async function findPoints(user_id) {
     console.log("Finding points");
     try {
+        // look up the user's points based on their id
         const foundPoints = await Points.findOne({
             user_id: user_id,
         });

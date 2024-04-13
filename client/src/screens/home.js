@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
 import { Buttons } from "../styles";
@@ -12,14 +12,17 @@ import { getPointInfo } from "../services/PointsService";
 import { useFocusEffect } from "@react-navigation/native";
 
 const Home = (props) => {
+  // set up the navigation for the home page
   Home.propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
     }).isRequired,
   };
 
-  const [pointsInfo, setPointsInfo] = useState(null);
+  // variable and function for getting/setter user points
+  const [pointsInfo, setPointsInfo] = React.useState(null);
 
+  // fetches user points from the database
   const fetchPoints = async () => {
     try {
       const rawPoints = await getPointInfo();
@@ -29,7 +32,7 @@ const Home = (props) => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Fetch user's points and coins when the component mounts
     fetchPoints();
   }, []); // The empty array ensures this effect runs only once when the component mounts
@@ -42,45 +45,54 @@ const Home = (props) => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topButtonsContainer}>
+    <View style={styles.container} testID={"home-page"}>
+      {/* container for settings and coins buttons */}
+      <View style={styles.topButtonsContainer} testID={"top-buttons"}>
         <SettingsButton
           logo={require("../assets/images/bulldoghead.png")}
           style={Buttons.settingsButton}
           onPress={() => props.navigation.navigate("Exercise")}
+          testID={"settings-button"}
         />
         <CoinsButton
           coinAmount={pointsInfo != null ? pointsInfo.coins : 0}
           logo={require("../assets/images/coin.png")}
           style={Buttons.coinsButton}
           onPress={() => props.navigation.navigate("Exercise")}
+          testID={"coins-button"}
         />
       </View>
       <WellnessBar
         wellnessPoints={pointsInfo != null ? pointsInfo.wellness_points : 0}
       />
+      {/* container for the message displayed above bulldog's head */}
       <DansWords danMessage={"Woof! Welcome to Handsome Habits!"} />
-      <EmotionVisualizer />
-      <View style={styles.habitButtonContainer}>
+      {/* container for bulldog image and clothes, reactive emotions */}
+      <EmotionVisualizer/>
+      <View style={styles.habitButtonContainer} testID={"habit-buttons"}>
         <HabitButton
           logo={require("../assets/images/eating_icon.png")}
           style={Buttons.habitButton}
           onPress={() => props.navigation.navigate("EatLog")}
+          testID={"eating-button"}
         />
         <HabitButton
           logo={require("../assets/images/exercising_icon.png")}
           style={Buttons.habitButton}
           onPress={() => props.navigation.navigate("Exercise")}
+          testID={"exercising-button"}
         />
         <HabitButton
           logo={require("../assets/images/sleeping_icon.png")}
           style={Buttons.habitButton}
           onPress={() => props.navigation.navigate("SleepLog")}
+          testID={"sleeping-button"}
         />
         <HabitButton
           logo={require("../assets/images/studying_icon.png")}
           style={Buttons.habitButton}
           onPress={() => props.navigation.navigate("StudyLog")}
+          testID={"studying-button"}
         />
       </View>
     </View>

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const DansWords = (props) => {
   return (
-    <View style={styles.messageContainer}>
+    <View style={styles.messageContainer} testID={"dans-words-testing"}>
       <Text style={Typography.message}> {props.danMessage} </Text>
     </View>
   );
