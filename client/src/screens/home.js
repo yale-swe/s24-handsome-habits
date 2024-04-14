@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
 import { Buttons } from "../styles";
@@ -7,9 +7,10 @@ import SettingsButton from "../components/settingsButton";
 import CoinsButton from "../components/coinsButton";
 import WellnessBar from "../components/wellnessBar";
 import DansWords from "../components/dansWords";
-import EmotionVisualizer from "../components/emotionVisualizer";
+import HandsomeDan from "../components/HandsomeDan";
 import { getPointInfo } from "../services/PointsService";
 import { useFocusEffect } from "@react-navigation/native";
+import { getExpression } from "../services/DansWordsService";
 
 const Home = (props) => {
   // set up the navigation for the home page
@@ -44,6 +45,30 @@ const Home = (props) => {
     }, [])
   );
 
+  const [message, setMessage] = React.useState("");
+
+  useEffect(() => {
+    const fetchExpression = async () => {
+      // fetches the message based on points
+      const expression = await getExpression();// on mount, get the message
+      setMessage(expression);
+    }
+    fetchExpression();
+  }, []);
+
+  useFocusEffect(
+    // fetches the message based on points
+    React.useCallback(() => {
+
+      const updateExpression = async () => {
+
+        const expression = await getExpression(); // on navigation, get the message
+        setMessage(expression);
+      };
+      updateExpression();
+    }, [])
+  );
+
   return (
     <View style={styles.container} testID={"home-page"}>
       {/* container for settings and coins buttons */}
@@ -66,9 +91,9 @@ const Home = (props) => {
         wellnessPoints={pointsInfo != null ? pointsInfo.wellness_points : 0}
       />
       {/* container for the message displayed above bulldog's head */}
-      <DansWords danMessage={"Woof! Welcome to Handsome Habits!"} />
+      <DansWords danMessage={message} />
       {/* container for bulldog image and clothes, reactive emotions */}
-      <EmotionVisualizer/>
+      <HandsomeDan/>
       <View style={styles.habitButtonContainer} testID={"habit-buttons"}>
         <HabitButton
           logo={require("../assets/images/eating_icon.png")}

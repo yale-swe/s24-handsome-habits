@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { render, fireEvent } from "@testing-library/react-native";
 import Home from "../src/screens/home.js";
 import { getPointInfo } from "../src/services/PointsService.js";
+import { getExpression } from "../src/services/DansWordsService.js";
 import Exercise from "../src/screens/exercise.js"
 import SleepLog from "../src/screens/sleepLog.js"
 import EatLog from "../src/screens/eatLog.js"
@@ -17,7 +18,32 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
 
 // Mocking points service
 jest.mock("../src/services/PointsService.js", () => ({
-  getPointInfo: jest.fn(),
+  getPointInfo: jest.fn().mockResolvedValue({
+    eating_points: 23,
+    sleeping_points: 25,
+    studying_points: 10,
+    exercise_points: 20,
+  }),
+  getQualityPoints: jest.fn().mockResolvedValue({
+    wellness_points: 78,
+    emotion_value: 1,
+  })
+}));
+
+// Mocking appearance service
+jest.mock("../src/services/AppearanceService.js", () => ({
+  getEmotion: jest.fn().mockResolvedValue(1),
+  getEmotionPath: jest.fn().mockReturnValue("happy_face"),
+  getClothesPath: jest.fn().mockReturnValue({
+    top: "white_tshirt",
+    bottom: "white_pants",
+    accessories: null,
+  }),
+}));
+
+// Mocking dan's words service
+jest.mock("../src/services/DansWordsService.js", () => ({
+  getExpression: jest.fn(),
 }));
 
 describe("Home component", () => {
@@ -40,6 +66,15 @@ describe("Home component", () => {
     render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }}/> </NavigationContainer>);
 
     expect(getPointInfo).toHaveBeenCalled();
+  });
+
+  it("fetches dan's expression", async () => {
+    const mockExpression = "You're doing great!";
+    getExpression.mockResolvedValue(mockExpression);
+
+    render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }}/> </NavigationContainer>);
+
+    expect(getExpression).toHaveBeenCalled();
   });
 
   it("navigates to the exercise page", () => {

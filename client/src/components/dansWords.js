@@ -3,15 +3,16 @@ import { Typography } from "../styles";
 import PropTypes from "prop-types";
 
 const DansWords = (props) => {
+
+  DansWords.propTypes = {
+    danMessage: PropTypes.string,
+  };
+
   return (
     <View style={styles.messageContainer} testID={"dans-words-testing"}>
       <Text style={Typography.message}> {props.danMessage} </Text>
     </View>
   );
-};
-
-DansWords.propTypes = {
-  danMessage: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
