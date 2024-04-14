@@ -1,7 +1,7 @@
 import { getPointInfo } from "./PointsService";
 import { getEmotion } from "./AppearanceService";
 
-const expressions = {
+export const expressions = {
 
     Eating: [
         "Where can a dog find some good kibble around here?",

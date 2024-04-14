@@ -2,11 +2,24 @@ import { getClothesPath, getEmotionPath } from "../services/AppearanceService";
 import { StyleSheet, Image, View } from "react-native";
 import { Colors } from "../styles";
 import { body } from "../constants/resources";
+import React, { useEffect, useState } from "react";
 
 const HandsomeDan = () => {
 
-    const clothes = getClothesPath();
-    const emotion = getEmotionPath();
+    const [clothes, setClothes] = useState({});
+    const [emotion, setEmotion] = useState(null);
+
+    useEffect(() => {
+        // Asynchronously fetch clothes and emotion paths
+        async function fetchData() {
+            const clothesPath = getClothesPath();
+            const emotionPath = await getEmotionPath();
+            setClothes(clothesPath);
+            setEmotion(emotionPath);
+        }
+
+        fetchData();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -43,7 +56,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         height: "115%",
         width: "115%",
-        top: "2%",
+        top: "4%",
         left: "-7.5%", // center horizontally
     },
 

@@ -5,9 +5,9 @@ import { emotions, tops, bottoms, accessories } from "../constants/resources";
  * Returns the path to the image of the user's current emotion.
  * @returns {Any} The path to the image of the user's current emotion.
  */
-export function getEmotionPath() {
+export async function getEmotionPath() {
 
-    const emotion = getEmotion();
+    const emotion = await getEmotion();
 
     if (emotion < 33.3) {
         return emotions["sad_face"];

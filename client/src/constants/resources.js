@@ -4,7 +4,7 @@ export const emotions = {
     happy_face: require("../assets/emotions/happy_face.png"),
     sad_face: require("../assets/emotions/sad_face.png"),
     neutral_face: require("../assets/emotions/neutral_face.png"),
-}
+};
 
 export const tops = {
 
@@ -29,7 +29,7 @@ export const tops = {
     orange_longsleeve: require("../assets/tops/orange_longsleeve.png"),
     yellow_longsleeve: require("../assets/tops/yellow_longsleeve.png"),
 
-}
+};
 
 export const bottoms = {
 
@@ -54,5 +54,4 @@ export const accessories = {
     yellow_headband: require("../assets/accessories/yellow_headband.png"),
     blue_headband: require("../assets/accessories/blue_headband.png"),
 
-
-}
+};

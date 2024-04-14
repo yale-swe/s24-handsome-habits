@@ -42,6 +42,11 @@ jest.mock("../src/services/AppearanceService.js", () => ({
   }),
 }));
 
+// Mocking dan's words service
+jest.mock("../src/services/DansWordsService.js", () => ({
+  getExpression: jest.fn(),
+}));
+
 describe("Home component", () => {
 
   it("renders correctly", () => {
@@ -62,6 +67,15 @@ describe("Home component", () => {
     render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }}/> </NavigationContainer>);
 
     expect(getPointInfo).toHaveBeenCalled();
+  });
+
+  it("fetches dan's expression", async () => {
+    const mockExpression = "You're doing great!";
+    getExpression.mockResolvedValue(mockExpression);
+
+    render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }}/> </NavigationContainer>);
+
+    expect(getExpression).toHaveBeenCalled();
   });
 
   it("navigates to the exercise page", () => {
