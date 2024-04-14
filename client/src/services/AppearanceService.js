@@ -24,11 +24,11 @@ export function getEmotionPath() {
  * Returns the user's current emotion value
  * @returns {Number} The user's current emotion value.
  */
-export function getEmotion() {
+export async function getEmotion() {
 
-    const userPoints = getQualityPoints(getPointInfo());
-    const emotion = getQualityPoints(userPoints).emotion_value;
-    return emotion;
+    const userPoints = await getPointInfo();
+    const emotion_value = getQualityPoints(userPoints).wellness_points;
+    return emotion_value;
 
 }
 

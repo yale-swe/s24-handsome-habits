@@ -1,4 +1,3 @@
-import Api from "./apiUtil";
 import { getPointInfo } from "./PointsService";
 import { getEmotion } from "./AppearanceService";
 
@@ -58,26 +57,31 @@ const expressions = {
  * Gets a random expression based on emotion/lowest habit.
  * @returns {String} - The expression.
  */
-export function getExpression() {
-    const emotion = getEmotion();
+export async function getExpression() {
+    const emotion = await getEmotion();
+    console.log(emotion)
     if (emotion > 60) {
         const randomIndex = Math.floor(Math.random() * expressions["Happy"].length);
-        return expressions["Happy"][randomIndex];
+        const expression = expressions["Happy"][randomIndex];
+        return expression;
     }
     else {
         const lowestHabit = getLowestHabit();
+        console.log(lowestHabit);
         const randomIndex = Math.floor(Math.random() * expressions[lowestHabit].length);
-        return expressions[lowestHabit][randomIndex];
+        const expression = expressions[lowestHabit][randomIndex];
+        return expression;
     }
+
 };
 
 /**
  * Gets the lowest habit by percentage.
  * @returns {JSON} - The lowest habit.
  */
-export function getLowestHabit() {
+export async function getLowestHabit() {
 
-    const userPoints = getPointInfo();
+    const userPoints = await getPointInfo();
     const eating = userPoints.eating_points / 25;
     const sleeping = userPoints.sleeping_points / 27;
     const studying = userPoints.studying_points / 22;
