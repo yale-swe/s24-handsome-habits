@@ -2,9 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { render, fireEvent } from "@testing-library/react-native";
 import Home from "../src/screens/home.js";
-import { getPointInfo, getQualityPoints } from "../src/services/PointsService.js";
-import { getEmotion, getEmotionPath, getClothesPath } from "../src/services/AppearanceService.js";
-import { getLowestHabit, getExpression } from "../src/services/DansWordsService.js";
+import { getPointInfo } from "../src/services/PointsService.js";
+import { getExpression } from "../src/services/DansWordsService.js";
 import Exercise from "../src/screens/exercise.js"
 import SleepLog from "../src/screens/sleepLog.js"
 import EatLog from "../src/screens/eatLog.js"

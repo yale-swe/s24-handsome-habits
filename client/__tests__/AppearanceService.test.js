@@ -10,7 +10,7 @@ import {
     bottoms,
     accessories,
 } from "../src/constants/resources";
-import { getPointInfo, getQualityPoints } from "../src/services/PointsService";
+import { getQualityPoints } from "../src/services/PointsService";
 
 // Mock Points Service
 jest.mock("../src/services/PointsService", () => ({
