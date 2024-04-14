@@ -1,0 +1,1 @@
+import { getClothesPath, getEmotionPath } from '../services/AppearanceService';

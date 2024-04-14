@@ -14,7 +14,6 @@ import TitleInput from "../components/TitleInput";
 import TimeSelect from "../components/TimeSelect";
 import DurationSelect from "../components/DurationSelect";
 
-// eslint-disable-next-line
 const ExerciseLog = (props) => {
     // inputs
     const [title, setTitle] = useState("");
