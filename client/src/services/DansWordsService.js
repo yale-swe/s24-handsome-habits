@@ -1,7 +1,6 @@
 import { getPointInfo } from "./PointsService";
 import { getEmotion } from "./AppearanceService";
 
-
 const expressions = {
 
     Eating: [
@@ -66,14 +65,14 @@ export async function getExpression() {
         return expression;
     }
     else {
-        const lowestHabit = getLowestHabit();
+        const lowestHabit = await getLowestHabit();
         console.log(lowestHabit);
         const randomIndex = Math.floor(Math.random() * expressions[lowestHabit].length);
         const expression = expressions[lowestHabit][randomIndex];
         return expression;
     }
 
-};
+}
 
 /**
  * Gets the lowest habit by percentage.

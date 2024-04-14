@@ -51,11 +51,10 @@ const Home = (props) => {
     const fetchExpression = async () => {
       // fetches the message based on points
       const expression = await getExpression();// on mount, get the message
-      setMessage(expression); 
+      setMessage(expression);
     }
     fetchExpression();
   }, []);
-
 
   useFocusEffect(
     // fetches the message based on points

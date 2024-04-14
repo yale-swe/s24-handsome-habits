@@ -15,7 +15,6 @@ const DansWords = (props) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   messageContainer: {
     width: 295,
