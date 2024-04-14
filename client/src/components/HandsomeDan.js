@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         height: "115%",
         width: "115%",
-        top: "4%",
+        top: "2%",
         left: "-7.5%", // center horizontally
     },
 
