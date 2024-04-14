@@ -1,0 +1,32 @@
+[
+  {
+    "name": "glasses",
+    "type": "extras",
+    "price": 100
+  },
+  {
+    "name": "yellow_headband",
+    "type": "extras",
+    "price": 100
+  },
+  {
+    "name": "black_sunglasses",
+    "type": "extras",
+    "price": 100
+  },
+  {
+    "name": "yellow_sunglasses",
+    "type": "extras",
+    "price": 100
+  },
+  {
+    "name": "blue_headband",
+    "type": "extras",
+    "price": 100
+  },
+  {
+    "name": "blue_sunglasses",
+    "type": "extras",
+    "price": 100
+  }
+]

@@ -1,3 +1,5 @@
+import { boldFont } from "./typography";
+
 // Login Button styles
 export const loginButton = {
   color: "white",
@@ -26,6 +28,17 @@ export const habitButton = {
   width: 60,
   height: 60,
   bottom: 5,
+};
+
+export const shopButton = {
+  width: 93,
+  height: 45,
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "#FFFFFF",
+  borderTopLeftRadius: 10,
+  borderTopRightRadius: 10,
+  ...boldFont
 };
 
 export const logButton = {
@@ -78,4 +91,32 @@ export const coinsButton = {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
+};
+
+export const purchaseButton = {
+  backgroundColor: "#0D3A4F",
+  borderRadius: 7,
+  width: 75,
+  height: 22,
+  bottom: -3,
+  left: 10,
+  position: "absolute",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  zIndex: 3,
+};
+
+export const ownedButton = {
+  backgroundColor: "#0D3A4F",
+  borderRadius: 7,
+  width: 75,
+  height: 22,
+  bottom: -3,
+  left: 10,
+  zIndex: 3,
+  position: "absolute",
+  flexDirection: "center",
+  justifyContent: "center",
+  alignItems: "center",
 };

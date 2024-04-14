@@ -5,9 +5,9 @@ import Home from "../src/screens/home.js";
 import { getPointInfo } from "../src/services/PointsService.js";
 import { getExpression } from "../src/services/DansWordsService.js";
 import Exercise from "../src/screens/exercise.js"
-import SleepLog from "../src/screens/sleepLog.js"
-import EatLog from "../src/screens/eatLog.js"
-import StudyLog from "../src/screens/studyLog.js"
+import Sleep from "../src/screens/sleep.js"
+import Eat from "../src/screens/eat.js"
+import Study from "../src/screens/study.js"
 
 // Mocking AsyncStorage
 jest.mock("@react-native-async-storage/async-storage", () => ({
@@ -23,6 +23,8 @@ jest.mock("../src/services/PointsService.js", () => ({
     sleeping_points: 25,
     studying_points: 10,
     exercise_points: 20,
+    wellness_points: 78,
+    emotion_value: 2,
   }),
   getQualityPoints: jest.fn().mockResolvedValue({
     wellness_points: 78,
@@ -85,23 +87,23 @@ describe("Home component", () => {
   })
 
   it("navigates to the sleeping page", () => {
-    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <SleepLog/> </NavigationContainer>);
+    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <Sleep/> </NavigationContainer>);
 
     fireEvent.press(getByTestId("sleeping-button"));
-    expect(getByText("Add Sleep"));
+    expect(getByText("recharge to upcharge."));
   })
 
   it("navigates to the eating page", () => {
-    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <EatLog/> </NavigationContainer>);
+    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <Eat/> </NavigationContainer>);
 
     fireEvent.press(getByTestId("eating-button"));
-    expect(getByText("Add Meal"));
+    expect(getByText("eat better, feel better."));
   })
 
   it("navigates to the studying page", () => {
-    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <StudyLog/> </NavigationContainer>);
+    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <Study/> </NavigationContainer>);
 
     fireEvent.press(getByTestId("studying-button"));
-    expect(getByText("Add Study Session"));
+    expect(getByText("study smart, not hard."));
   })
 });

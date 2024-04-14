@@ -1,0 +1,92 @@
+[
+    {
+      "name": "yellow_longsleeve",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "yale_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "grey_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "red_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "bulldog_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "greyyale_longsleeve",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "blueyale_longsleeve",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "suit_jacket",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "orange_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "dport_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "morse_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "yellow_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "white_longsleeve",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "pierson_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "orange_longsleeve",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "brown_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "white_tshirt",
+      "type": "tops",
+      "price": 100
+    },
+    {
+      "name": "white_tank",
+      "type": "tops",
+      "price": 100
+    }
+  ]

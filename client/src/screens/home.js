@@ -83,7 +83,7 @@ const Home = (props) => {
           coinAmount={pointsInfo != null ? pointsInfo.coins : 0}
           logo={require("../assets/images/coin.png")}
           style={Buttons.coinsButton}
-          onPress={() => props.navigation.navigate("Exercise")}
+          onPress={() => props.navigation.navigate("Shop")}
           testID={"coins-button"}
         />
       </View>
@@ -131,15 +131,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#D5E7EC",
   },
-  backgroundImage: {
-    flex: 1,
-    justifyContent: "center",
-  },
   topButtonsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    bottom: 105,
+    bottom: "28%",
     width: "100%",
   },
   habitButtonContainer: {
