@@ -7,5 +7,6 @@ export const Colors = {
     columbiaBlue: "#cce7f3",
     skyBlue: "#8ECAE6",
     lightGrey: "#D6D6D6",
+    aliceBlue: "#EBF4F6",
 };
 

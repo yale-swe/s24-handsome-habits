@@ -7,7 +7,7 @@ import SettingsButton from "../components/settingsButton";
 import CoinsButton from "../components/coinsButton";
 import WellnessBar from "../components/wellnessBar";
 import DansWords from "../components/dansWords";
-import EmotionVisualizer from "../components/emotionVisualizer";
+import HandsomeDan from "../components/HandsomeDan";
 import { getPointInfo } from "../services/PointsService";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -68,7 +68,7 @@ const Home = (props) => {
       {/* container for the message displayed above bulldog's head */}
       <DansWords danMessage={"Woof! Welcome to Handsome Habits!"} />
       {/* container for bulldog image and clothes, reactive emotions */}
-      <EmotionVisualizer/>
+      <HandsomeDan/>
       <View style={styles.habitButtonContainer} testID={"habit-buttons"}>
         <HabitButton
           logo={require("../assets/images/eating_icon.png")}

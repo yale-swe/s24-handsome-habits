@@ -1,6 +1,5 @@
-import { getQualityPoints } from "./PointsService";
-import { emotions, tops, bottoms } from "./constants/resources";
-
+import { getQualityPoints, getPointInfo } from "./PointsService";
+import { emotions, tops, bottoms } from "../constants/resources";
 
 /**
  * Returns the path to the image of the user's current emotion.
@@ -27,7 +26,7 @@ export function getEmotionPath() {
  */
 export function getEmotion() {
 
-    const userPoints = getQualityPoints();
+    const userPoints = getQualityPoints(getPointInfo());
     const emotion = getQualityPoints(userPoints).emotion_value;
     return emotion;
 
@@ -47,7 +46,6 @@ export function getClothesPath() {
     };
     return clothesPath;
 
-
 }
 
 /**
@@ -61,6 +59,5 @@ export function getClothes() {
         bottom: "white_pants",
         accessories: null,
     }
-
 
 }
