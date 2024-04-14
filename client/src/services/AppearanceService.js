@@ -1,5 +1,5 @@
 import { getQualityPoints, getPointInfo } from "./PointsService";
-import { emotions, tops, bottoms } from "../constants/resources";
+import { emotions, tops, bottoms, accessories } from "../constants/resources";
 
 /**
  * Returns the path to the image of the user's current emotion.
@@ -42,7 +42,7 @@ export function getClothesPath() {
     const clothesPath = {
         top: tops[clothes.top],
         bottom: bottoms[clothes.bottom],
-        accessories: null
+        accessories: accessories[clothes.accessories],
     };
     return clothesPath;
 
@@ -54,10 +54,12 @@ export function getClothesPath() {
  */
 export function getClothes() {
 
+    // TODO: update once service is implemented
+
     return {
-        top: "white_tshirt",
-        bottom: "white_pants",
-        accessories: null,
+        top: "pierson_tshirt",
+        bottom: "medium_jeans",
+        accessories: "black_sunglasses",
     }
 
 }
