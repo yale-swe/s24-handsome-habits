@@ -65,17 +65,17 @@ export function calculatePoints(newHabit) {
                 Math.floor(newHabit.details.workout.workout_duration / 5) * 5;
 
             // default 3 coins
-            coins += 3;
+            coins += 9;
 
             // 1 additional coin for medium intensity, high intensity, and over 30 minutes
             if (newHabit.details.workout.workout_intensity == "Medium") {
-                coins += 1;
+                coins += 3;
             }
             if (newHabit.details.workout.workout_intensity == "High") {
-                coins += 1;
+                coins += 3;
             }
             if (newHabit.details.workout.workout_duration > 30) {
-                coins += 1;
+                coins += 3;
             }
 
             break;
@@ -85,13 +85,13 @@ export function calculatePoints(newHabit) {
             points += 9;
 
             if (newHabit.details.eating.eating_tag == "Snack") {
-                coins += 2;
+                coins += 6;
             } else {
-                coins += 4;
+                coins += 12;
             }
 
             if (newHabit.details.eating.healthy_meal) {
-                coins += 3;
+                coins += 9;
             }
 
             break;
@@ -102,22 +102,22 @@ export function calculatePoints(newHabit) {
                 Math.floor(newHabit.details.workout.workout_duration / 30) * 4;
 
             // default coins
-            coins += 2;
+            coins += 6;
 
             if (newHabit.details.study.study_duration > 30) {
-                coins += 2;
+                coins += 6;
             }
 
             if (newHabit.details.study.study_duration > 60) {
-                coins += 1;
+                coins += 3;
             }
 
             if (newHabit.details.study.study_productivity == "Medium") {
-                coins += 2;
+                coins += 6;
             }
 
             if (newHabit.details.study.study_productivity == "High") {
-                coins += 2;
+                coins += 6;
             }
 
             break;
@@ -128,9 +128,9 @@ export function calculatePoints(newHabit) {
                 Math.floor(newHabit.details.sleep.sleep_duration / 60) * 4;
 
             if (newHabit.details.sleep.is_nap) {
-                coins += 2;
+                coins += 6;
             } else {
-                coins += Math.floor(newHabit.details.sleep.sleep_duration / 60); // 1 coin per hour
+                coins += Math.floor(newHabit.details.sleep.sleep_duration / 60) * 3; // 3 coins per hour
             }
 
             break;

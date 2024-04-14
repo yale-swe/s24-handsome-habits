@@ -94,7 +94,7 @@ describe("calculatePoints", () => {
 
         const { points, coins } = calculatePoints(newHabit);
         expect(points).toBe(10); // 5 points per 5 minutes
-        expect(coins).toBe(3); // Default coins
+        expect(coins).toBe(9); // Default coins
     });
 
     // medium intensity, high duration test
@@ -111,7 +111,7 @@ describe("calculatePoints", () => {
 
         const { points, coins } = calculatePoints(newHabit);
         expect(points).toBe(120); // 5 points per 5 minutes
-        expect(coins).toBe(5); // Default coins + 1 for medium intensity + 1 for duration over 30 minutes
+        expect(coins).toBe(15); // Default coins + 1 for medium intensity + 1 for duration over 30 minutes
     });
 
     // high intensity, medium duration test
@@ -128,7 +128,7 @@ describe("calculatePoints", () => {
 
         const { points, coins } = calculatePoints(newHabit);
         expect(points).toBe(25); // 5 points per 5 minutes
-        expect(coins).toBe(4); // Default coins + 1 for high intensity
+        expect(coins).toBe(12); // Default coins + 1 for high intensity
     });
 
     //
