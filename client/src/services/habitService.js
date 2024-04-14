@@ -49,6 +49,11 @@ export async function addHabit(newHabit) {
     }
 }
 
+/**
+ * Calculates the points and coins for a new habit.
+ * @param {JSON} newHabit - The new habit to calculate points for.
+ * @returns {JSON} - The points and coins for the new habit.
+ */
 export function calculatePoints(newHabit) {
     let points = 0;
     let coins = 0;
@@ -96,40 +101,37 @@ export function calculatePoints(newHabit) {
             points +=
                 Math.floor(newHabit.details.workout.workout_duration / 30) * 4;
 
-			// default coins
-			coins += 2;
+            // default coins
+            coins += 2;
 
-			if (newHabit.details.study.study_duration > 30) {
-				coins += 2;
-			}
+            if (newHabit.details.study.study_duration > 30) {
+                coins += 2;
+            }
 
-			if (newHabit.details.study.study_duration > 60) {
-				coins += 1;
-			}
+            if (newHabit.details.study.study_duration > 60) {
+                coins += 1;
+            }
 
-			if (newHabit.details.study.study_productivity == "Medium") {
-				coins += 2;
-			}
+            if (newHabit.details.study.study_productivity == "Medium") {
+                coins += 2;
+            }
 
-			if (newHabit.details.study.study_productivity == "High") {
-				coins += 2;
-			}
+            if (newHabit.details.study.study_productivity == "High") {
+                coins += 2;
+            }
 
             break;
 
         case "Sleeping":
+            // 4 points per hour (for only full hour)
+            points +=
+                Math.floor(newHabit.details.sleep.sleep_duration / 60) * 4;
 
-			// 4 points per hour (for only full hour)
-			points +=
-				Math.floor(newHabit.details.sleep.sleep_duration / 60) * 4;
-
-			if (newHabit.details.sleep.is_nap) {
-				coins += 2;
-			}
-
-			else {
-				coins += Math.floor(newHabit.details.sleep.sleep_duration / 60);
-			}
+            if (newHabit.details.sleep.is_nap) {
+                coins += 2;
+            } else {
+                coins += Math.floor(newHabit.details.sleep.sleep_duration / 60); // 1 coin per hour
+            }
 
             break;
     }
