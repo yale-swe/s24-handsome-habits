@@ -1,35 +1,50 @@
 import { jest } from "@jest/globals";
 import mongoose from "mongoose";
 import Assets from "../src/db/models/assets";
-import { createInitialAssets, getAssets, updateAssets } from "../src/controllers/assetsController";
+import { createInitialAssets, getAssets, updateAssets, addAsset, setActiveAssets } from "../src/controllers/assetsController";
 
 const userObjectId = new mongoose.Types.ObjectId();
 
-const defaultAssets = {
+const expectedDefaultAssets = {
     _id: expect.any(mongoose.Types.ObjectId),
     user_id: userObjectId,
-    clothes: [],
-    objects: [],
-    backgrounds: [],
+    owned: {
+        tops: ["yale_tshirt.jpg"],
+        bottoms: [],
+        accessories: []
+    },
+    active: {
+        tops: "yale_tshirt.jpg",
+    }
 };
 
 let saveSpy, findSpy, updateSpy;
 beforeAll(() => {
-
-    const savedAssets = {
+    const createdAssets = {
         _id: expect.any(mongoose.Types.ObjectId),
         user_id: userObjectId,
-        clothes: ["yale_shirt.jpg"],
-        objects: ["shoes.jpg"],
-        backgrounds: [],
+        owned: {
+            tops: ["yale_tshirt.jpg"],
+            bottoms: [],
+            accessories: []
+        },
+        active: {
+            tops: "yale_tshirt.jpg",
+        }
     };
 
     const updatedAssets = {
         _id: expect.any(mongoose.Types.ObjectId),
         user_id: userObjectId,
-        clothes: ["morse_shirt.jpg"],
-        objects: [],
-        backgrounds: ["navy_background.jpg"],
+        owned: {
+            tops: ["morse_tshirt.jpg", "yale_tshirt.jpg"],
+            bottoms: ["morse_pants.jpg"],
+            accessories: []
+        },
+        active: {
+            tops: "morse_tshirt.jpg",
+            bottoms: "morse_pants.jpg",
+        }
     };
 
     /* Mock the required dependencies */
@@ -37,7 +52,7 @@ beforeAll(() => {
     // Save is called twice. The first time it should return the created points
     // The second time it should throw an error for testing purposes
     saveSpy = jest.spyOn(Assets.prototype, "save")
-        .mockImplementationOnce(() => (defaultAssets))
+        .mockImplementationOnce(() => (expectedDefaultAssets))
         .mockImplementationOnce(() => {
             throw new Error("Mocked existing points error")
         });
@@ -46,16 +61,12 @@ beforeAll(() => {
         //  args is a json of the arguments passed into the function
         .mockImplementation((args) => {
             if (args.user_id == userObjectId) {
-                return Promise.resolve(savedAssets);
+                return Promise.resolve(createdAssets);
             }
             return Promise.resolve(null);
         });
 
-    updateSpy = jest.spyOn(Assets, "findOneAndUpdate")
-        .mockImplementationOnce(() => (updatedAssets))
-        .mockImplementationOnce(() => {
-            throw new Error("Mocked update assets error")
-        });
+    updateSpy = jest.spyOn(Assets, "findOneAndUpdate").mockImplementation(() => (updatedAssets));
 });
 
 beforeEach(() => {
@@ -73,7 +84,9 @@ describe("Assets Controller", () => {
         test("should create a new assets object", async() => {
             const newAssets = await createInitialAssets(userObjectId);
             expect(newAssets.user_id).toEqual(userObjectId);
-            expect(newAssets).toEqual(defaultAssets);
+            expect(newAssets).toEqual(expectedDefaultAssets);
+            expect(newAssets).toHaveProperty("owned");
+            expect(newAssets).toHaveProperty("active");
         });
 
         test("should return null if assets already exists or error occurs", async() => {
@@ -93,19 +106,24 @@ describe("Assets Controller", () => {
             const referenceAssets = {
                 _id: expect.any(mongoose.Types.ObjectId),
                 user_id: userObjectId,
-                clothes: ["yale_shirt.jpg"],
-                objects: ["shoes.jpg"],
-                backgrounds: [],
+                owned: {
+                    tops: ["yale_tshirt.jpg"],
+                    bottoms: [],
+                    accessories: []
+                },
+                active: {
+                    tops: "yale_tshirt.jpg"
+                }
             };
 
-            const savedAssets = await getAssets(userObjectId);
-            expect(savedAssets).toEqual(referenceAssets);
+            const createdAssets = await getAssets(userObjectId);
+            expect(createdAssets).toEqual(referenceAssets);
         });
 
         test("should return null if assets does not exist for User", async() => {
             const wrongUserId = new mongoose.Types.ObjectId();
-            const savedAssets = await getAssets(wrongUserId);
-            expect(savedAssets).toBeNull();
+            const createdAssets = await getAssets(wrongUserId);
+            expect(createdAssets).toBeNull();
             expect(console.log).not.toHaveBeenCalledWith("Error getting assets");
         });
 
@@ -117,8 +135,8 @@ describe("Assets Controller", () => {
                     throw new Error("Mocked find assets error");
                 });
 
-            const savedAssets = await getAssets(userObjectId);
-            expect(savedAssets).toBeNull();
+            const createdAssets = await getAssets(userObjectId);
+            expect(createdAssets).toBeNull();
             expect(console.log).toHaveBeenCalledWith("Error getting assets");
         });
     });
@@ -135,9 +153,15 @@ describe("Assets Controller", () => {
             const referenceAssets = {
                 _id: expect.any(mongoose.Types.ObjectId),
                 user_id: userObjectId,
-                clothes: ["morse_shirt.jpg"],
-                objects: [],
-                backgrounds: ["navy_background.jpg"],
+                owned: {
+                    tops: ["morse_tshirt.jpg", "yale_tshirt.jpg"],
+                    bottoms: ["morse_pants.jpg"],
+                    accessories: []
+                },
+                active: {
+                    tops: "morse_tshirt.jpg",
+                    bottoms: "morse_pants.jpg",
+                }
             };
 
             // check that old assets aren't the same as the assets to be updated to
@@ -153,7 +177,93 @@ describe("Assets Controller", () => {
 
         // The mocked version of findAndUpdateOne throws an error on second call for testing purposes
         test("should return null if there is an error updating the assets", async() => {
-            const updatedAssets = await updateAssets(userObjectId, defaultAssets);
+            updateSpy = jest.spyOn(Assets, "findOneAndUpdate")
+                .mockImplementationOnce(() => {
+                    throw new Error("Mocked update assets error");
+                });
+            const updatedAssets = await updateAssets(userObjectId, expectedDefaultAssets);
+            expect(updatedAssets).toBeNull();
+            expect(console.log).toHaveBeenCalledWith("Error updating assets");
+        });
+    });
+
+    describe("addAsset", () => {
+        const expectedUpdatedAssets = expectedDefaultAssets;
+        expectedUpdatedAssets.owned.tops.push("dport_tshirt.jpg");
+
+        afterEach(() => {
+            updateSpy.mockClear();
+        });
+
+        test("should add an asset to the user's owned assets", async() => {
+
+            // Mock findAndUpdateOne to return the updated assets
+            updateSpy = jest.spyOn(Assets, "findOneAndUpdate").mockImplementation(() => {
+                const newAssets = expectedDefaultAssets;
+                newAssets.owned.tops.push("dport_tshirt.jpg");
+                return newAssets;
+            });
+
+            const createdAssets = await getAssets(userObjectId);
+            expect(createdAssets).not.toBeNull();
+            expect(createdAssets.owned).not.toContain("dport_tshirt.jpg");
+
+            const updatedAssets = await addAsset(userObjectId, "tops", "dport_tshirt.jpg");
+            expect(updatedAssets).not.toBeNull();
+            // Assert that dport_tshirt.jpg has been added to the user's owned tops
+            expect(updatedAssets).toEqual(expectedUpdatedAssets);
+            expect(updateSpy).toHaveBeenCalledTimes(1);
+        });
+
+
+        test("should return null if there is an error adding the asset", async() => {
+            // Mock findAndUpdateOne to throw an error for testing purposes
+            Assets.findOneAndUpdate.mockRejectedValue(new Error("Mocked update assets error"));
+
+            const updatedAssets = await addAsset(userObjectId, "tops", "dport_tshirt.jpg");
+            expect(updatedAssets).toBeNull();
+            expect(console.log).toHaveBeenCalledWith("Error updating assets");
+        });
+    });
+
+
+    describe("Set Active Assets", () => {
+        // The expected assets after updating the active assets
+        const expectedUpdatedAssets = expectedDefaultAssets;
+        expectedUpdatedAssets.owned.tops.push("dport_tshirt.jpg");
+        expectedUpdatedAssets.active.tops = "dport_tshirt.jpg";
+
+        afterEach(() => {
+            updateSpy.mockClear();
+        });
+
+        test("should set the active assets for the user", async() => {
+            // Mock findAndUpdateOne to return the updated assets
+            updateSpy = jest.spyOn(Assets, "findOneAndUpdate").mockImplementation(() => {
+                const newAssets = expectedDefaultAssets;
+                newAssets.owned.tops.push("dport_tshirt.jpg");
+                return newAssets;
+            });
+
+            let userAssets = await getAssets(userObjectId);
+            expect(userAssets).not.toBeNull();
+            expect(userAssets.active).not.toContain("dport_tshirt.jpg");
+
+            // add the assets to the user's assets
+            userAssets = await addAsset(userObjectId, "tops", "dport_tshirt.jpg");
+            expect(userAssets).not.toBeNull();
+            // set the user's active assets to be the asset
+            userAssets = await setActiveAssets(userObjectId, { tops: "dport_tshirt.jpg" });
+            expect(userAssets).not.toBeNull();
+            expect(userAssets).toEqual(expectedUpdatedAssets);
+            expect(updateSpy).toHaveBeenCalledTimes(2); // 1 for addAsset, 1 for setActiveAssets
+        });
+
+        test("should return null if there is an error setting the active assets", async() => {
+            // Mock findAndUpdateOne to throw an error for testing purposes
+            Assets.findOneAndUpdate.mockRejectedValue(new Error("Mocked update assets error"));
+
+            const updatedAssets = await setActiveAssets(userObjectId, { tops: "dport_tshirt.jpg" });
             expect(updatedAssets).toBeNull();
             expect(console.log).toHaveBeenCalledWith("Error updating assets");
         });

@@ -25,9 +25,18 @@ const assetsSchema = new mongoose.Schema({
         unique: true,
         ref: "User"
     },
-    clothes: [String],
-    objects: [String],
-    backgrounds: [String]
+    // The clothes the user currently owns
+    owned: {
+        tops: { type: [String], default: ["yale_tshirt.jpg"] },
+        bottoms: [String],
+        accessories: [String]
+    },
+    // The active outfit/ what the character is currently wearing
+    active: {
+        tops: { type: String, default: "yale_tshirt.jpg" },
+        bottoms: String,
+        accessories: String
+    }
 
 });
 

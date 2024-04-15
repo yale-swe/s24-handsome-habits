@@ -46,7 +46,7 @@ const Login = (props) => {
             var userData = await user.data;
             userData = decodeURIComponent(JSON.stringify(userData.user));
             console.log("User data: ", userData);
-          
+
             // Save user data on client side
             AsyncStorage.setItem("user", userData);
 

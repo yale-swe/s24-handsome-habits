@@ -12,7 +12,7 @@ export default async function Authentication(response) {
   }
   if (response?.type === "success") {
     user_data = await getUserInfoWithGoogle(
-      response.authentication.accessToken
+      response.authentication.accessToken,
     );
 
     console.log("User signed in:", user_data);
@@ -36,10 +36,7 @@ export async function logout() {
   console.log("Logging out and deleting user cookies");
   // remove the cookie header from axios
   axios.defaults.headers.Cookie = "";
-  await AsyncStorage.removeItem("cookies");
-  await AsyncStorage.removeItem("user");
-  await AsyncStorage.removeItem("points");
-  await AsyncStorage.removeItem("habit");
+  await AsyncStorage.clear();
 }
 
 export async function CASLogout() {
@@ -60,7 +57,7 @@ export async function LoginWithActiveSession() {
     // Clear session if session is invalid / unauthorized user
     console.error(
       "Error logging in with stored cookies. Logging out",
-      err.response.status
+      err.response.status,
     );
     if (err.response.status == StatusCodes.UNAUTHORIZED) {
       logout();
