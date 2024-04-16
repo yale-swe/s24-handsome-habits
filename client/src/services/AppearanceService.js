@@ -60,9 +60,9 @@ export async function getClothes() {
 
     return {
         // set top to stored value, otherwise default
-        top: (assets?.active?.tops && tops.Object.prototype.hasOwnProperty.call(assets.active.tops)) ? assets.active.tops : "white_tshirt",
-        bottom: (assets?.active?.bottoms && bottoms.Object.prototype.hasOwnProperty.call(assets.active.bottoms)) ? assets.active.bottoms : "medium_jeans",
-        accessories: (assets?.active?.accessories && accessories.Object.prototype.hasOwnProperty.call(assets.active.accessories)) ? assets.active.accessories : null,
+        top: (assets?.active?.tops && Object.prototype.hasOwnProperty.call(tops, assets.active.tops)) ? assets.active.tops : "white_tshirt",
+        bottom: (assets?.active?.bottoms && Object.prototype.hasOwnProperty.call(bottoms, assets.active.bottoms)) ? assets.active.bottoms : "medium_jeans",
+        accessories: (assets?.active?.accessories && Object.prototype.hasOwnProperty.call(accessories, assets.active.accessories)) ? assets.active.accessories : null,
 };
 
 }

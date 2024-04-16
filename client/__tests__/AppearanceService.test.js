@@ -57,12 +57,12 @@ describe("Appearance Service", () => {
         it("returns the user's current clothes", async () => {
             const assets = {
                 owned: {
-                    tops: ["yale_tshirt.jpg"],
+                    tops: ["yale_tshirt"],
                     bottoms: [],
                     accessories: [],
                 },
                 active: {
-                    tops: "yale_tshirt.jpg",
+                    tops: "yale_tshirt",
                     bottoms: "medium_jeans",
                 },
             };
@@ -71,7 +71,7 @@ describe("Appearance Service", () => {
 
             const clothes = await getClothes();
             expect(clothes).toStrictEqual({
-                top: "yale_tshirt.jpg",
+                top: "yale_tshirt",
                 bottom: "medium_jeans",
                 accessories: null,
             });
