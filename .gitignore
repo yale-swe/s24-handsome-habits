@@ -3,3 +3,4 @@
 */.expo
 *.trunk
 */coverage
+*.DS_Store
