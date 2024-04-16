@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     },
     image: {
         position: "absolute",
-        height: "115%",
-        width: "115%",
-        top: "4%",
-        left: "-7.5%", // center horizontally
+        height: "120%",
+        width: "120%",
+        top: 0,
+        left: "-10%", // center horizontally
     },
 
 });
