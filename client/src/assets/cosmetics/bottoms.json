@@ -1,32 +1,32 @@
 [
-    {
-      "name": "suit_pants",
-      "type": "pants",
-      "price": 100
-    },
-    {
-      "name": "white_shorts",
-      "type": "pants",
-      "price": 100
-    },
-    {
-      "name": "light_jeans",
-      "type": "pants",
-      "price": 100
-    },
-    {
-      "name": "white_pants",
-      "type": "pants",
-      "price": 100
-    },
-    {
-      "name": "plaid_pajamas",
-      "type": "pants",
-      "price": 100
-    },
-    {
+  {
+    "name": "plaid_pajamas",
+    "type": "pants",
+    "price": 25
+  },
+  {
+    "name": "white_shorts",
+    "type": "pants",
+    "price": 50
+  },
+  {
+    "name": "white_pants",
+    "type": "pants",
+    "price": 80
+  },
+  {
+    "name": "light_jeans",
+    "type": "pants",
+    "price": 130
+  },
+  {
       "name": "medium_jeans",
       "type": "pants",
-      "price": 100
-    }  
-  ]
+      "price": 150
+  },
+  {
+    "name": "suit_pants",
+    "type": "pants",
+    "price": 200
+  }
+    ]

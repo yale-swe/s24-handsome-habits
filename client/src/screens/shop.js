@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import BackButton from "../components/backButton";
 import { Buttons, Typography } from "../styles";
 import { getPointInfo } from "../services/PointsService";
+import { getAssets } from "../services/AssetsService";
 import { useFocusEffect } from "@react-navigation/native";
 import ShopButton from "../components/shopButton";
 import ShopItemList from "../components/shopItemList"
@@ -25,7 +26,7 @@ const Shop = (props) => {
       const rawPoints = await getPointInfo();
       setPointsInfo(rawPoints);
     } catch (error) {
-      console.log("Failed to retrieve user points to home.");
+      console.log("Failed to retrieve user points to shop.");
     }
   };
 
@@ -38,6 +39,31 @@ const Shop = (props) => {
     // Fetch user's points and coins when the component mounts after a navigation action
     React.useCallback(() => {
       fetchPoints();
+    }, [])
+  );
+
+  // variable and function for getting/setter user points
+  const [assetInfo, setAssetInfo] = React.useState(null);
+
+  // fetches user points from the database
+  const fetchAssets = async () => {
+    try {
+      const rawAssets = await getAssets();
+      setAssetInfo(rawAssets);
+    } catch (error) {
+      console.log("Failed to retrieve user assets to shop.");
+    }
+  };
+
+  React.useEffect(() => {
+    // Fetch user's points and coins when the component mounts
+    fetchAssets();
+  }, []); // The empty array ensures this effect runs only once when the component mounts
+
+  useFocusEffect(
+    // Fetch user's points and coins when the component mounts after a navigation action
+    React.useCallback(() => {
+      fetchAssets();
     }, [])
   );
 
@@ -75,25 +101,25 @@ const Shop = (props) => {
                     onPress={() => handleShopButtonPress(0)}
                     asset={"tops"}
                     testID={"tops-button"}
-                    opacity={toString(buttonOpacities[0])}>
+                    opacity={buttonOpacities[0]}>
         </ShopButton>
         <ShopButton style={Buttons.shopButton}
                     onPress={() => handleShopButtonPress(1)}
                     asset={"bottoms"}
                     testID={"bottoms-button"}
-                    opacity={toString(buttonOpacities[1])}>
+                    opacity={buttonOpacities[1]}>
         </ShopButton>
         <ShopButton style={Buttons.shopButton}
                     onPress={() => handleShopButtonPress(2)}
                     asset={"accessories"}
                     testID={"accessories-button"}
-                    opacity={toString(buttonOpacities[2])}>
+                    opacity={buttonOpacities[2]}>
         </ShopButton>
       </View>
       <View style={styles.shopUIcontainer} testID={"shop-view"}>
-        {activeStorePage == "tops" ? <ShopItemList category={activeStorePage} testID={"tops-list"}></ShopItemList> :
-         activeStorePage == "bottoms" ? <ShopItemList category={activeStorePage} testID={"bottoms-list"}></ShopItemList> :
-         <ShopItemList category={activeStorePage} testID={"accessories-list"}></ShopItemList>}
+        {activeStorePage == "tops" ? <ShopItemList category={activeStorePage} assetUpdater={() => fetchAssets()} assetInfo={assetInfo} coinUpdater={() => fetchPoints()} testID={"tops-list"}></ShopItemList> :
+         activeStorePage == "bottoms" ? <ShopItemList category={activeStorePage} assetUpdater={() => fetchAssets()} assetInfo={assetInfo} coinUpdater={() => fetchPoints()} testID={"bottoms-list"}></ShopItemList> :
+         <ShopItemList category={activeStorePage} assetUpdater={() => fetchAssets()} assetInfo={assetInfo} coinUpdater={() => fetchPoints()} testID={"accessories-list"}></ShopItemList>}
       </View>
     </View>
   );

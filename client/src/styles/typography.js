@@ -44,7 +44,7 @@ export const buttonText = {
 
 export const shop = {
   color: "#0D3A4F",
-  fontSize: 17,
+  fontSize: 16,
   ...boldFont,
 };
 

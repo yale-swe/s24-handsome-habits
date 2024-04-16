@@ -12,7 +12,7 @@ import mongoose from "mongoose";
  * @typedef {Object} Assets
  * @property {mongoose.Schema.Types.ObjectId} user_id - user_id for the Assets.
  * @property {String[]} tops - list of tops a user owns.
- * @property {String[]} pants - list of pants a user owns.
+ * @property {String[]} bottoms - list of pants a user owns.
  * @property {String[]} extras - list of extras a user owns.
  */
 
@@ -27,13 +27,13 @@ const assetsSchema = new mongoose.Schema({
     },
     // The clothes the user currently owns
     owned: {
-        tops: { type: [String], default: ["yale_tshirt.jpg"] },
+        tops: { type: [String], default: ["yale_tshirt"] },
         bottoms: [String],
         accessories: [String]
     },
     // The active outfit/ what the character is currently wearing
     active: {
-        tops: { type: String, default: "yale_tshirt.jpg" },
+        tops: { type: String, default: "yale_tshirt" },
         bottoms: String,
         accessories: String
     }

@@ -16,9 +16,12 @@ const ShopItemList = ( props ) => {
         data={displayed_asset}
         renderItem={({item}) =>
           <View style={{padding: 12}}>
-            <ShopItem assetImage={item.name}
+            <ShopItem name={item.name}
                       coinAmount={item.price}
-                      category={props.category}>
+                      category={props.category}
+                      coinUpdater={props.coinUpdater}
+                      assetInfo={props.assetInfo}
+                      assetUpdater={props.assetUpdater}>
             </ShopItem>
           </View>
         }
@@ -33,6 +36,9 @@ const ShopItemList = ( props ) => {
 ShopItemList.propTypes = {
     category: PropTypes.string,
     testID: PropTypes.string,
+    coinUpdater: PropTypes.any,
+    assetInfo: PropTypes.any,
+    assetUpdater: PropTypes.any,
   };
 
 const styles = StyleSheet.create({

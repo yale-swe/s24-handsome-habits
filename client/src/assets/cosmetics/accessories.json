@@ -1,32 +1,32 @@
 [
   {
-    "name": "glasses",
+    "name": "yellow_headband",
     "type": "extras",
-    "price": 100
+    "price": 90
   },
   {
-    "name": "yellow_headband",
+    "name": "blue_headband",
+    "type": "extras",
+    "price": 90
+  },
+  {
+    "name": "glasses",
     "type": "extras",
     "price": 100
   },
   {
     "name": "black_sunglasses",
     "type": "extras",
-    "price": 100
+    "price": 150
   },
   {
     "name": "yellow_sunglasses",
     "type": "extras",
-    "price": 100
-  },
-  {
-    "name": "blue_headband",
-    "type": "extras",
-    "price": 100
+    "price": 150
   },
   {
     "name": "blue_sunglasses",
     "type": "extras",
-    "price": 100
+    "price": 150
   }
 ]

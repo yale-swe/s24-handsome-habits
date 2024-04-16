@@ -5,10 +5,10 @@ import { Buttons, Typography } from "../styles";
 
 const AssetButton = (props) => {
   return (
-    props.state == "purchase" ? (
+    props.state == "unowned" ? (
     <View style={styles.container} testID={"purchase-button-container"}>
-      <TouchableOpacity onPress={props.onPress} style={Buttons.purchaseButton} testID={"purchase"}>
-        <View style={styles.assetButtonContainer}>
+      <TouchableOpacity onPress={props.onPress} style={Buttons.purchaseButton} testID={props.testID}>
+        <View style={styles.assetButtonContainer} testID={"purchase"}>
           <Text style={Typography.asset}> {props.coinAmount} </Text>
         </View>
         <Image
@@ -20,18 +20,22 @@ const AssetButton = (props) => {
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
-    ) : props.state == "equip" ? (
-      <View style={styles.container} testID={"equip-button-container"}>
-        <TouchableOpacity onPress={props.onPress} style={Buttons.ownedButton} testID={"equip"}>
-          <Text style={Typography.asset}> Put On </Text>
+    ) : props.state == "owned" ? (
+      <View style={styles.container} testID={"put-on-button-container"}>
+        <TouchableOpacity onPress={props.onPress} style={Buttons.ownedButton} testID={props.testID}>
+          <Text style={Typography.asset} testID={"put-on"}> Put On </Text>
+          {/* update the user's active assets
+              update the button state
+              how to make sure other button updates? */}
         </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
     ) : (
-      <View style={styles.container} testID={"wearing-button-container"}>
-        <TouchableOpacity onPress={props.onPress} style={[Buttons.ownedButton, {opacity: 0.6}]} testID={"wearing"}>
-          <Text style={Typography.asset}> Wearing! </Text>
-        </TouchableOpacity>
+      <View style={styles.container} testID={props.testID}>
+        <View style={[Buttons.ownedButton, {opacity: 0.6}]} testID={"wearing-container"}>
+          <Text style={Typography.asset} testID={"wearing"}> Wearing! </Text>
+          {/* make this not a touchable opacity tbh */}
+        </View>
       <StatusBar style="auto" />
     </View>
     )
@@ -40,7 +44,7 @@ const AssetButton = (props) => {
 
 AssetButton.propTypes = {
   coinAmount: PropTypes.any,
-  state: PropTypes.string, // either purchase, equip, or wearing
+  state: PropTypes.string, // either unowned, owned, or wearing
   onPress: PropTypes.any,
   testID: PropTypes.string,
 };

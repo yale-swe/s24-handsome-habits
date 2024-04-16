@@ -24,6 +24,21 @@ jest.mock("../src/services/PointsService.js", () => ({
   }),
 }));
 
+jest.mock("../src/services/AssetsService.js", () => ({
+  getAssets: jest.fn().mockResolvedValue({
+    owned: {
+      tops: ["yale_tshirt"],
+      bottoms: ["white_shorts"],
+      accessories: ["glasses"]
+    },
+    active: {
+      tops: ["yale_tshirt"],
+      bottoms: ["white_shorts"],
+      accessories: ["glasses"]
+    }
+  })
+}))
+
 describe("Shop component", () => {
   it("renders correctly", () => {
     const { getByTestId } = render(<NavigationContainer> <Shop navigation={{ navigate: jest.fn() }} /> </NavigationContainer>);

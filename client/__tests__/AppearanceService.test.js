@@ -10,12 +10,25 @@ import {
     bottoms,
     accessories,
 } from "../src/constants/resources";
-import { getQualityPoints } from "../src/services/PointsService";
+import { getPointInfo } from "../src/services/PointsService";
 import { getAssets } from "../src/services/AssetsService";
 
 // Mock Points Service
 jest.mock("../src/services/PointsService", () => ({
     getPointInfo: jest.fn(),
+}));
+
+// Mock async storage
+jest.mock("@react-native-async-storage/async-storage", () => ({
+    setItem: jest.fn(),
+    getItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+}));
+
+// Mock Assets Service
+jest.mock("../src/services/AssetsService", () => ({
+    getAssets: jest.fn(),
 }));
 
 // Mock async storage
