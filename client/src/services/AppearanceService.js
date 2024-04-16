@@ -56,7 +56,7 @@ export async function getClothesPath() {
 export async function getClothes() {
 
     const assets = await getAssets();
-    // check if active key exists in assets
+    console.log(assets.active);
 
     return {
         // set top to assets.tops if it exists, otherwise set to default
