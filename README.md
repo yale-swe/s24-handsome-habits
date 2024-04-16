@@ -10,6 +10,7 @@
 1. [About the Project](#about-the-project)
     - [Description](#description)
     - [Features](#features)
+    - [Screenshots](#screenshots)
     - [Built With](#built-with)
 
 
@@ -36,6 +37,9 @@ For Yale students, balance often seems unachievable. While Yale students are oft
 - **Buy rewards:** earn coins when you log a habit to buy Handsome Dan new clothes.
 - **Customize Handsome Dan:** change Handsome Dan's outfit and accessories.
 - **Reminders:** Get notified when it's been a while since you logged a habit.
+
+### Screenshots
+<img src="homescreenshot.png" alt="Home screen of a cartoon bulldog in the center, a coin total in the top right, a bulldog icon in the top left, and four habit icons on the bottom" width="100">
 
 ### Built With
 <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" width="auto" height="30">

@@ -12,7 +12,7 @@ const HandsomeDan = () => {
     useEffect(() => {
         // Asynchronously fetch clothes and emotion paths
         async function fetchData() {
-            const clothesPath = getClothesPath();
+            const clothesPath = await getClothesPath();
             const emotionPath = await getEmotionPath();
             setClothes(clothesPath);
             setEmotion(emotionPath);
@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     },
     image: {
         position: "absolute",
-        height: "115%",
-        width: "115%",
-        top: "4%",
-        left: "-7.5%", // center horizontally
+        height: "120%",
+        width: "120%",
+        top: 0,
+        left: "-10%", // center horizontally
     },
 
 });
