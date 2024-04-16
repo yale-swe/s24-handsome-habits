@@ -12,7 +12,7 @@ const HandsomeDan = () => {
     useEffect(() => {
         // Asynchronously fetch clothes and emotion paths
         async function fetchData() {
-            const clothesPath = getClothesPath();
+            const clothesPath = await getClothesPath();
             const emotionPath = await getEmotionPath();
             setClothes(clothesPath);
             setEmotion(emotionPath);
