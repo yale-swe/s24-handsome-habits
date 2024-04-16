@@ -108,14 +108,21 @@ exports[`Study Screen renders correctly and matches snapshot 1`] = `
       <Image
         source={
           {
-            "testUri": "../../../src/assets/images/gymdog.png",
+            "testUri": "../../../src/assets/images/Studying_Dan.png",
           }
         }
         style={
           {
             "height": 210,
             "margin": 0,
-            "width": 200,
+            "width": 140,
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "width": 80,
           }
         }
       />
@@ -136,7 +143,7 @@ exports[`Study Screen renders correctly and matches snapshot 1`] = `
             }
           }
         >
-            study smart, not hard.
+           study smart, not hard.
         </Text>
       </View>
     </View>

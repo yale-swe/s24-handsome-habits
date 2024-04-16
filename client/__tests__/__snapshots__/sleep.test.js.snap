@@ -108,14 +108,21 @@ exports[`Sleep Screen renders correctly and matches snapshot 1`] = `
       <Image
         source={
           {
-            "testUri": "../../../src/assets/images/gymdog.png",
+            "testUri": "../../../src/assets/images/Sleeping_Dan.png",
           }
         }
         style={
           {
             "height": 210,
             "margin": 0,
-            "width": 200,
+            "width": 135,
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "width": 100,
           }
         }
       />
@@ -136,7 +143,7 @@ exports[`Sleep Screen renders correctly and matches snapshot 1`] = `
             }
           }
         >
-                 recharge to upcharge.
+           recharge to upcharge.
         </Text>
       </View>
     </View>
