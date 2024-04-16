@@ -11,11 +11,25 @@ import {
     accessories,
 } from "../src/constants/resources";
 import { getQualityPoints } from "../src/services/PointsService";
+import { getAssets } from "../src/services/AssetsService";
 
 // Mock Points Service
 jest.mock("../src/services/PointsService", () => ({
     getPointInfo: jest.fn(),
     getQualityPoints: jest.fn(),
+}));
+
+// Mock async storage
+jest.mock("@react-native-async-storage/async-storage", () => ({
+    setItem: jest.fn(),
+    getItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+}));
+
+// Mock Assets Service
+jest.mock("../src/services/AssetsService", () => ({
+    getAssets: jest.fn(),
 }));
 
 describe("Appearance Service", () => {
@@ -40,15 +54,34 @@ describe("Appearance Service", () => {
     });
 
     describe("Get Clothes", () => {
-        //TODO: finish when there is a retreival funcitn that can be mocked
+        it("returns the user's current clothes", async () => {
+            const assets = {
+                owned: {
+                    tops: ["yale_tshirt.jpg"],
+                    bottoms: [],
+                    accessories: [],
+                },
+                active: {
+                    tops: "yale_tshirt.jpg",
+                    bottoms: "medium_jeans",
+                },
+            };
+
+            getAssets.mockReturnValue(assets);
+
+            const clothes = await getClothes();
+            expect(clothes).toStrictEqual({
+                top: "yale_tshirt.jpg",
+                bottom: "medium_jeans",
+                accessories: null,
+            });
+        });
     });
 
-    //TODO: finish when there is a retreival funcitn that can be mocked
-
     describe("Get Clothes Path", () => {
-        it("returns the path to the image of the user's current clothes", () => {
-            const clothes = getClothes();
-            const path = getClothesPath();
+        it("returns the path to the image of the user's current clothes", async () => {
+            const clothes = await getClothes();
+            const path = await getClothesPath();
 
             expect(path).toStrictEqual({
                 top: tops[clothes.top],

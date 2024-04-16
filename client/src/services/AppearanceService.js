@@ -56,15 +56,15 @@ export async function getClothesPath() {
 export async function getClothes() {
 
     const assets = await getAssets();
-    console.log(assets.active);
+    // check if active key exists in assets
 
     return {
         // set top to assets.tops if it exists, otherwise set to default
-        top: assets.active.tops ? assets.active.tops : "white_tshirt",
+        top: assets?.active?.tops || "white_tshirt",
         // set bottom to assets.bottoms if it exists, otherwise set to default
-        bottom: assets.active.bottoms ? assets.active.bottoms : "medium_jeans",
+        bottom: assets?.active?.bottoms || "medium_jeans",
         // set accessories to assets.accessories if it exists, otherwise set to null
-        accessories: assets.active.accessories ? assets.active.accessories : null,
+        accessories: assets?.active?.accessories || null,
 
     }
 
