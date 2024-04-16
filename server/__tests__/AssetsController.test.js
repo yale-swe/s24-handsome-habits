@@ -9,12 +9,12 @@ const expectedDefaultAssets = {
     _id: expect.any(mongoose.Types.ObjectId),
     user_id: userObjectId,
     owned: {
-        tops: ["yale_tshirt.jpg"],
+        tops: ["yale_tshirt"],
         bottoms: [],
         accessories: []
     },
     active: {
-        tops: "yale_tshirt.jpg",
+        tops: "yale_tshirt",
     }
 };
 
@@ -24,12 +24,12 @@ beforeAll(() => {
         _id: expect.any(mongoose.Types.ObjectId),
         user_id: userObjectId,
         owned: {
-            tops: ["yale_tshirt.jpg"],
+            tops: ["yale_tshirt"],
             bottoms: [],
             accessories: []
         },
         active: {
-            tops: "yale_tshirt.jpg",
+            tops: "yale_tshirt",
         }
     };
 
@@ -37,13 +37,13 @@ beforeAll(() => {
         _id: expect.any(mongoose.Types.ObjectId),
         user_id: userObjectId,
         owned: {
-            tops: ["morse_tshirt.jpg", "yale_tshirt.jpg"],
-            bottoms: ["morse_pants.jpg"],
+            tops: ["morse_tshirt", "yale_tshirt"],
+            bottoms: ["morse_pants"],
             accessories: []
         },
         active: {
-            tops: "morse_tshirt.jpg",
-            bottoms: "morse_pants.jpg",
+            tops: "morse_tshirt",
+            bottoms: "morse_pants",
         }
     };
 
@@ -107,12 +107,12 @@ describe("Assets Controller", () => {
                 _id: expect.any(mongoose.Types.ObjectId),
                 user_id: userObjectId,
                 owned: {
-                    tops: ["yale_tshirt.jpg"],
+                    tops: ["yale_tshirt"],
                     bottoms: [],
                     accessories: []
                 },
                 active: {
-                    tops: "yale_tshirt.jpg"
+                    tops: "yale_tshirt"
                 }
             };
 
@@ -154,13 +154,13 @@ describe("Assets Controller", () => {
                 _id: expect.any(mongoose.Types.ObjectId),
                 user_id: userObjectId,
                 owned: {
-                    tops: ["morse_tshirt.jpg", "yale_tshirt.jpg"],
-                    bottoms: ["morse_pants.jpg"],
+                    tops: ["morse_tshirt", "yale_tshirt"],
+                    bottoms: ["morse_pants"],
                     accessories: []
                 },
                 active: {
-                    tops: "morse_tshirt.jpg",
-                    bottoms: "morse_pants.jpg",
+                    tops: "morse_tshirt",
+                    bottoms: "morse_pants",
                 }
             };
 
@@ -189,7 +189,7 @@ describe("Assets Controller", () => {
 
     describe("addAsset", () => {
         const expectedUpdatedAssets = expectedDefaultAssets;
-        expectedUpdatedAssets.owned.tops.push("dport_tshirt.jpg");
+        expectedUpdatedAssets.owned.tops.push("dport_tshirt");
 
         afterEach(() => {
             updateSpy.mockClear();
@@ -200,17 +200,17 @@ describe("Assets Controller", () => {
             // Mock findAndUpdateOne to return the updated assets
             updateSpy = jest.spyOn(Assets, "findOneAndUpdate").mockImplementation(() => {
                 const newAssets = expectedDefaultAssets;
-                newAssets.owned.tops.push("dport_tshirt.jpg");
+                newAssets.owned.tops.push("dport_tshirt");
                 return newAssets;
             });
 
             const createdAssets = await getAssets(userObjectId);
             expect(createdAssets).not.toBeNull();
-            expect(createdAssets.owned).not.toContain("dport_tshirt.jpg");
+            expect(createdAssets.owned).not.toContain("dport_tshirt");
 
-            const updatedAssets = await addAsset(userObjectId, "tops", "dport_tshirt.jpg");
+            const updatedAssets = await addAsset(userObjectId, "tops", "dport_tshirt");
             expect(updatedAssets).not.toBeNull();
-            // Assert that dport_tshirt.jpg has been added to the user's owned tops
+            // Assert that dport_tshirt has been added to the user's owned tops
             expect(updatedAssets).toEqual(expectedUpdatedAssets);
             expect(updateSpy).toHaveBeenCalledTimes(1);
         });
@@ -220,7 +220,7 @@ describe("Assets Controller", () => {
             // Mock findAndUpdateOne to throw an error for testing purposes
             Assets.findOneAndUpdate.mockRejectedValue(new Error("Mocked update assets error"));
 
-            const updatedAssets = await addAsset(userObjectId, "tops", "dport_tshirt.jpg");
+            const updatedAssets = await addAsset(userObjectId, "tops", "dport_tshirt");
             expect(updatedAssets).toBeNull();
             expect(console.log).toHaveBeenCalledWith("Error updating assets");
         });
@@ -230,8 +230,8 @@ describe("Assets Controller", () => {
     describe("Set Active Assets", () => {
         // The expected assets after updating the active assets
         const expectedUpdatedAssets = expectedDefaultAssets;
-        expectedUpdatedAssets.owned.tops.push("dport_tshirt.jpg");
-        expectedUpdatedAssets.active.tops = "dport_tshirt.jpg";
+        expectedUpdatedAssets.owned.tops.push("dport_tshirt");
+        expectedUpdatedAssets.active.tops = "dport_tshirt";
 
         afterEach(() => {
             updateSpy.mockClear();
@@ -241,19 +241,19 @@ describe("Assets Controller", () => {
             // Mock findAndUpdateOne to return the updated assets
             updateSpy = jest.spyOn(Assets, "findOneAndUpdate").mockImplementation(() => {
                 const newAssets = expectedDefaultAssets;
-                newAssets.owned.tops.push("dport_tshirt.jpg");
+                newAssets.owned.tops.push("dport_tshirt");
                 return newAssets;
             });
 
             let userAssets = await getAssets(userObjectId);
             expect(userAssets).not.toBeNull();
-            expect(userAssets.active).not.toContain("dport_tshirt.jpg");
+            expect(userAssets.active).not.toContain("dport_tshirt");
 
             // add the assets to the user's assets
-            userAssets = await addAsset(userObjectId, "tops", "dport_tshirt.jpg");
+            userAssets = await addAsset(userObjectId, "tops", "dport_tshirt");
             expect(userAssets).not.toBeNull();
             // set the user's active assets to be the asset
-            userAssets = await setActiveAssets(userObjectId, { tops: "dport_tshirt.jpg" });
+            userAssets = await setActiveAssets(userObjectId, { tops: "dport_tshirt" });
             expect(userAssets).not.toBeNull();
             expect(userAssets).toEqual(expectedUpdatedAssets);
             expect(updateSpy).toHaveBeenCalledTimes(2); // 1 for addAsset, 1 for setActiveAssets
@@ -263,7 +263,7 @@ describe("Assets Controller", () => {
             // Mock findAndUpdateOne to throw an error for testing purposes
             Assets.findOneAndUpdate.mockRejectedValue(new Error("Mocked update assets error"));
 
-            const updatedAssets = await setActiveAssets(userObjectId, { tops: "dport_tshirt.jpg" });
+            const updatedAssets = await setActiveAssets(userObjectId, { tops: "dport_tshirt" });
             expect(updatedAssets).toBeNull();
             expect(console.log).toHaveBeenCalledWith("Error updating assets");
         });
