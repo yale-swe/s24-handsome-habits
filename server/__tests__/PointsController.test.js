@@ -83,10 +83,10 @@ beforeEach(() => {
 
 // Test the createPoints function for when it works and when it doesn't
 describe("createPoints", () => {
-    let count = 0;
+
     afterEach(() => {
-        count++;
-        expect(saveSpy).toHaveBeenCalledTimes(count);
+        expect(saveSpy).toHaveBeenCalledTimes(1);
+        saveSpy.mockClear();
     });
 
     test("should create a new points object", async() => {
@@ -144,10 +144,10 @@ describe("findPoints", () => {
 
 
 describe("updatePoints", () => {
-    let count = 0;
+
     afterEach(() => {
-        count++;
-        expect(updateOneSpy).toHaveBeenCalledTimes(count);
+        expect(updateOneSpy).toHaveBeenCalledTimes(1);
+        updateOneSpy.mockClear();
     });
 
     test("should update the points object for the user", async() => {
@@ -184,10 +184,10 @@ describe("updatePoints", () => {
 
 
 describe("deletePoints", () => {
-    let count = 0;
+
     afterEach(() => {
-        count++;
-        expect(deleteOneSpy).toHaveBeenCalledTimes(count);
+        expect(deleteOneSpy).toHaveBeenCalledTimes(1);
+        deleteOneSpy.mockClear();
     });
 
     test("should delete the points object", async() => {
