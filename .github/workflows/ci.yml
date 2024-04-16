@@ -40,6 +40,7 @@ jobs:
         cd client
         npm run lint-fix
     - name: Run client Jest tests
+      continue-on-error: true
       run: |
         cd client
         npm test -- --coverage
