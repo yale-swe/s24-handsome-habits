@@ -1,43 +1,110 @@
-# Handsome Habits
-*Wini Aboyure, Julian Tweneboa Kodua, Aminata Sakho, and Tyler Norsworthy*
+<div align="center">
+  <h1 align="center">Handsome Habits</h1>
+  <em>Wini Aboyure, Julian Tweneboa Kodua, Aminata Sakho, and Tyler Norsworthy*</em>
+</div>
+<div align="center">
+    <img src="bulldog.png" width="350" height="466" alt="Cartoon bulldog wearing jeans and a blue Yale t-shirt.">
+</div>
 
-<img src="bulldog.png" width="200" height="250">
+## Table of Contents
+1. [About the Project](#about-the-project)
+    - [Description](#description)
+    - [Features](#features)
+    - [Built With](#built-with)
 
-## Description
+
+2. [Getting Started](#gettingstarted) 
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+3. Usage 
+    - [Run Locally](#run-locally)
+    - [Testing](#testing)
+
+
+
+
+## About the Project
+
+### Description
 Handsome Habits makes personal wellness fun by linking your habits to the well-being of our very own Handsome Dan.
 
 For Yale students, balance often seems unachievable. While Yale students are often very successful, this comes at the expense of their overall wellness. Handsome Habits makes wellness simple and enjoyable by providing a gamified view for maintaining personal wellness. By logging meals, sleep, study sessions, and workouts, users can earn wellness points to keep Handsome Dan happy and coins to buy him accessories. Conversely, if habits start to fall behind, Handsome Dan will become sad and disheveled to motivate the user to get back on track.
 
-## Dependencies
-`brew install node`
+### Features
+- **Log Habits:** add and view habits for studying, sleeping, eating, or exercising.
+- **Track your wellnes:** Handsome Dan will indicate how well you're doing with his emotions and messages. There is also a wellness bar to see exactly how you're doing.
+- **Buy rewards:** earn coins when you log a habit to buy Handsome Dan new clothes.
+- **Customize Handsome Dan:** change Handsome Dan's outfit and accessories.
+- **Reminders:** Get notified when it's been a while since you logged a habit.
 
-`brew install watchman`
+### Built With
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" width="auto" height="30">
 
-`npm install -g expo-cli`
+<img src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png" width="auto" height="50">
 
-`gem install cocoapods`
+<img src="https://user-images.githubusercontent.com/25181517/187955005-f4ca6f1a-e727-497b-b81b-93fb9726268e.png" width="auto" height="50">
+
+<img src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" width="auto" height="50">
+
+<img src="https://user-images.githubusercontent.com/25181517/182884177-d48a8579-2cd0-447a-b9a6-ffc7cb02560e.png" width="auto" height="50">
+
+<img src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" width="auto" height="50">
+
+<img src="https://user-images.githubusercontent.com/25181517/192109061-e138ca71-337c-4019-8d42-4792fdaa7128.png" width="auto" height="50">
+
+## Getting Started
+
+### Prerequisites
+Install the following:
+
+&nbsp;`brew install node`
+
+&nbsp;`brew install watchman`
+
+&nbsp;`npm install -g expo-cli`
+
+&nbsp;`gem install cocoapods`
 
 Ensure XCode and the XCode simulator are installed
 
-## Required Setup
-`cd client; 
+### Installation
+
+To run the app locally, follow these steps:
+
+1. Clone this repository.
+2. Install dependencies.
+    *from main directory*
+
+     `cd client; 
 npm install`
 
-`cd client/ios;
+    `cd client/ios;
 pod install`
 
-
-`cd server;
+    `cd server;
 npm install` 
 
+3.  Request `.env` specifications from a contributor 
 
-## Running the Project
 
-### Run the Server (deployed through render)
-in `.env` change `EXPO_PUBLIC_PROD=0` to `EXPO_PUBLIC_PROD=1`
+## Usage
 
-### Run the Client (locally)
-`cd client;
+### Running Locally
+
+1. To run the servier, change `EXPO_PUBLIC_PROD=0` to `EXPO_PUBLIC_PROD=1` in `.env`
+2. To run the client, `cd client;
 npm run ios`
+3. iOS simulator will open and you can use the app!
 
-*this is not currently deployed as we do not yet have Appstore permissions*
+
+### Testing
+
+1. To run lint tests in the server or client: `npm run lint`
+2. To run jest tests and a coverage report in the server: `npm run test-coverage`
+3. To run jest tests in the client
+
+
+
+
+
+
