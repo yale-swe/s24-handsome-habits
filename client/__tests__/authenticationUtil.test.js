@@ -7,6 +7,7 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
   getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
+  clear: jest.fn(),
 }));
 
 // Mock AuthApi
@@ -28,8 +29,7 @@ describe("Authentication and logout", () => {
   it("logout removes user data from storage", async () => {
     await logout();
 
-    expect(AsyncStorage.removeItem).toHaveBeenCalledWith("cookies");
-    expect(AsyncStorage.removeItem).toHaveBeenCalledWith("user");
+    expect(AsyncStorage.clear).toHaveBeenCalled();
   });
 
   // Simple test for login
@@ -50,7 +50,7 @@ describe("Authentication and logout", () => {
     });
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(
       "user",
-      JSON.stringify({ user: "testUser" })
+      JSON.stringify({ user: "testUser" }),
     );
     expect(userData).toEqual(JSON.stringify({ user: "testUser" }));
   });
