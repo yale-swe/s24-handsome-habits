@@ -59,13 +59,10 @@ export async function getClothes() {
     console.log(assets.active);
 
     return {
-        // set top to assets.tops if it exists, otherwise set to default
-        top: assets?.active?.tops || "white_tshirt",
-        // set bottom to assets.bottoms if it exists, otherwise set to default
-        bottom: assets?.active?.bottoms || "medium_jeans",
-        // set accessories to assets.accessories if it exists, otherwise set to null
-        accessories: assets?.active?.accessories || null,
-
-    }
+        // set top to stored value, otherwise default
+        top: (assets?.active?.tops && tops.Object.prototype.hasOwnProperty.call(assets.active.tops)) ? assets.active.tops : "white_tshirt",
+        bottom: (assets?.active?.bottoms && bottoms.Object.prototype.hasOwnProperty.call(assets.active.bottoms)) ? assets.active.bottoms : "medium_jeans",
+        accessories: (assets?.active?.accessories && accessories.Object.prototype.hasOwnProperty.call(assets.active.accessories)) ? assets.active.accessories : null,
+};
 
 }
