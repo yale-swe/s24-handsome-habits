@@ -18,6 +18,7 @@ export const tops = {
     orange_tshirt: require("../assets/tops/orange_tshirt.png"),
     yellow_tshirt: require("../assets/tops/yellow_tshirt.png"),
     brown_tshirt: require("../assets/tops/brown_tshirt.png"),
+    yale_tshirt: require("../assets/tops/yale_tshirt.png"),
 
     white_tank: require("../assets/tops/white_tank.png"),
 
