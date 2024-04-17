@@ -33,13 +33,16 @@ For Yale students, balance often seems unachievable. While Yale students are oft
 
 ### Features
 - **Log Habits:** add and view habits for studying, sleeping, eating, or exercising.
-- **Track your wellnes:** Handsome Dan will indicate how well you're doing with his emotions and messages. There is also a wellness bar to see exactly how you're doing.
+- **Track your wellnes:** Handsome Dan will indicate how well you're doing with his emotions and messages. There is also a wellness bar to see exactly how you're doing. (See Figure 1)
 - **Buy rewards:** earn coins when you log a habit to buy Handsome Dan new clothes.
 - **Customize Handsome Dan:** change Handsome Dan's outfit and accessories.
 - **Reminders:** Get notified when it's been a while since you logged a habit.
 
 ### Screenshots
-<img src="homescreenshot.png" alt="Home screen of a cartoon bulldog in the center, a coin total in the top right, a bulldog icon in the top left, and four habit icons on the bottom" width="100">
+<figure>
+    <img src="homescreenshot.png" alt="Home screen of a cartoon bulldog in the center, a coin total in the top right, a bulldog icon in the top left, and four habit icons on the bottom" width="200">
+    <figcaption>Figure 1. Home page of the App</figcaption>
+</figure>
 
 ### Built With
 <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" width="auto" height="30">

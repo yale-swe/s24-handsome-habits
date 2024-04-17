@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
  */
 export async function getAssets() {
   try {
+    console.log("Getting assets");
     const response = await Api.get("/assets");
     let assets = response.data.assets;
 
