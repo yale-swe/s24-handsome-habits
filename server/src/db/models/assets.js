@@ -11,9 +11,9 @@ import mongoose from "mongoose";
  *
  * @typedef {Object} Assets
  * @property {mongoose.Schema.Types.ObjectId} user_id - user_id for the Assets.
- * @property {String[]} clothes - list of clothing items a user owns.
- * @property {String[]} objects - list of objects/trinkets a user owns.
- * @property {String[]} backgrounds - list of backgrounds owned by the user.
+ * @property {String[]} tops - list of tops a user owns.
+ * @property {String[]} bottoms - list of pants a user owns.
+ * @property {String[]} extras - list of extras a user owns.
  */
 
 // Assets for users

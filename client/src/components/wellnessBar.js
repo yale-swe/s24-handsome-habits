@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     height: 29,
     backgroundColor: "#FFE29A",
     borderRadius: 10,
-    bottom: 92,
+    bottom: "8%",
   },
   wellnessBarForeground: {
     height: 29,

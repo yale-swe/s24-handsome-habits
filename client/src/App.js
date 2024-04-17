@@ -8,6 +8,7 @@ import Sleep from "./screens/sleep";
 import SleepLog from "./screens/sleepLog";
 import Study from "./screens/study";
 import StudyLog from "./screens/studyLog";
+import Shop from "./screens/shop"
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -19,6 +20,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
+        <Stack.Screen name="Shop" component={Shop} options={{ headerShown: false }}/>
         <Stack.Screen name="Exercise" component={Exercise} options={{ headerShown: false }} />
         <Stack.Screen name="ExerciseLog" component={ExerciseLog} options={{ headerShown: false }}/>
         <Stack.Screen name="Eat" component={Eat} options={{ headerShown: false }}/>

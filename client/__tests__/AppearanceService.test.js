@@ -10,13 +10,38 @@ import {
     bottoms,
     accessories,
 } from "../src/constants/resources";
-import { getQualityPoints } from "../src/services/PointsService";
+import { getPointInfo } from "../src/services/PointsService";
 import { getAssets } from "../src/services/AssetsService";
 
 // Mock Points Service
 jest.mock("../src/services/PointsService", () => ({
     getPointInfo: jest.fn(),
-    getQualityPoints: jest.fn(),
+}));
+
+// Mock async storage
+jest.mock("@react-native-async-storage/async-storage", () => ({
+    setItem: jest.fn(),
+    getItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+}));
+
+// Mock Assets Service
+jest.mock("../src/services/AssetsService", () => ({
+    getAssets: jest.fn(),
+}));
+
+// Mock async storage
+jest.mock("@react-native-async-storage/async-storage", () => ({
+    setItem: jest.fn(),
+    getItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+}));
+
+// Mock Assets Service
+jest.mock("../src/services/AssetsService", () => ({
+    getAssets: jest.fn(),
 }));
 
 // Mock async storage
@@ -35,19 +60,17 @@ jest.mock("../src/services/AssetsService", () => ({
 describe("Appearance Service", () => {
     describe("Get Emotion", () => {
         it("returns the user's current emotion value", async () => {
-            getQualityPoints.mockReturnValue({
-                wellness_points: 57,
-            });
-            const emotion = await getEmotion();
-            expect(emotion).toBe(57);
+            const mockPoints = { exercise_points: 20, eating_points: 20, sleeping_points: 5, studying_points: 2, wellness_points: 57, emotion_value: 1 }
+            getPointInfo.mockResolvedValue(mockPoints);
+            const emotion = (await getEmotion()).emotion;
+            expect(emotion).toBe(1);
         });
     });
 
     describe("Get Emotion Path", () => {
         it("returns the path to the image of the user's current emotion", async () => {
-            getQualityPoints.mockReturnValue({
-                wellness_points: 57,
-            });
+            const mockPoints = { exercise_points: 20, eating_points: 20, sleeping_points: 5, studying_points: 2, wellness_points: 57, emotion_value: 1 }
+            getPointInfo.mockResolvedValue(mockPoints);
             const path = await getEmotionPath();
             expect(path).toBe(emotions["neutral_face"]);
         });
