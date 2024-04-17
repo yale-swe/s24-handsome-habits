@@ -7,6 +7,7 @@ import router from "./routes/ApiRouter.js";
 import passportConfig from "./controllers/authentication/strategies/passport-config.js";
 import "dotenv/config";
 import Category from "./db/models/category.js"
+import ShopButton from "./db/models/shopButton.js";
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ export async function connectToDatabase() {
             // only listen to requests after we are connected to the database
             app.listen(port);
             initializeBaseCategories();
+            initializeShopButtonTypes();
         }
     ).catch((err) => { console.log(err); });
 }
@@ -44,6 +46,21 @@ async function initializeBaseCategories() {
             if (!new_category) {
                 const newCategory = new Category({ category_name: base_habit });
                 newCategory.save();
+            }
+        }
+    }
+}
+
+async function initializeShopButtonTypes() {
+    if (await ShopButton.countDocuments() < 3) {
+        var baseTypes = ["shop", "coin", "shopCoin"];
+        for (var base_type of baseTypes) {
+            const new_type = await ShopButton.findOne({
+                type: base_type,
+            });
+            if (!new_type) {
+                const newType = new ShopButton({ type: base_type });
+                newType.save();
             }
         }
     }
