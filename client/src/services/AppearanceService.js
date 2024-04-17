@@ -1,4 +1,4 @@
-import { getQualityPoints, getPointInfo } from "./PointsService";
+import { getPointInfo } from "./PointsService";
 import { emotions, tops, bottoms, accessories } from "../constants/resources";
 import { getAssets } from "./AssetsService";
 
@@ -8,12 +8,13 @@ import { getAssets } from "./AssetsService";
  */
 export async function getEmotionPath() {
 
-    const emotion = await getEmotion();
+    const emotion_and_wellness = await getEmotion();
+    const emotion = emotion_and_wellness.emotion;
 
-    if (emotion < 33.3) {
+    if (emotion == 0) {
         return emotions["sad_face"];
     }
-    else if (emotion < 66.6) {
+    else if (emotion == 1) {
         return emotions["neutral_face"];
     }
     else {
@@ -28,8 +29,7 @@ export async function getEmotionPath() {
 export async function getEmotion() {
 
     const userPoints = await getPointInfo();
-    const emotion_value = getQualityPoints(userPoints).wellness_points;
-    return emotion_value;
+    return {emotion: userPoints.emotion_value, wellness_points: userPoints.wellness_points};
 
 }
 

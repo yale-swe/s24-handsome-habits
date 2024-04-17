@@ -42,6 +42,12 @@ export const buttonText = {
   ...boldFont,
 };
 
+export const shop = {
+  color: "#0D3A4F",
+  fontSize: 16,
+  ...boldFont,
+};
+
 export const message = {
   fontSize: 15,
   textAlign: "center",
@@ -53,4 +59,12 @@ export const coins = {
   fontSize: 15,
   textAlign: "center",
   color: "#FFB706",
+  ...boldFont,
+};
+
+export const asset = {
+  fontSize: 12,
+  textAlign: "center",
+  color: "#FFFFFF",
+  ...boldFont,
 };

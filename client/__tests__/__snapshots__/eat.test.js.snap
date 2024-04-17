@@ -108,14 +108,21 @@ exports[`Eat Screen renders correctly and matches snapshot 1`] = `
       <Image
         source={
           {
-            "testUri": "../../../src/assets/images/gymdog.png",
+            "testUri": "../../../src/assets/images/Eating_Dan.png",
           }
         }
         style={
           {
             "height": 210,
             "margin": 0,
-            "width": 200,
+            "width": 135,
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "width": 100,
           }
         }
       />
@@ -136,7 +143,7 @@ exports[`Eat Screen renders correctly and matches snapshot 1`] = `
             }
           }
         >
-              eat better, feel better.
+           eat better, feel better.
         </Text>
       </View>
     </View>

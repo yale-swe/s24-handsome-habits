@@ -11,6 +11,7 @@ export const tops = {
     // t shirts
     white_tshirt: require("../assets/tops/white_tshirt.png"),
     grey_tshirt: require("../assets/tops/grey_tshirt.png"),
+    red_tshirt: require("../assets/tops/red_tshirt.png"),
     dport_tshirt: require("../assets/tops/dport_tshirt.png"),
     morse_tshirt: require("../assets/tops/morse_tshirt.png"),
     pierson_tshirt: require("../assets/tops/pierson_tshirt.png"),

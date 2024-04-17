@@ -1,4 +1,5 @@
 import { getClothesPath, getEmotionPath } from "../services/AppearanceService";
+import { useFocusEffect } from "@react-navigation/native";
 import { StyleSheet, Image, View } from "react-native";
 import { Colors } from "../styles";
 import { body } from "../constants/resources";
@@ -9,17 +10,24 @@ const HandsomeDan = () => {
     const [clothes, setClothes] = useState({});
     const [emotion, setEmotion] = useState(null);
 
+    async function fetchData() {
+        const clothesPath = await getClothesPath();
+        const emotionPath = await getEmotionPath();
+        setClothes(clothesPath);
+        setEmotion(emotionPath);
+    }
+
     useEffect(() => {
         // Asynchronously fetch clothes and emotion paths
-        async function fetchData() {
-            const clothesPath = await getClothesPath();
-            const emotionPath = await getEmotionPath();
-            setClothes(clothesPath);
-            setEmotion(emotionPath);
-        }
-
         fetchData();
     }, []);
+
+    useFocusEffect(
+        // Fetch user's points and coins when the component mounts after a navigation action
+        React.useCallback(() => {
+          fetchData();
+        }, [])
+      );
 
     return (
         <View style={styles.container}>

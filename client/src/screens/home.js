@@ -11,6 +11,8 @@ import HandsomeDan from "../components/HandsomeDan";
 import { getPointInfo } from "../services/PointsService";
 import { useFocusEffect } from "@react-navigation/native";
 import { getExpression } from "../services/DansWordsService";
+import { setActiveAssets } from "../services/AssetsService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = (props) => {
   // set up the navigation for the home page
@@ -42,6 +44,25 @@ const Home = (props) => {
     // Fetch user's points and coins when the component mounts after a navigation action
     React.useCallback(() => {
       fetchPoints();
+    }, [])
+  );
+
+  const setNewAssets = async () => {
+    // get the locally-stored assets and store them in the db
+    // done in the home component to avoid spamming the database by quickly switching assets in the shop
+    try {
+      let assets = await AsyncStorage.getItem("assets");
+      assets = JSON.parse(assets);
+      setActiveAssets(assets);
+    }
+    catch(err) {
+      console.log("Error setting new user wearing-assets.");
+    }
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setNewAssets();
     }, [])
   );
 
@@ -83,7 +104,7 @@ const Home = (props) => {
           coinAmount={pointsInfo != null ? pointsInfo.coins : 0}
           logo={require("../assets/images/coin.png")}
           style={Buttons.coinsButton}
-          onPress={() => props.navigation.navigate("Exercise")}
+          onPress={() => props.navigation.navigate("Shop")}
           testID={"coins-button"}
         />
       </View>
@@ -131,15 +152,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#D5E7EC",
   },
-  backgroundImage: {
-    flex: 1,
-    justifyContent: "center",
-  },
   topButtonsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    bottom: 105,
+    bottom: "20%",
     width: "100%",
   },
   habitButtonContainer: {
