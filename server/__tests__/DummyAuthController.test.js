@@ -16,7 +16,7 @@ app.use(
 app.post("/dummy_login", DummyLogin);
 
 describe("POST /dummy_login", () => {
-    
+
     it("should log in a dummy user and return user data", async () => {
         const response = await request(app).post("/dummy_login").send();
 
