@@ -4,6 +4,7 @@ import { WebView } from "react-native-webview";
 import  {
   LoginWithActiveSession,
 } from "../services/authenticationUtil";
+import { dummyLogin } from "../services/authenticationUtil";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,6 +26,15 @@ const Login = (props) => {
 
     // Display the WebView for CAS login
     setShowWebView(true);
+  }
+
+  const byPassLogin = async() => {
+
+    console.log("Bypassing login pressed");
+    AsyncStorage.clear();
+    const dummyUser = await dummyLogin();
+    AsyncStorage.setItem("user", dummyUser);
+    props.navigation.navigate("Home");
   }
 
   /**
@@ -96,6 +106,11 @@ const Login = (props) => {
             logo={require("../assets/images/ylogo.png")}
             style={styles.YloginButton}
             onPress={handleLoginWithCAS}
+          />
+          <LoginButton
+          title="BYPASS LOGIN"
+          style={styles.GloginButton}
+          onPress={byPassLogin}
           />
         </View>
       </View>

@@ -67,3 +67,31 @@ export async function LoginWithActiveSession() {
     return response?.status === 200 ? response : null;
   }
 }
+
+
+/**
+ * Logs in using a dummy account.
+ * This function directly accesses the dummy login route and sets the dummy user data.
+ * 
+ * @returns {Object|null} - The user data if the login is successful; otherwise, null.
+ */
+export async function dummyLogin() {
+
+  try{
+    AsyncStorage.clear();
+    console.log("Logging in with dummy user");
+    await AsyncStorage.removeItem("cookies");
+    const response = await AuthApi.post("/dummy_login");
+    
+    await AsyncStorage.setItem("@user", JSON.stringify(response.data.user));
+    console.log("Logged in successfully with dummy user:", response.data.user);
+    return response.data.user;
+
+  }
+  catch(err){
+    console.error("Error logging in with dummy user", err);
+    // return null;
+  }
+
+
+};
