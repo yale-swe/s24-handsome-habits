@@ -30,11 +30,13 @@ const Login = (props) => {
 
   const byPassLogin = async() => {
 
-    console.log("Bypassing login pressed");
     AsyncStorage.clear();
-    const dummyUser = await dummyLogin();
+
+    const dummyUser = await dummyLogin(); // Get dummy user data
+
     AsyncStorage.setItem("user", dummyUser);
-    props.navigation.navigate("Home");
+
+    props.navigation.navigate("Home"); // Redirect to the main screen
   }
 
   /**
@@ -107,8 +109,10 @@ const Login = (props) => {
             style={styles.YloginButton}
             onPress={handleLoginWithCAS}
           />
+          {/* COMMENT OUT TO REMOVE BYPASS */}
           <LoginButton
           title="BYPASS LOGIN"
+          logo={require("../assets/images/bulldoghead.png")}
           style={styles.GloginButton}
           onPress={byPassLogin}
           />
