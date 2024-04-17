@@ -4,10 +4,10 @@ import { render, fireEvent } from "@testing-library/react-native";
 import Home from "../src/screens/home.js";
 import { getPointInfo } from "../src/services/PointsService.js";
 import { getExpression } from "../src/services/DansWordsService.js";
-import Exercise from "../src/screens/exercise.js"
-import Sleep from "../src/screens/sleep.js"
-import Eat from "../src/screens/eat.js"
-import Study from "../src/screens/study.js"
+import Exercise from "../src/screens/exercise.js";
+import Sleep from "../src/screens/sleep.js";
+import Eat from "../src/screens/eat.js";
+import Study from "../src/screens/study.js";
 
 // Mocking AsyncStorage
 jest.mock("@react-native-async-storage/async-storage", () => ({
@@ -30,7 +30,7 @@ jest.mock("../src/services/PointsService.js", () => ({
   getQualityPoints: jest.fn().mockResolvedValue({
     wellness_points: 78,
     emotion_value: 1,
-  })
+  }),
 }));
 
 // Mocking appearance service
@@ -50,9 +50,8 @@ jest.mock("../src/services/DansWordsService.js", () => ({
 }));
 
 describe("Home component", () => {
-
   it("renders correctly", () => {
-    const { getByTestId } = render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }} /> </NavigationContainer>);
+    const { getByTestId } = render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }} /> </NavigationContainer>,);
 
     // Check if the main home page view container is properly rendered
     expect(getByTestId("home-page")).toBeTruthy();
@@ -63,11 +62,19 @@ describe("Home component", () => {
   });
 
   it("fetches user points", async () => {
-    const mockPoints = { exercise_points: 26, eating_points: 25, sleeping_points: 27, studying_points: 23, wellness_points: 100, emotion_value: 4 }
+    const mockPoints = {
+      exercise_points: 26,
+      eating_points: 25,
+      sleeping_points: 27,
+      studying_points: 23,
+      wellness_points: 100,
+      emotion_value: 4,
+    };
     getPointInfo.mockResolvedValue(mockPoints);
 
-    render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }}/> </NavigationContainer>);
-
+    render(
+      <NavigationContainer> <Home navigation={{ navigate: jest.fn() }} /> </NavigationContainer>,
+    );
     expect(getPointInfo).toHaveBeenCalled();
   });
 
@@ -75,17 +82,17 @@ describe("Home component", () => {
     const mockExpression = "You're doing great!";
     getExpression.mockResolvedValue(mockExpression);
 
-    render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }}/> </NavigationContainer>);
+    render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }} /> </NavigationContainer>,);
 
     expect(getExpression).toHaveBeenCalled();
   });
 
   it("navigates to the exercise page", () => {
-    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <Exercise/> </NavigationContainer>);
+    const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{ navigate: jest.fn() }} /> <Exercise /> </NavigationContainer>,);
 
     fireEvent.press(getByTestId("exercising-button"));
-    expect(getByText("the grind doesn't stop."));
-  })
+    expect(getByText("Log a Workout"));
+  });
 
   it("navigates to the sleeping page", () => {
     const { getByTestId, getByText } = render(<NavigationContainer> <Home navigation={{navigate: jest.fn() }}/> <Sleep/> </NavigationContainer>);

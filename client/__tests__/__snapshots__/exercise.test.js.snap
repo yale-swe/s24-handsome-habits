@@ -108,14 +108,21 @@ exports[`Exercise Screen renders correctly and matches snapshot 1`] = `
       <Image
         source={
           {
-            "testUri": "../../../src/assets/images/gymdog.png",
+            "testUri": "../../../src/assets/images/Exercising_Dan.png",
           }
         }
         style={
           {
             "height": 210,
             "margin": 0,
-            "width": 200,
+            "width": 150,
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "width": 70,
           }
         }
       />
@@ -136,7 +143,7 @@ exports[`Exercise Screen renders correctly and matches snapshot 1`] = `
             }
           }
         >
-                 the grind doesn't stop.
+           the grind doesn't stop.
         </Text>
       </View>
     </View>

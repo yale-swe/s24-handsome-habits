@@ -5,54 +5,71 @@ import { Colors } from "../styles";
 
 const LogItem = ({ title, duration, time, tags, onDelete, duration_unit }) => {
   // Format the date and time from the backend response
-    const formatDateAndTime = (dateString) => {
-        const date = new Date(dateString);
-        const now = new Date();
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
+  const formatDateAndTime = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
 
-        const dateToCompare = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        let datePart = "";
+    const dateToCompare = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+    );
+    let datePart = "";
 
-        if (dateToCompare.getTime() === today.getTime()) {
-            datePart = "Today";
-        } else if (dateToCompare.getTime() === yesterday.getTime()) {
-            datePart = "Yesterday";
-        } else {
-            datePart = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-        }
+    if (dateToCompare.getTime() === today.getTime()) {
+      datePart = "Today";
+    } else if (dateToCompare.getTime() === yesterday.getTime()) {
+      datePart = "Yesterday";
+    } else {
+      datePart = date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
+    }
 
-        const timePart = date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
-        return `${datePart}, ${timePart}`;
-    };
+    const timePart = date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return `${datePart}, ${timePart}`;
+  };
 
   return (
     <View style={styles.logItem}>
-        <View style={styles.infoContainer}>
-
-            <View>
-                <View style={styles.titleAndTagContainer}>
-                    <Text style={styles.title}>{title}</Text>
-                    <View style={styles.tagsContainer}>
-                        {tags.map((tag, index) => (
-                            <View key={index} style={styles.tag}>
-                                <Text style={styles.tagText}>{tag.toLowerCase()}</Text>
-                            </View>
-                        ))}
-                    </View>
-                </View>
-                <View>
-                {duration != null ? (
-                  <Text style={styles.details}>{`${duration} ${duration_unit} | ${formatDateAndTime(time)}`}</Text>
-                ) : (
-                  <Text style={styles.details}>{formatDateAndTime(time)}</Text>
-                )}
-                </View>
+      <View style={styles.infoContainer}>
+        <View>
+          <View style={styles.titleAndTagContainer}>
+            <Text style={styles.title}>{title}</Text>
+            <View style={styles.tagsContainer}>
+              {tags.map((tag, index) =>
+                tag !== "" ? (
+                  <View key={index} style={styles.tag}>
+                    <Text style={styles.tagText}>{tag.toLowerCase()}</Text>
+                  </View>
+                ) : null,
+              )}
             </View>
-            <TouchableOpacity onPress={onDelete} style={styles.deleteButton} testID="deleteButton">
-                <Icon name="trash-can-outline" size={30} color="#000" />
-            </TouchableOpacity>
+          </View>
+          <View>
+            {duration != null ? (
+              <Text
+                style={styles.details}
+              >{`${duration} ${duration_unit} | ${formatDateAndTime(time)}`}</Text>
+            ) : (
+              <Text style={styles.details}>{formatDateAndTime(time)}</Text>
+            )}
+          </View>
+        </View>
+        <TouchableOpacity
+          onPress={onDelete}
+          style={styles.deleteButton}
+          testID="deleteButton"
+        >
+          <Icon name="trash-can-outline" size={30} color="#000" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -88,7 +105,7 @@ const styles = StyleSheet.create({
   details: {
     color: "black",
     fontSize: 14,
-    fontFamily: "OpenSans-Italic"
+    fontFamily: "OpenSans-Italic",
   },
   tagsContainer: {
     flexDirection: "row",
@@ -102,7 +119,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 12,
     height: 16,
-
   },
   tagText: {
     color: "black",
