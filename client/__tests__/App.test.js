@@ -1,3 +1,20 @@
+// At the top of your test file or in your Jest setup file
+jest.mock("expo-av", () => {
+  return {
+    Audio: {
+      setIsEnabledAsync: jest.fn(),
+      Sound: jest.fn(() => ({
+        loadAsync: jest.fn(),
+        playAsync: jest.fn(),
+        stopAsync: jest.fn(),
+        unloadAsync: jest.fn(),
+        setPositionAsync: jest.fn(),
+        setVolumeAsync: jest.fn(),
+        setOnPlaybackStatusUpdate: jest.fn(),
+      })),
+    },
+  };
+});
 
 import React from "react";
 import { render } from "@testing-library/react-native";
