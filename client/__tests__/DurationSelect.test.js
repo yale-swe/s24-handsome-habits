@@ -58,6 +58,7 @@ describe("Duration Select Component", () => {
         expect(getByText("+")).toBeTruthy();
         expect(getByText("-")).toBeTruthy();
         expect(getByTestId("durationInput")).toBeTruthy();
+        expect(getByTestId("labelText")).toBeTruthy();
     });
 
     // Test that functions are called on valid input change
@@ -141,4 +142,18 @@ describe("Duration Select Component", () => {
         fireEvent.press(decrementButton); // decrement from 15
         expect(mockSetDuration).toHaveBeenCalledWith("15");
     });
+
+    // Test dynamic label change
+    it("displays singular label when duration is 1", () => {
+        const { getByText, } = durationSetup("1");
+        expect(getByText("minute")).toBeTruthy(); // Check for singular
+    });
+
+    // Test dynamic label change
+    it("displays plural label when duration is not 1", () => {
+        const { getByText } = durationSetup("2");
+        expect(getByText("minutes")).toBeTruthy(); // Check for plural when duration is 2
+
+    });
+
 });
