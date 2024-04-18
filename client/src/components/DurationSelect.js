@@ -28,6 +28,9 @@ const DurationSelect = (props) => {
     props.setDuration(newDuration.toString());
   };
 
+  // Dynamic label based on duration
+  const dynamicLabel = parseInt(props.duration) === 1 ? props.label.slice(0, -1) : props.label;
+
   // on button click, decrement
   const decrement = () => {
     props.setDuration(
@@ -59,6 +62,7 @@ const DurationSelect = (props) => {
           activeOpacity={1}
           testID="durationInput"
         />
+        <Text style={[styles.labelText,{ color: props.duration == "0" ? "grey" : "black" },]}>{dynamicLabel}</Text>
         <TouchableOpacity onPress={increment} style={styles.button}>
           <Text>+</Text>
         </TouchableOpacity>
@@ -84,8 +88,11 @@ const styles = StyleSheet.create({
   },
   input: {
     marginStart: 10,
-    marginEnd: 10,
   },
+  labelText: {
+    marginStart: 5,
+    marginEnd: 10,
+  }
 });
 
 export default DurationSelect;
