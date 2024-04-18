@@ -62,7 +62,7 @@ const DurationSelect = (props) => {
           activeOpacity={1}
           testID="durationInput"
         />
-        <Text style={[styles.labelText,{ color: props.duration == "0" ? "grey" : "black" },]}>{dynamicLabel}</Text>
+        <Text style={[styles.labelText,{ color: props.duration == "0" ? "grey" : "black" },]} testID="labelText">{dynamicLabel}</Text>
         <TouchableOpacity onPress={increment} style={styles.button}>
           <Text>+</Text>
         </TouchableOpacity>
