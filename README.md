@@ -17,9 +17,13 @@
 2. [Getting Started](#gettingstarted) 
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-3. Usage 
+3. [Usage](#usage)
     - [Run Locally](#run-locally)
     - [Testing](#testing)
+4. [Support](#support)
+5. [Privacy Policy](#privacy-policy)
+  
+  
 
 
 
@@ -110,8 +114,9 @@ npm run ios`
 2. To run jest tests and a coverage report in the server: `npm run test-coverage`
 3. To run jest tests in the client
 
+## Support
+Please direct any questions or concerns to handsomehabitsyale@gmail.com
 
+## Privacy Policy
 
-
-
-
+Our app collects user information during sign-in, including: name, email, and gmail account id. We also parse yalies.io for Yale relateed information, such as residential college, in order to give rewards. This data is not shared with anyone nor is any sensitive information stored. Your data will be stored as long as your account is active. If you wish to terminate your account, simply email handsomehabitsyale@gmail.com.
