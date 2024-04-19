@@ -30,7 +30,7 @@ describe("Dans Words Service", () => {
 
     describe("Get Expression", () => {
         it("should return a happy expression if emotion is above 60", async () => {
-            getEmotion.mockResolvedValue(65); // Emotion greater than 60
+            getEmotion.mockResolvedValue({emotion: 2, wellness_points: 65}); // Emotion greater than 60
             const expression = await getExpression();
             expect(expressions["Happy"]).toContain(expression);
         });

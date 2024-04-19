@@ -57,8 +57,8 @@ export const expressions = {
  * @returns {String} - The expression.
  */
 export async function getExpression() {
-    const emotion = await getEmotion();
-    console.log(emotion)
+    const points_values = await getEmotion();
+    const emotion = points_values.wellness_points;
     if (emotion > 60) {
         const randomIndex = Math.floor(Math.random() * expressions["Happy"].length);
         const expression = expressions["Happy"][randomIndex];

@@ -28,7 +28,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "Yims App",
+    "scheme": "YimsApp",
     "plugins": [
       "expo-font"
     ]
