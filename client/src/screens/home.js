@@ -13,6 +13,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { getExpression } from "../services/DansWordsService";
 import { setActiveAssets } from "../services/AssetsService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getButtonToDisplay } from "../services/shopButtonService";
 
 const Home = (props) => {
   // set up the navigation for the home page
@@ -21,6 +22,21 @@ const Home = (props) => {
       navigate: PropTypes.func.isRequired,
     }).isRequired,
   };
+
+  // shop button logic for metrics
+  const [shopButton, setShopButton] = React.useState("shop");
+
+  const updateShopButton = async () => {
+    const buttonState = await getButtonToDisplay();
+    setShopButton(buttonState["type"]);
+  }
+
+  useEffect(
+    // Fetch user's points and coins when the component mounts after a navigation action
+    React.useCallback(() => {
+      updateShopButton();
+    }, [])
+  );
 
   // variable and function for getting/setter user points
   const [pointsInfo, setPointsInfo] = React.useState(null);
@@ -104,6 +120,7 @@ const Home = (props) => {
           coinAmount={pointsInfo != null ? pointsInfo.coins : 0}
           logo={require("../assets/images/coin.png")}
           style={Buttons.coinsButton}
+          state={shopButton.type}
           onPress={() => props.navigation.navigate("Shop")}
           testID={"coins-button"}
         />

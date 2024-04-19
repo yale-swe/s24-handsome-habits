@@ -91,7 +91,7 @@ export async function setActiveAssets(newActiveAssets) {
       console.log(
         "Assets not updated, so returning locally saved assets in AsyncStorage",
       );
-      return JSON.parse(AsyncStorage.getItem("assets"));
+      return JSON.parse(await AsyncStorage.getItem("assets"));
     }
 
     if (err.response.status == StatusCodes.UNAUTHORIZED) {

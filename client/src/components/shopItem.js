@@ -12,7 +12,7 @@ const ShopItem = (props) => {
 
   const assetStyling = props.category == "tops" ? styles.topImage : props.category == "bottoms" ? styles.bottomImage : styles.accessoryImage;
 
-  const state = (props.assetInfo != null && props.assetInfo.owned[props.category] && props.assetInfo.owned[props.category].includes(props.name)) ? (props.assetInfo.active[props.category] == props.name) ? "wearing" : "owned" : "unowned";
+  const state = (props.assetInfo != null && props.assetInfo.active && props.assetInfo.owned[props.category] && props.assetInfo.owned[props.category].includes(props.name)) ? (props.assetInfo.active[props.category] == props.name) ? "wearing" : "owned" : "unowned";
 
   // onPress for the "Purchase" button, allowing users to buy assets
   const handle_purchase = async () => {
