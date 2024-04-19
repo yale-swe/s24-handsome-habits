@@ -78,6 +78,10 @@ export async function addAsset(assetType, assetName) {
  * @returns the updated assets JSON if successful, null otherwise
  */
 export async function setActiveAssets(newActiveAssets) {
+  if (newActiveAssets == null) {
+    console.log("NEW ACTIVE ASSETS IS NULL!!!");
+    return null;
+  }
   try {
     const response = await Api.post("/assets/setActive", {
       assets: newActiveAssets,
