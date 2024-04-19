@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { CASLogin, CASLogout, LoginWithActiveSession } from "../controllers/authentication/casAuthController.js";
 import { GoogleLogin } from "../controllers/authentication/googleAuthController.js";
-import { DummyLogin } from "../controllers/authentication/dummyAuthController.js";
+import { DummyLogin } from "../controllers/authentication/DummyAuthController.js";
 
 const router = Router();
 
