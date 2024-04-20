@@ -139,7 +139,7 @@ describe("calculatePoints", () => {
             expect(coins).toBe(12); // Default coins + 1 for high intensity
         });
     });
-    
+
     describe("Eating", () => {
         it("calculates points and coins correctly for a healthy meal", () => {
             const newHabit = {
