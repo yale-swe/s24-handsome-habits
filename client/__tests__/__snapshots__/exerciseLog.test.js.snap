@@ -281,7 +281,6 @@ exports[`ExerciseLog Page matches the snapshot 1`] = `
             style={
               [
                 {
-                  "marginEnd": 10,
                   "marginStart": 10,
                 },
                 {
@@ -292,6 +291,22 @@ exports[`ExerciseLog Page matches the snapshot 1`] = `
             testID="durationInput"
             value="0"
           />
+          <Text
+            style={
+              [
+                {
+                  "marginEnd": 10,
+                  "marginStart": 5,
+                },
+                {
+                  "color": "grey",
+                },
+              ]
+            }
+            testID="labelText"
+          >
+            minutes
+          </Text>
           <View
             accessibilityState={
               {
