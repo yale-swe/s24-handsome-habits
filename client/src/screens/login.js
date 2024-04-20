@@ -4,7 +4,7 @@ import { WebView } from "react-native-webview";
 import  {
   LoginWithActiveSession,
 } from "../services/authenticationUtil";
-import { dummyLogin } from "../services/authenticationUtil";
+// import { dummyLogin } from "../services/authenticationUtil";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,16 +28,16 @@ const Login = (props) => {
     setShowWebView(true);
   }
 
-  const byPassLogin = async() => {
+  // const byPassLogin = async() => {
 
-    AsyncStorage.clear();
+  //   AsyncStorage.clear();
 
-    const dummyUser = await dummyLogin(); // Get dummy user data
+  //   const dummyUser = await dummyLogin(); // Get dummy user data
 
-    AsyncStorage.setItem("user", dummyUser);
+  //   AsyncStorage.setItem("user", dummyUser);
 
-    props.navigation.navigate("Home"); // Redirect to the main screen
-  }
+  //   props.navigation.navigate("Home"); // Redirect to the main screen
+  // }
 
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.
