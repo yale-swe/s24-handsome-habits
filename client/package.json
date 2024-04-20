@@ -22,7 +22,7 @@
     "axios": "^1.6.7",
     "expo": "^50.0.6",
     "expo-auth-session": "~5.4.0",
-    "expo-av": "~13.10.5",
+    "expo-av": "~13.10.6",
     "expo-font": "~11.10.3",
     "expo-status-bar": "~1.11.1",
     "http-status-codes": "^2.3.0",
