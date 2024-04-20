@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Typography, Spacing, Colors } from "../styles";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -70,63 +70,65 @@ const StudyLog = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Study")} testID="BackButton"/>
-      </View>
-
-      <View style={styles.logContainer}>
-        <View style={styles.titleContainer}>
-          <TitleInput value={title} onChangeText={setTitle} testID="TitleInput"/>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <View style={styles.backButtonContainer}>
+          <BackButton onPress={() => props.navigation.navigate("Study")} testID="BackButton"/>
         </View>
 
-        <View style={styles.timeContainer}>
-          <Text style={styles.subHeading}>Time</Text>
-          <TimeSelect
-            date={time}
-            setDate={setTime}
-            open={open}
-            setOpen={setOpen}
-            dateIsConfirmed={dateIsConfirmed}
-            setIsConfirmed={setIsConfirmed}
-            testID="TimeSelect"
-          />
-        </View>
+        <View style={styles.logContainer}>
+          <View style={styles.titleContainer}>
+            <TitleInput value={title} onChangeText={setTitle} testID="TitleInput"/>
+          </View>
 
-        <View style={styles.durationContainer}>
-          <Text style={styles.subHeading}>Duration</Text>
-          <DurationSelect
-            label="minutes"
-            increment={5}
-            min={0}
-            max={700}
-            duration={duration}
-            setDuration={setDuration}
-            testID="DurationSelect"
-          />
-        </View>
-
-        <View style={styles.productivityContainer}>
-          <Text style={styles.subHeading}>Productivity</Text>
-          <View style={styles.productivityOptionContainer}>
-            <ThreeOptionBar
-              options={productivityOptions}
-              selectedOption={selectedProductivity}
-              setSelectedOption={setSelectedProductivity}
-              testID="ThreeOptionBar"
+          <View style={styles.timeContainer}>
+            <Text style={styles.subHeading}>Time</Text>
+            <TimeSelect
+              date={time}
+              setDate={setTime}
+              open={open}
+              setOpen={setOpen}
+              dateIsConfirmed={dateIsConfirmed}
+              setIsConfirmed={setIsConfirmed}
+              testID="TimeSelect"
             />
           </View>
-        </View>
 
-        <View style={styles.descriptionContainer}>
-          <DescriptionInput value={description} onChangeText={setDescription} testID="DescriptionInput"/>
-        </View>
+          <View style={styles.durationContainer}>
+            <Text style={styles.subHeading}>Duration</Text>
+            <DurationSelect
+              label="minutes"
+              increment={5}
+              min={0}
+              max={700}
+              duration={duration}
+              setDuration={setDuration}
+              testID="DurationSelect"
+            />
+          </View>
 
-        <View style={styles.logButtonContainer}>
-          <AddHabitButton text="Add Study Session" onPress={logStudy} testID="AddHabitButton"/>
+          <View style={styles.productivityContainer}>
+            <Text style={styles.subHeading}>Productivity</Text>
+            <View style={styles.productivityOptionContainer}>
+              <ThreeOptionBar
+                options={productivityOptions}
+                selectedOption={selectedProductivity}
+                setSelectedOption={setSelectedProductivity}
+                testID="ThreeOptionBar"
+              />
+            </View>
+          </View>
+
+          <View style={styles.descriptionContainer}>
+            <DescriptionInput value={description} onChangeText={setDescription} testID="DescriptionInput"/>
+          </View>
+
+          <View style={styles.logButtonContainer}>
+            <AddHabitButton text="Add Study Session" onPress={logStudy} testID="AddHabitButton"/>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

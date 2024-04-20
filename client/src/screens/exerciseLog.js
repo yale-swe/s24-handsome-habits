@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard} from "react-native";
 import { Typography, Colors } from "../styles";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -85,84 +85,85 @@ const ExerciseLog = (props) => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.backButtonContainer}>
-                <BackButton
-                    onPress={() => props.navigation.navigate("Exercise")}
-                    testID="BackButton"
-                />
-            </View>
-
-            <View style={styles.logContainer}>
-                <View style={styles.titleContainer}>
-                    <TitleInput
-                        value={title}
-                        onChangeText={setTitle}
-                        testID="TitleInput"
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={styles.container}>
+                <View style={styles.backButtonContainer}>
+                    <BackButton
+                        onPress={() => props.navigation.navigate("Exercise")}
+                        testID="BackButton"
                     />
                 </View>
-
-                <View style={styles.timeContainer}>
-                    <Text style={styles.subHeading}>Time</Text>
-                    <TimeSelect
-                        testID="TimeSelect"
-                        date={time}
-                        setDate={setTime}
-                        open={open}
-                        setOpen={setOpen}
-                        dateIsConfirmed={dateIsConfirmed}
-                        setIsConfirmed={setIsConfirmed}
-                    />
-                </View>
-
-                <View style={styles.durationContainer}>
-                    <Text style={styles.subHeading}>Duration</Text>
-                    <DurationSelect
-                        label="minutes"
-                        increment={5}
-                        min={0}
-                        max={240}
-                        duration={duration}
-                        setDuration={setDuration}
-                        testID="DurationSelect"
-                    />
-                </View>
-
-                <View style={styles.workoutContainer}>
-                    <Text style={styles.subHeading}>Workout Type</Text>
-                    <HorizontalSelect
-                        options={typeOptions}
-                        selectedOption={selectedType}
-                        setSelectedOption={setSelectedType}
-                        testID="HorizontalSelect"
-                    />
-                </View>
-
-                <View style={styles.intensityContainer}>
-                    <Text style={styles.subHeading}>Intensity</Text>
-                    <View style={styles.intensityOptionContainer}>
-                        <ThreeOptionBar
-                            options={intensityOptions}
-                            selectedOption={selectedIntensity}
-                            setSelectedOption={setSelectedIntensity}
-                            testID="ThreeOptionBar"
+                <View style={styles.logContainer}>
+                    <View style={styles.titleContainer}>
+                        <TitleInput
+                            value={title}
+                            onChangeText={setTitle}
+                            testID="TitleInput"
                         />
                     </View>
-                </View>
 
-                <View style={styles.descriptionContainer}>
-                    <DescriptionInput
-                        value={description}
-                        onChangeText={setDescription}
-                        testID="DescriptionInput"
-                    />
-                </View>
+                    <View style={styles.timeContainer}>
+                        <Text style={styles.subHeading}>Time</Text>
+                        <TimeSelect
+                            testID="TimeSelect"
+                            date={time}
+                            setDate={setTime}
+                            open={open}
+                            setOpen={setOpen}
+                            dateIsConfirmed={dateIsConfirmed}
+                            setIsConfirmed={setIsConfirmed}
+                        />
+                    </View>
 
-                <View style={styles.logButtonContainer}>
-                    <AddHabitButton text="Add Workout" onPress={logExercise} testID="AddHabitButton"/>
+                    <View style={styles.durationContainer}>
+                        <Text style={styles.subHeading}>Duration</Text>
+                        <DurationSelect
+                            label="minutes"
+                            increment={5}
+                            min={0}
+                            max={240}
+                            duration={duration}
+                            setDuration={setDuration}
+                            testID="DurationSelect"
+                        />
+                    </View>
+
+                    <View style={styles.workoutContainer}>
+                        <Text style={styles.subHeading}>Workout Type</Text>
+                        <HorizontalSelect
+                            options={typeOptions}
+                            selectedOption={selectedType}
+                            setSelectedOption={setSelectedType}
+                            testID="HorizontalSelect"
+                        />
+                    </View>
+
+                    <View style={styles.intensityContainer}>
+                        <Text style={styles.subHeading}>Intensity</Text>
+                        <View style={styles.intensityOptionContainer}>
+                            <ThreeOptionBar
+                                options={intensityOptions}
+                                selectedOption={selectedIntensity}
+                                setSelectedOption={setSelectedIntensity}
+                                testID="ThreeOptionBar"
+                            />
+                        </View>
+                    </View>
+
+                    <View style={styles.descriptionContainer}>
+                        <DescriptionInput
+                            value={description}
+                            onChangeText={setDescription}
+                            testID="DescriptionInput"
+                        />
+                    </View>
+
+                    <View style={styles.logButtonContainer}>
+                        <AddHabitButton text="Add Workout" onPress={logExercise} testID="AddHabitButton"/>
+                    </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
@@ -178,6 +179,11 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 15,
         marginTop: 10,
+    },
+    scrollView: {
+        flexGrow: 1,
+        justifyContent: "center",
+        width: "100%",
     },
     logContainer: {
         backgroundColor: "white",

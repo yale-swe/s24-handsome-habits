@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Typography, Colors, Spacing } from "../styles";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -70,53 +70,55 @@ const EatLog = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.backButtonContainer}>
-        <BackButton onPress={() => props.navigation.navigate("Eat")} testID="BackButton"/>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <View style={styles.backButtonContainer}>
+          <BackButton onPress={() => props.navigation.navigate("Eat")} testID="BackButton"/>
+        </View>
+
+        <View style={styles.logContainer}>
+          <View style={styles.titleContainer}>
+            <TitleInput value={title} onChangeText={setTitle} testID="TitleInput"/>
+          </View>
+
+          <View style={styles.timeContainer}>
+            <Text style={styles.subHeading}>Time</Text>
+            <TimeSelect
+              date={time}
+              setDate={setTime}
+              open={open}
+              setOpen={setOpen}
+              dateIsConfirmed={dateIsConfirmed}
+              setIsConfirmed={setIsConfirmed}
+              testID="TimeSelect"
+            />
+          </View>
+
+          <View style={styles.mealContainer}>
+            <Text style={styles.subHeading}>Meal Type</Text>
+            <HorizontalSelect
+              options={typeOptions}
+              selectedOption={selectedType}
+              setSelectedOption={setSelectedType}
+              testID="HorizontalSelect"
+            />
+          </View>
+
+          <View style={styles.toggleContainer}>
+            <Text style={styles.subHeading}>Healthy?</Text>
+            <ToggleSwitch isToggle={isToggle} setToggle={setToggle} />
+          </View>
+
+          <View style={styles.descriptionContainer}>
+            <DescriptionInput value={description} onChangeText={setDescription} testID="DescriptionInput"/>
+          </View>
+
+          <View style={styles.logButtonContainer}>
+            <AddHabitButton text="Add Meal" onPress={logMeal} testID="AddHabitButton"/>
+          </View>
+        </View>
       </View>
-
-      <View style={styles.logContainer}>
-        <View style={styles.titleContainer}>
-          <TitleInput value={title} onChangeText={setTitle} testID="TitleInput"/>
-        </View>
-
-        <View style={styles.timeContainer}>
-          <Text style={styles.subHeading}>Time</Text>
-          <TimeSelect
-            date={time}
-            setDate={setTime}
-            open={open}
-            setOpen={setOpen}
-            dateIsConfirmed={dateIsConfirmed}
-            setIsConfirmed={setIsConfirmed}
-            testID="TimeSelect"
-          />
-        </View>
-
-        <View style={styles.mealContainer}>
-          <Text style={styles.subHeading}>Meal Type</Text>
-          <HorizontalSelect
-            options={typeOptions}
-            selectedOption={selectedType}
-            setSelectedOption={setSelectedType}
-            testID="HorizontalSelect"
-          />
-        </View>
-
-        <View style={styles.toggleContainer}>
-          <Text style={styles.subHeading}>Healthy?</Text>
-          <ToggleSwitch isToggle={isToggle} setToggle={setToggle} />
-        </View>
-
-        <View style={styles.descriptionContainer}>
-          <DescriptionInput value={description} onChangeText={setDescription} testID="DescriptionInput"/>
-        </View>
-
-        <View style={styles.logButtonContainer}>
-          <AddHabitButton text="Add Meal" onPress={logMeal} testID="AddHabitButton"/>
-        </View>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
