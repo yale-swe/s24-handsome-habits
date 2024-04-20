@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import LastActivity from "../src/db/models/LastActivity.js";
+import LastActivity from "../src/db/models/lastActivity.js";
 import {
     updateLastActivity,
     retrieveLastActivity,
