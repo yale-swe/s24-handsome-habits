@@ -8,6 +8,7 @@ import {
 } from "../controllers/habitController.js";
 import { addAsset, getAssets, setActiveAssets } from "../controllers/assetsController.js";
 import { StatusCodes } from "http-status-codes";
+import ShopButton from "../db/models/shopButton.js";
 
 const router = Router();
 
@@ -141,12 +142,12 @@ router.get("/assets", async(req, res) => {
     }
 
     const foundAssets = await getAssets(user._id);
+    console.log("Found assets: ", foundAssets);
     if (!foundAssets) {
         return res
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error finding assets" });
     }
-    console.log("Found assets: ", foundAssets);
     return res.status(StatusCodes.OK).json({ assets: foundAssets });
 });
 
@@ -171,7 +172,7 @@ router.post("/assets/add", async(req, res) => {
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error adding asset" });
     }
-    console.log("Updated assets: ", updatedAssets);
+    // console.log("Updated assets: ", updatedAssets);
     return res.status(StatusCodes.OK).json({ assets: updatedAssets });
 });
 
@@ -195,8 +196,33 @@ router.post("/assets/setActive", async(req, res) => {
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error setting active asset" });
     }
-    console.log("Updated assets: ", updatedAssets);
+    // console.log("Updated assets: ", updatedAssets);
     return res.status(StatusCodes.OK).json({ assets: updatedAssets });
+});
+
+router.get("/shopButton", async(req, res) => {
+    // return shop button type with the maximum count
+    const shopButton = await ShopButton.findOne().sort({ count: -1 });
+    if (!shopButton) {
+        return res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({ error: "Error finding shop button" });
+    }
+    return res.status(StatusCodes.OK).json({ type: shopButton.type });
+});
+
+router.post("/shopButton/update", async(req, res) => {
+    console.log("Updating shop button count");
+    const buttonType = req.body.type;
+    const shopButton = await ShopButton.findOne({ type: buttonType });
+    if (!shopButton) {
+        return res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({ error: "Error finding shop button" });
+    }
+    shopButton.count += 1;
+    await shopButton.save();
+    return res.status(StatusCodes.OK).json({ type: shopButton.type });
 });
 
 

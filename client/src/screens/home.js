@@ -44,7 +44,7 @@ const Home = (props) => {
     // Fetch user's points and coins when the component mounts after a navigation action
     React.useCallback(() => {
       fetchPoints();
-    }, [])
+    }, []),
   );
 
   const setNewAssets = async () => {
@@ -53,17 +53,17 @@ const Home = (props) => {
     try {
       let assets = await AsyncStorage.getItem("assets");
       assets = JSON.parse(assets);
+      console.log("assets being set: ", assets);
       setActiveAssets(assets);
-    }
-    catch(err) {
+    } catch (err) {
       console.log("Error setting new user wearing-assets.");
     }
-  }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
       setNewAssets();
-    }, [])
+    }, []),
   );
 
   const [message, setMessage] = React.useState("");
@@ -71,23 +71,21 @@ const Home = (props) => {
   useEffect(() => {
     const fetchExpression = async () => {
       // fetches the message based on points
-      const expression = await getExpression();// on mount, get the message
+      const expression = await getExpression(); // on mount, get the message
       setMessage(expression);
-    }
+    };
     fetchExpression();
   }, []);
 
   useFocusEffect(
     // fetches the message based on points
     React.useCallback(() => {
-
       const updateExpression = async () => {
-
         const expression = await getExpression(); // on navigation, get the message
         setMessage(expression);
       };
       updateExpression();
-    }, [])
+    }, []),
   );
 
   return (
@@ -114,7 +112,7 @@ const Home = (props) => {
       {/* container for the message displayed above bulldog's head */}
       <DansWords danMessage={message} />
       {/* container for bulldog image and clothes, reactive emotions */}
-      <HandsomeDan/>
+      <HandsomeDan />
       <View style={styles.habitButtonContainer} testID={"habit-buttons"}>
         <HabitButton
           logo={require("../assets/images/eating_icon.png")}
