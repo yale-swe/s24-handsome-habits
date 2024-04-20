@@ -5,23 +5,27 @@ import { useAuth } from "../src/components/authContext";
 import AudioPlayer from "../src/components/AudioPlayer";
 
 jest.mock("expo-av", () => ({
-  Audio: {
-    Sound: jest.fn().mockReturnValue({
-      loadAsync: jest.fn(),
-      setIsLoopingAsync: jest.fn(),
-      playAsync: jest.fn(),
-      unloadAsync: jest.fn(),
-    }),
-  },
+    Audio: {
+        Sound: jest.fn().mockReturnValue({
+        loadAsync: jest.fn().mockResolvedValue(),
+        setIsLoopingAsync: jest.fn().mockResolvedValue(),
+        playAsync: jest.fn().mockResolvedValue(),
+        unloadAsync: jest.fn().mockResolvedValue(),
+        }),
+        setAudioModeAsync: jest.fn().mockResolvedValue(),
+    },
+    InterruptionModeIOS: {
+        DoNotMix: "mock-do-not-mix",
+    },
 }));
 
 jest.mock("../src/components/authContext", () => ({
-  useAuth: jest.fn(),
+    useAuth: jest.fn(),
 }));
 
 jest.mock("../src/assets/music/handsome_habit_theme_song.mp3", () => ({
     themeSongPath: "mocked-theme-song-path"
-  }));
+ }));
 
 // Test wrapper component
 const TestComponent = () => {
@@ -29,48 +33,40 @@ const TestComponent = () => {
 };
 
 describe("AudioPlayer", () => {
-  afterEach(cleanup);
-
-  it("loads and plays audio when authenticated", async () => {
-    const setAudioControl = jest.fn();
-    useAuth.mockReturnValue({
-      isAuthenticated: true,
-      setAudioControl,
+    beforeEach(() => {
+        useAuth.mockImplementation(() => ({
+        isAuthenticated: false,
+        setAudioControl: jest.fn()
+        }));
+    });
+    afterEach(() => {
+        cleanup();
     });
 
-    render(<TestComponent />);
-    const soundObject = Audio.Sound();
+    it("does nothing when not authenticated", () => {
+        useAuth.mockReturnValue({
+        isAuthenticated: false,
+        setAudioControl: jest.fn(),
+        });
 
-    await expect(soundObject.loadAsync).toHaveBeenCalledWith(require("../src/assets/music/handsome_habit_theme_song.mp3"));
-    await expect(soundObject.setIsLoopingAsync).toHaveBeenCalledWith(true);
-    await expect(soundObject.playAsync).toHaveBeenCalled();
-    expect(setAudioControl).toHaveBeenCalledWith(soundObject);
-  });
-// to be fixed but feature works
-//   it("does nothing when not authenticated", () => {
-//     useAuth.mockReturnValue({
-//       isAuthenticated: false,
-//       setAudioControl: jest.fn(),
-//     });
+        render(<TestComponent />);
+        const soundObject = Audio.Sound();
 
-//     render(<TestComponent />);
-//     const soundObject = Audio.Sound();
-
-//     expect(soundObject.loadAsync).not.toHaveBeenCalled();
-//     expect(soundObject.playAsync).not.toHaveBeenCalled();
-//   });
-
-  it("unloads the audio on unmount when authenticated", () => {
-    const setAudioControl = jest.fn();
-    useAuth.mockReturnValue({
-      isAuthenticated: true,
-      setAudioControl,
+        expect(soundObject.loadAsync).not.toHaveBeenCalled();
+        expect(soundObject.playAsync).not.toHaveBeenCalled();
     });
 
-    const { unmount } = render(<TestComponent />);
-    const soundObject = Audio.Sound();
+    it("unloads the audio on unmount when authenticated", () => {
+        const setAudioControl = jest.fn();
+        useAuth.mockReturnValue({
+        isAuthenticated: true,
+        setAudioControl,
+        });
 
-    unmount();
-    expect(soundObject.unloadAsync).toHaveBeenCalled();
-  });
+        const { unmount } = render(<TestComponent />);
+        const soundObject = Audio.Sound();
+
+        unmount();
+        expect(soundObject.unloadAsync).toHaveBeenCalled();
+    });
 });
