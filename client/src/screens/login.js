@@ -110,12 +110,12 @@ const Login = (props) => {
             onPress={handleLoginWithCAS}
           />
           {/* COMMENT OUT TO REMOVE BYPASS */}
-          <LoginButton
+          {/* <LoginButton
           title="BYPASS LOGIN"
           logo={require("../assets/images/bulldoghead.png")}
           style={styles.GloginButton}
           onPress={byPassLogin}
-          />
+          /> */}
         </View>
       </View>
     </View>
