@@ -97,6 +97,7 @@ export function calculatePoints(newHabit) {
             break;
 
         case "Studying":
+
             // 4 points per 30 minutes (for only full 5 minutes)
             points +=
                 Math.floor(newHabit.details.study.study_duration / 30) * 4;
@@ -120,17 +121,19 @@ export function calculatePoints(newHabit) {
                 coins += 6;
             }
 
+
+
             break;
 
         case "Sleeping":
             // 4 points per hour (for only full hour)
             points +=
-                Math.floor(newHabit.details.sleep.sleep_duration / 60) * 4;
+                Math.floor(newHabit.details.sleep.sleep_duration) * 4;
 
             if (newHabit.details.sleep.is_nap) {
                 coins += 6;
             } else {
-                coins += Math.floor(newHabit.details.sleep.sleep_duration / 60) * 3; // 3 coins per hour
+                coins += Math.floor(newHabit.details.sleep.sleep_duration) * 3; // 3 coins per hour
             }
 
             break;
