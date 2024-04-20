@@ -43,9 +43,21 @@ export async function updateLastActivity(user_id, category) {
 
 export async function retrieveLastActivity(user_id) {
     try {
-        const lastActivity = await LastActivity.findOne({ user_id: user_id });
+
+        // try to find new user
+        let lastActivity = await LastActivity.findOne({ user_id: user_id });
+
+        // If no activity is found, create a new one
         if (!lastActivity) {
-            throw new Error(`LastActivity not found for user ${user_id}`);
+            console.log(`No LastActivity record found for user ${user_id}, creating new one.`);
+            lastActivity = new LastActivity({
+                user_id: user_id,
+                last_exercising: new Date(),
+                last_eating: new Date(),
+                last_sleeping: new Date(),
+                last_studying: new Date(),
+            });
+            await lastActivity.save();
         }
         return lastActivity;
     } catch (err) {
