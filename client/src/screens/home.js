@@ -52,9 +52,10 @@ const Home = (props) => {
     // done in the home component to avoid spamming the database by quickly switching assets in the shop
     try {
       let assets = await AsyncStorage.getItem("assets");
-      assets = JSON.parse(assets);
-      console.log("assets being set: ", assets);
-      setActiveAssets(assets);
+      if(assets) {
+        assets = JSON.parse(assets);
+        setActiveAssets(assets);
+      }
     } catch (err) {
       console.log("Error setting new user wearing-assets.");
     }
