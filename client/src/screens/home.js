@@ -12,6 +12,7 @@ import { getPointInfo } from "../services/PointsService";
 import { useFocusEffect } from "@react-navigation/native";
 import { getExpression } from "../services/DansWordsService";
 import { setActiveAssets } from "../services/AssetsService";
+import { checkAndUpdateActivity } from "../services/LastActivityService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getButtonToDisplay,
@@ -47,6 +48,7 @@ const Home = (props) => {
   // fetches user points from the database
   const fetchPoints = async () => {
     try {
+      await checkAndUpdateActivity();
       const rawPoints = await getPointInfo();
       setPointsInfo(rawPoints);
     } catch (error) {

@@ -1,9 +1,6 @@
 import apiUtil from "../src/services/apiUtil.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-    updateLastActivity,
-    retrieveLastActivity,
-} from "../src/services/LastActivityService.js";
+import * as LastActivityService from "../src/services/LastActivityService.js";
 
 // Mocks
 jest.mock("../src/services/apiUtil.js", () => ({
@@ -15,6 +12,7 @@ jest.mock("../src/services/apiUtil.js", () => ({
 jest.mock("@react-native-async-storage/async-storage", () => ({
     setItem: jest.fn(),
 }));
+
 
 beforeEach(() => {
     // Clear all instances and calls to constructor and all methods:
@@ -29,7 +27,7 @@ describe("LastActivityService", () => {
             const category = "Exercising";
             apiUtil.post.mockResolvedValue({ data: mockData });
 
-            const result = await updateLastActivity(category);
+            const result = await LastActivityService.updateLastActivity(category);
 
             expect(apiUtil.post).toHaveBeenCalledWith("/lastActivity/update", {
                 category,
@@ -41,7 +39,7 @@ describe("LastActivityService", () => {
             apiUtil.post.mockRejectedValue(new Error("API Error"));
             const category = "Exercising";
 
-            const result = await updateLastActivity(category);
+            const result = await LastActivityService.updateLastActivity(category);
 
             expect(apiUtil.post).toHaveBeenCalledWith("/lastActivity/update", {
                 category,
@@ -57,7 +55,7 @@ describe("LastActivityService", () => {
             };
             apiUtil.get.mockResolvedValue({ data: mockData });
 
-            const result = await retrieveLastActivity();
+            const result = await LastActivityService.retrieveLastActivity();
 
             expect(apiUtil.get).toHaveBeenCalledWith("/lastActivity");
             expect(result).toEqual(mockData);
@@ -66,10 +64,25 @@ describe("LastActivityService", () => {
         it("should return null on API failure", async () => {
             apiUtil.get.mockRejectedValue(new Error("API Error"));
 
-            const result = await retrieveLastActivity();
+            const result = await LastActivityService.retrieveLastActivity();
 
             expect(apiUtil.get).toHaveBeenCalledWith("/lastActivity");
             expect(result).toBeNull();
         });
     });
+    // describe("checkAndUpdateActivity", () => {
+
+        
+    //     it("should handle the case where no last activities are retrieved", async () => {
+    //         const mockData = null;
+    //         const category = "Exercising";
+    //         retrieveLastActivity.mockResolvedValue(mockData);
+
+    //         const result = await checkAndUpdateActivity(category);
+
+    //         expect(retrieveLastActivity).toHaveBeenCalled();
+    //         expect(updateLastActivity).toHaveBeenCalledWith(category);
+    //         expect(result).toBeNull();
+    //     });
+    // });
 });
