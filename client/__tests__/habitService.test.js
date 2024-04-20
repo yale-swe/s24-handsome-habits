@@ -7,6 +7,7 @@ import {
 import apiUtil from "../src/services/apiUtil.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { updatePointswithChange } from "../src/services/PointsService";
+import { updateLastActivity } from "../src/services/LastActivityService.js";
 import { logout } from "../src/services/authenticationUtil";
 
 // Mocks
@@ -24,6 +25,9 @@ jest.mock("../src/services/authenticationUtil", () => ({
 }));
 jest.mock("../src/services/PointsService", () => ({
     updatePointswithChange: jest.fn(),
+}));
+jest.mock("../src/services/LastActivityService.js", () => ({
+    updateLastActivity: jest.fn(),
 }));
 
 describe("addHabit", () => {
@@ -80,6 +84,7 @@ describe("addHabit", () => {
             newHabit.category_name,
             expect.any(Object)
         );
+        expect(updateLastActivity).toHaveBeenCalledWith(newHabit.category_name);
         expect(result).toEqual(mockResponseData);
     });
 });
