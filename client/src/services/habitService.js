@@ -100,7 +100,7 @@ export function calculatePoints(newHabit) {
 
             // 4 points per 30 minutes (for only full 5 minutes)
             points +=
-                Math.floor(newHabit.details.study.study_duration / 0.5) * 4;
+                Math.floor(newHabit.details.study.study_duration / 30) * 4;
 
             // default coins
             coins += 6;
@@ -120,6 +120,8 @@ export function calculatePoints(newHabit) {
             if (newHabit.details.study.study_productivity == "High") {
                 coins += 6;
             }
+
+
 
             break;
 
