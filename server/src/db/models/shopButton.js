@@ -13,8 +13,9 @@ import mongoose from "mongoose";
 const shopButtonSchema = new mongoose.Schema({
     //mongoose creates automatically a unique _id for each row
     type: { type: String, unique: true },
-    count: { type: Number, default: 0 },
-
+    timesPressed: { type: Number, default: 1 },
+    timesShown: { type: Number, default: 1 },
+    expectation: { type: Number, default: 100 },
 });
 
 const ShopButton = mongoose.model("ShopButton", shopButtonSchema);

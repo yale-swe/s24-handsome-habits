@@ -7,35 +7,34 @@
 </div>
 
 ## Table of Contents
+
 1. [About the Project](#about-the-project)
-    - [Description](#description)
-    - [Features](#features)
-    - [Screenshots](#screenshots)
-    - [Built With](#built-with)
 
+   - [Description](#description)
+   - [Features](#features)
+   - [Screenshots](#screenshots)
+   - [Built With](#built-with)
+   - [Metric Tracking](#metric-tracking)
 
-2. [Getting Started](#gettingstarted) 
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
+2. [Getting Started](#gettingstarted)
+   - [Prerequisites](#prerequisites)
+   - [Installation](#installation)
 3. [Usage](#usage)
-    - [Run Locally](#run-locally)
-    - [Testing](#testing)
+   - [Run Locally](#run-locally)
+   - [Testing](#testing)
 4. [Support](#support)
 5. [Privacy Policy](#privacy-policy)
-  
-  
-
-
-
 
 ## About the Project
 
 ### Description
+
 Handsome Habits makes personal wellness fun by linking your habits to the well-being of our very own Handsome Dan.
 
 For Yale students, balance often seems unachievable. While Yale students are often very successful, this comes at the expense of their overall wellness. Handsome Habits makes wellness simple and enjoyable by providing a gamified view for maintaining personal wellness. By logging meals, sleep, study sessions, and workouts, users can earn wellness points to keep Handsome Dan happy and coins to buy him accessories. Conversely, if habits start to fall behind, Handsome Dan will become sad and disheveled to motivate the user to get back on track.
 
 ### Features
+
 - **Log Habits:** add and view habits for studying, sleeping, eating, or exercising.
 - **Track your wellnes:** Handsome Dan will indicate how well you're doing with his emotions and messages. There is also a wellness bar to see exactly how you're doing. (See Figure 1)
 - **Buy rewards:** earn coins when you log a habit to buy Handsome Dan new clothes.
@@ -43,12 +42,14 @@ For Yale students, balance often seems unachievable. While Yale students are oft
 - **Reminders:** Get notified when it's been a while since you logged a habit.
 
 ### Screenshots
+
 <figure>
     <img src="homescreenshot.png" alt="Home screen of a cartoon bulldog in the center, a coin total in the top right, a bulldog icon in the top left, and four habit icons on the bottom" width="200">
     <figcaption>Figure 1. Home page of the App</figcaption>
 </figure>
 
 ### Built With
+
 <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" width="auto" height="30">
 
 <img src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png" width="auto" height="50">
@@ -63,9 +64,14 @@ For Yale students, balance often seems unachievable. While Yale students are oft
 
 <img src="https://user-images.githubusercontent.com/25181517/192109061-e138ca71-337c-4019-8d42-4792fdaa7128.png" width="auto" height="50">
 
+### Metric Tracking
+
+We created 3 different buttons that lead to the store on our app. We used the epsilon-greedy method (Multi Armed Bandit procedure) to determine the best button to use. We tracked the number of clicks on each button and the number of times each button was shown. We then calculated the click-through rate (expectation) for each button. Whenever the app starts up, for 90% of the time, the button with the highest expectation is shown. For the other 10% of the time, a random button is shown. This allows us to explore the other buttons and potentially find a better button to use at any point in time.
+
 ## Getting Started
 
 ### Prerequisites
+
 Install the following:
 
 &nbsp;`brew install node`
@@ -82,21 +88,23 @@ Ensure XCode and the XCode simulator are installed
 
 To run the app locally, follow these steps:
 
-1. Clone this repository.
-2. Install dependencies.
-    *from main directory*
+1.  Clone this repository.
+2.  Install dependencies.
+    _from main directory_
 
-     `cd client; 
-npm install`
+         `cd client;
 
-    `cd client/ios;
-pod install`
+    npm install`
 
-    `cd server;
-npm install` 
+        `cd client/ios;
 
-3.  Request `.env` specifications from a contributor 
+    pod install`
 
+        `cd server;
+
+    npm install`
+
+3.  Request `.env` specifications from a contributor
 
 ## Usage
 
@@ -107,7 +115,6 @@ npm install`
 npm run ios`
 3. iOS simulator will open and you can use the app!
 
-
 ### Testing
 
 1. To run lint tests in the server or client: `npm run lint`
@@ -115,6 +122,7 @@ npm run ios`
 3. To run jest tests in the client
 
 ## Support
+
 Please direct any questions or concerns to handsomehabitsyale@gmail.com
 
 ## Privacy Policy

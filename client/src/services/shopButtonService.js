@@ -20,10 +20,9 @@ export async function getButtonToDisplay() {
 export async function updateshopButtonCount() {
   try {
     const buttonType = await AsyncStorage.getItem("shopButton");
-    const response = await Api.post("/shopButton/update", {
+    await Api.post("/shopButton/update", {
       type: buttonType,
     });
-    return response.data;
   } catch (err) {
     if (err.response.status == StatusCodes.UNAUTHORIZED) {
       logout();

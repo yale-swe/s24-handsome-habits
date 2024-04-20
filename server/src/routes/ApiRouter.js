@@ -201,27 +201,38 @@ router.post("/assets/setActive", async(req, res) => {
 });
 
 router.get("/shopButton", async(req, res) => {
-    // return shop button type with the maximum count
-    const shopButton = await ShopButton.findOne().sort({ count: -1 });
+    // return shop button type with the highest expectation
+    let shopButton;
+    if (Math.random() < 0.1) {
+        const shopButtons = await ShopButton.find({});
+        shopButton = shopButtons[Math.floor(Math.random() * shopButtons.length)];
+    } else {
+        shopButton = await ShopButton.findOne().sort({ expectation: -1 });
+    }
     if (!shopButton) {
         return res
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error finding shop button" });
     }
+    shopButton.timesShown += 1;
+    shopButton.expectation = (shopButton.timesPressed / shopButton.timesShown) * 100;
+    shopButton.save();
     return res.status(StatusCodes.OK).json({ type: shopButton.type });
 });
 
+/** Update the timesPressed and expectation for the button */
 router.post("/shopButton/update", async(req, res) => {
-    console.log("Updating shop button count");
+    console.log("Updating shop button's times pressed");
     const buttonType = req.body.type;
-    const shopButton = await ShopButton.findOne({ type: buttonType });
+    let shopButton = await ShopButton.findOne({ type: buttonType });
     if (!shopButton) {
         return res
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error finding shop button" });
     }
-    shopButton.count += 1;
-    await shopButton.save();
+    shopButton.timesPressed += 1;
+    shopButton.expectation = (shopButton.timesPressed / shopButton.timesShown) * 100;
+    shopButton.save();
     return res.status(StatusCodes.OK).json({ type: shopButton.type });
 });
 
