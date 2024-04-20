@@ -1,6 +1,7 @@
 import apiUtil from "../src/services/apiUtil.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as LastActivityService from "../src/services/LastActivityService.js";
+import { updatePointswithChange } from "../src/services/PointsService";
 
 // Mocks
 jest.mock("../src/services/apiUtil.js", () => ({
@@ -9,8 +10,13 @@ jest.mock("../src/services/apiUtil.js", () => ({
     delete: jest.fn(),
 }));
 
+jest.mock("../src/services/PointsService");
+
 jest.mock("@react-native-async-storage/async-storage", () => ({
     setItem: jest.fn(),
+    getItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
 }));
 
 beforeEach(() => {
@@ -69,18 +75,46 @@ describe("LastActivityService", () => {
             expect(result).toBeNull();
         });
     });
-    // describe("checkAndUpdateActivity", () => {
+    describe("checkAndUpdateActivity", () => {
 
-    //     it("should handle the case where no last activities are retrieved", async () => {
-    //         const mockData = null;
-    //         const category = "Exercising";
-    //         retrieveLastActivity.mockResolvedValue(mockData);
+        it("should handle the absence of last activities correctly", async () => {
+            apiUtil.get.mockRejectedValue(new Error("Failed to retrieve last activities."));
+            const consoleSpy = jest.spyOn(console, "error");
 
-    //         const result = await checkAndUpdateActivity(category);
+            await LastActivityService.checkAndUpdateActivity();
 
-    //         expect(retrieveLastActivity).toHaveBeenCalled();
-    //         expect(updateLastActivity).toHaveBeenCalledWith(category);
-    //         expect(result).toBeNull();
-    //     });
-    // });
+            expect(consoleSpy).toHaveBeenCalledWith("Failed to retrieve last activities.");
+            expect(updatePointswithChange).not.toHaveBeenCalled();
+        });
+
+        it("should handle an error when fetching last activity times", async () => {
+            apiUtil.get.mockRejectedValue(new Error("Network error"));
+            const consoleSpy = jest.spyOn(console, "error");
+
+            await LastActivityService.checkAndUpdateActivity();
+
+            expect(consoleSpy).toHaveBeenCalledWith("Error retrieving last activity:", expect.any(Error));
+        });
+
+        it("should set last decrement time if not previously set", async () => {
+            apiUtil.get.mockResolvedValue({ data: { last_eating: new Date().toISOString() } });
+            AsyncStorage.getItem.mockResolvedValue("{}");
+            const jsonSpy = jest.spyOn(JSON, "stringify");
+
+             await LastActivityService.checkAndUpdateActivity();
+
+            expect(AsyncStorage.setItem).toHaveBeenCalled();
+            expect(jsonSpy).toHaveBeenCalledWith(expect.any(Object));
+        });
+
+        it("should handle AsyncStorage failures gracefully", async () => {
+            apiUtil.get.mockResolvedValue({ data: { last_studying: new Date().toISOString() } });
+            AsyncStorage.getItem.mockRejectedValue(new Error("AsyncStorage error"));
+            const consoleSpy = jest.spyOn(console, "error");
+
+            await LastActivityService.checkAndUpdateActivity();
+
+            expect(consoleSpy).toHaveBeenCalledWith("Error in checking and updating activities:", expect.any(Error));
+        });
+    });
 });
