@@ -1,9 +1,7 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { WebView } from "react-native-webview";
-import  {
-  LoginWithActiveSession,
-} from "../services/authenticationUtil";
+import { LoginWithActiveSession } from "../services/authenticationUtil";
 import { dummyLogin } from "../services/authenticationUtil";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
@@ -23,13 +21,11 @@ const Login = (props) => {
   const [showWebView, setShowWebView] = useState(false);
 
   function handleLoginWithCAS() {
-
     // Display the WebView for CAS login
     setShowWebView(true);
   }
 
-  const byPassLogin = async() => {
-
+  const byPassLogin = async () => {
     AsyncStorage.clear();
 
     const dummyUser = await dummyLogin(); // Get dummy user data
@@ -37,7 +33,7 @@ const Login = (props) => {
     AsyncStorage.setItem("user", dummyUser);
 
     props.navigation.navigate("Home"); // Redirect to the main screen
-  }
+  };
 
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.
@@ -111,10 +107,10 @@ const Login = (props) => {
           />
           {/* COMMENT OUT TO REMOVE BYPASS */}
           <LoginButton
-          title="BYPASS LOGIN"
-          logo={require("../assets/images/bulldoghead.png")}
-          style={styles.GloginButton}
-          onPress={byPassLogin}
+            title="BYPASS LOGIN"
+            logo={require("../assets/images/bulldoghead.png")}
+            style={styles.GloginButton}
+            onPress={byPassLogin}
           />
         </View>
       </View>

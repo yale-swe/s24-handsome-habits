@@ -13,7 +13,10 @@ import { useFocusEffect } from "@react-navigation/native";
 import { getExpression } from "../services/DansWordsService";
 import { setActiveAssets } from "../services/AssetsService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getButtonToDisplay } from "../services/shopButtonService";
+import {
+  getButtonToDisplay,
+  updateshopButtonCount,
+} from "../services/shopButtonService";
 
 const Home = (props) => {
   // set up the navigation for the home page
@@ -29,13 +32,13 @@ const Home = (props) => {
   const updateShopButton = async () => {
     const buttonState = await getButtonToDisplay();
     setShopButton(buttonState["type"]);
-  }
+  };
 
   useEffect(
     // Fetch user's points and coins when the component mounts after a navigation action
     React.useCallback(() => {
       updateShopButton();
-    }, [])
+    }, []),
   );
 
   // variable and function for getting/setter user points
@@ -60,7 +63,7 @@ const Home = (props) => {
     // Fetch user's points and coins when the component mounts after a navigation action
     React.useCallback(() => {
       fetchPoints();
-    }, [])
+    }, []),
   );
 
   const setNewAssets = async () => {
@@ -70,16 +73,15 @@ const Home = (props) => {
       let assets = await AsyncStorage.getItem("assets");
       assets = JSON.parse(assets);
       setActiveAssets(assets);
-    }
-    catch(err) {
+    } catch (err) {
       console.log("Error setting new user wearing-assets.");
     }
-  }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
       setNewAssets();
-    }, [])
+    }, []),
   );
 
   const [message, setMessage] = React.useState("");
@@ -87,23 +89,21 @@ const Home = (props) => {
   useEffect(() => {
     const fetchExpression = async () => {
       // fetches the message based on points
-      const expression = await getExpression();// on mount, get the message
+      const expression = await getExpression(); // on mount, get the message
       setMessage(expression);
-    }
+    };
     fetchExpression();
   }, []);
 
   useFocusEffect(
     // fetches the message based on points
     React.useCallback(() => {
-
       const updateExpression = async () => {
-
         const expression = await getExpression(); // on navigation, get the message
         setMessage(expression);
       };
       updateExpression();
-    }, [])
+    }, []),
   );
 
   return (
@@ -121,7 +121,10 @@ const Home = (props) => {
           logo={require("../assets/images/coin.png")}
           style={Buttons.coinsButton}
           state={shopButton.type}
-          onPress={() => props.navigation.navigate("Shop")}
+          onPress={() => {
+            updateshopButtonCount();
+            props.navigation.navigate("Shop");
+          }}
           testID={"coins-button"}
         />
       </View>
@@ -131,7 +134,7 @@ const Home = (props) => {
       {/* container for the message displayed above bulldog's head */}
       <DansWords danMessage={message} />
       {/* container for bulldog image and clothes, reactive emotions */}
-      <HandsomeDan/>
+      <HandsomeDan />
       <View style={styles.habitButtonContainer} testID={"habit-buttons"}>
         <HabitButton
           logo={require("../assets/images/eating_icon.png")}
