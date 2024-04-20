@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { WebView } from "react-native-webview";
-import { LoginWithActiveSession } from "../services/authenticationUtil";
-import { dummyLogin } from "../services/authenticationUtil";
+import  {
+  LoginWithActiveSession,
+} from "../services/authenticationUtil";
+// import { dummyLogin } from "../services/authenticationUtil";
 import LoginButton from "../components/loginButton";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,15 +27,17 @@ const Login = (props) => {
     setShowWebView(true);
   }
 
-  const byPassLogin = async () => {
-    AsyncStorage.clear();
+  // const byPassLogin = async() => {
 
-    const dummyUser = await dummyLogin(); // Get dummy user data
+  //   AsyncStorage.clear();
 
-    AsyncStorage.setItem("user", dummyUser);
+  //   const dummyUser = await dummyLogin(); // Get dummy user data
 
-    props.navigation.navigate("Home"); // Redirect to the main screen
-  };
+  //   AsyncStorage.setItem("user", dummyUser);
+
+  //   props.navigation.navigate("Home"); // Redirect to the main screen
+  // }
+
 
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.
@@ -106,12 +110,12 @@ const Login = (props) => {
             onPress={handleLoginWithCAS}
           />
           {/* COMMENT OUT TO REMOVE BYPASS */}
-          <LoginButton
-            title="BYPASS LOGIN"
-            logo={require("../assets/images/bulldoghead.png")}
-            style={styles.GloginButton}
-            onPress={byPassLogin}
-          />
+          {/* <LoginButton
+          title="BYPASS LOGIN"
+          logo={require("../assets/images/bulldoghead.png")}
+          style={styles.GloginButton}
+          onPress={byPassLogin}
+          /> */}
         </View>
       </View>
     </View>
@@ -162,6 +166,7 @@ const styles = StyleSheet.create({
   YloginButton: {
     ...Buttons.loginButton,
     backgroundColor: Colors.Colors.navy,
+    top: "40%",
   },
 });
 

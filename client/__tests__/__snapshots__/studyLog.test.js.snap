@@ -2,6 +2,24 @@
 
 exports[`StudyLog Page matches the snapshot 1`] = `
 <View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessible={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     {
       "alignItems": "center",
@@ -282,7 +300,6 @@ exports[`StudyLog Page matches the snapshot 1`] = `
             style={
               [
                 {
-                  "marginEnd": 10,
                   "marginStart": 10,
                 },
                 {
@@ -293,6 +310,22 @@ exports[`StudyLog Page matches the snapshot 1`] = `
             testID="durationInput"
             value="0"
           />
+          <Text
+            style={
+              [
+                {
+                  "marginEnd": 10,
+                  "marginStart": 5,
+                },
+                {
+                  "color": "grey",
+                },
+              ]
+            }
+            testID="labelText"
+          >
+            minutes
+          </Text>
           <View
             accessibilityState={
               {

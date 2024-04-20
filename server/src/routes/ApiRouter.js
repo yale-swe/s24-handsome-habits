@@ -142,12 +142,12 @@ router.get("/assets", async(req, res) => {
     }
 
     const foundAssets = await getAssets(user._id);
+    console.log("Found assets: ", foundAssets);
     if (!foundAssets) {
         return res
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error finding assets" });
     }
-    console.log("Found assets: ", foundAssets);
     return res.status(StatusCodes.OK).json({ assets: foundAssets });
 });
 
@@ -172,7 +172,7 @@ router.post("/assets/add", async(req, res) => {
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error adding asset" });
     }
-    console.log("Updated assets: ", updatedAssets);
+    // console.log("Updated assets: ", updatedAssets);
     return res.status(StatusCodes.OK).json({ assets: updatedAssets });
 });
 
@@ -196,7 +196,7 @@ router.post("/assets/setActive", async(req, res) => {
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json({ error: "Error setting active asset" });
     }
-    console.log("Updated assets: ", updatedAssets);
+    // console.log("Updated assets: ", updatedAssets);
     return res.status(StatusCodes.OK).json({ assets: updatedAssets });
 });
 

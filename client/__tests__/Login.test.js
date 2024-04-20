@@ -20,6 +20,14 @@ jest.mock("@react-native-cookies/cookies", () => ({
   get: jest.fn().mockResolvedValue({ "connect.sid": "dummy_cookie" }),
 }));
 
+// Mocking the useAuth hook
+jest.mock("../src/components/authContext", () => ({
+  useAuth: () => ({
+    setIsAuthenticated: jest.fn(),
+    isAuthenticated: false
+  })
+}));
+
 describe("Login Component", () => {
   it("renders correctly", () => {
     const { getByText } = render(<Login navigation={{ navigate: jest.fn() }} />);

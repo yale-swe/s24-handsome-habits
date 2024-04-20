@@ -111,7 +111,7 @@ const Shop = (props) => {
         </ShopButton>
         <ShopButton style={Buttons.shopButton}
                     onPress={() => handleShopButtonPress(2)}
-                    asset={"accessories"}
+                    asset={"extras"}
                     testID={"accessories-button"}
                     opacity={buttonOpacities[2]}>
         </ShopButton>

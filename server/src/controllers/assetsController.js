@@ -17,7 +17,7 @@ export async function createInitialAssets(user_id) {
  */
 export async function getAssets(user_id) {
     try {
-        return Assets.findOne({ user_id: user_id });
+        return await Assets.findOne({ user_id: user_id });
     } catch {
         console.log("Error getting assets");
         return null;
@@ -31,7 +31,7 @@ export async function getAssets(user_id) {
  */
 export async function updateAssets(user_id, assets) {
     try {
-        return await Assets.findOneAndUpdate({ user_id: user_id }, assets);
+        return await Assets.findOneAndUpdate({ user_id: user_id }, assets, { new: true });
     } catch (err) {
         console.log("Error updating assets");
         return null;

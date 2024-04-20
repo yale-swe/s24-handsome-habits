@@ -72,10 +72,16 @@ export async function addAsset(assetType, assetName) {
 
 /**
  * Sets the active assets for the user
+ * newActiveAssets replaces the user's entire active assets, so it should contain all three asset types (if the user is wearing them)
+ * If say, the user's active bottoms aren't changed, but only active tops are changed, remember to include the unchanged bottoms in newActiveAssets
  * @param {JSON} newActiveAssets - Eg. {tops: "yale_shirt", bottoms: "yale_pants", accessories: "yale_hat"} - Yes, plural, not singular
  * @returns the updated assets JSON if successful, null otherwise
  */
 export async function setActiveAssets(newActiveAssets) {
+  if (newActiveAssets == null) {
+    console.log("NEW ACTIVE ASSETS IS NULL!!!");
+    return null;
+  }
   try {
     const response = await Api.post("/assets/setActive", {
       assets: newActiveAssets,
