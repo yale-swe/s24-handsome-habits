@@ -1,4 +1,9 @@
-import { addHabit, calculatePoints, retrieveHabitsByCategory, deleteHabit } from "../src/services/habitService"; // Adjust the import path accordingly
+import {
+    addHabit,
+    calculatePoints,
+    retrieveHabitsByCategory,
+    deleteHabit,
+} from "../src/services/habitService"; // Adjust the import path accordingly
 import apiUtil from "../src/services/apiUtil.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { updatePointswithChange } from "../src/services/PointsService";
@@ -80,55 +85,160 @@ describe("addHabit", () => {
 });
 
 describe("calculatePoints", () => {
-    // low intensity, short test
-    it("calculates points and coins correctly for low intensity and short duration", () => {
-        const newHabit = {
-            category_name: "Exercising",
-            details: {
-                workout: {
-                    workout_duration: 10,
-                    workout_intensity: "Low",
-                },
-            },
-        };
 
-        const { points, coins } = calculatePoints(newHabit);
-        expect(points).toBe(10); // 5 points per 5 minutes
-        expect(coins).toBe(9); // Default coins
+    describe("Exercising", () => {
+
+        // low intensity, short test
+        it("calculates points and coins correctly for low intensity and short duration", () => {
+            const newHabit = {
+                category_name: "Exercising",
+                details: {
+                    workout: {
+                        workout_duration: 10,
+                        workout_intensity: "Low",
+                    },
+                },
+            };
+
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(10); // 5 points per 5 minutes
+            expect(coins).toBe(9); // Default coins
+        });
+
+        // medium intensity, high duration test
+        it("adds points for medium workout duration and extra coin for medium intensity", () => {
+            const newHabit = {
+                category_name: "Exercising",
+                details: {
+                    workout: {
+                        workout_duration: 120,
+                        workout_intensity: "Medium",
+                    },
+                },
+            };
+
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(120); // 5 points per 5 minutes
+            expect(coins).toBe(15); // Default coins + 1 for medium intensity + 1 for duration over 30 minutes
+        });
+
+        // high intensity, medium duration test
+        it("adds extra coins for high intensity and duration over 30 minutes", () => {
+            const newHabit = {
+                category_name: "Exercising",
+                details: {
+                    workout: {
+                        workout_duration: 25,
+                        workout_intensity: "High",
+                    },
+                },
+            };
+
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(25); // 5 points per 5 minutes
+            expect(coins).toBe(12); // Default coins + 1 for high intensity
+        });
     });
 
-    // medium intensity, high duration test
-    it("adds points for medium workout duration and extra coin for medium intensity", () => {
-        const newHabit = {
-            category_name: "Exercising",
-            details: {
-                workout: {
-                    workout_duration: 120,
-                    workout_intensity: "Medium",
+    describe("Eating", () => {
+        it("calculates points and coins correctly for a healthy meal", () => {
+            const newHabit = {
+                category_name: "Eating",
+                details: {
+                    eating: {
+                        eating_tag: "Meal",
+                        healthy_meal: true,
+                    },
                 },
-            },
-        };
+            };
 
-        const { points, coins } = calculatePoints(newHabit);
-        expect(points).toBe(120); // 5 points per 5 minutes
-        expect(coins).toBe(15); // Default coins + 1 for medium intensity + 1 for duration over 30 minutes
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(9); // Default points for eating
+            expect(coins).toBe(21); // Default coins + additional for healthy meal
+        });
+
+        it("calculates points and coins for an unhealthy snack", () => {
+            const newHabit = {
+                category_name: "Eating",
+                details: {
+                    eating: {
+                        eating_tag: "Snack",
+                        healthy_meal: false,
+                    },
+                },
+            };
+
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(9); // Default points
+            expect(coins).toBe(6); // Lower coins for unhealthy snack
+        });
     });
 
-    // high intensity, medium duration test
-    it("adds extra coins for high intensity and duration over 30 minutes", () => {
-        const newHabit = {
-            category_name: "Exercising",
-            details: {
-                workout: {
-                    workout_duration: 25,
-                    workout_intensity: "High",
+    describe("Studying", () => {
+        it("adds points for short study sessions and standard coins", () => {
+            const newHabit = {
+                category_name: "Studying",
+                details: {
+                    study: {
+                        study_duration: 25,
+                        study_productivity: "Medium",
+                    },
                 },
-            },
-        };
+            };
 
-        const { points, coins } = calculatePoints(newHabit);
-        expect(points).toBe(25); // 5 points per 5 minutes
-        expect(coins).toBe(12); // Default coins + 1 for high intensity
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(0); // 4 points per 30 minutes, no points for less than 30
+            expect(coins).toBe(12); // Default coins + bonus for medium productivity
+        });
+
+        it("adds points and coins for long and highly productive study sessions", () => {
+            const newHabit = {
+                category_name: "Studying",
+                details: {
+                    study: {
+                        study_duration: 65,
+                        study_productivity: "High",
+                    },
+                },
+            };
+
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(8); // 4 points per 30 minutes
+            expect(coins).toBe(21); // Default coins + bonuses for duration over 30 and 60 minutes and high productivity
+        });
+    });
+
+    describe("Sleeping", () => {
+        it("calculates points and coins for a full night's sleep", () => {
+            const newHabit = {
+                category_name: "Sleeping",
+                details: {
+                    sleep: {
+                        sleep_duration: 8, // 8 hours
+                    },
+                },
+            };
+
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(32); // 4 points per hour
+            expect(coins).toBe(24); // 3 coins per hour
+        });
+
+        it("calculates points and coins for a nap", () => {
+            const newHabit = {
+                category_name: "Sleeping",
+                details: {
+                    sleep: {
+                        sleep_duration: 0.5, // 0.5 hours
+                        is_nap: true,
+                    },
+                },
+            };
+
+            const { points, coins } = calculatePoints(newHabit);
+            expect(points).toBe(0); // No points for less than 1 hour
+            expect(coins).toBe(6); // Nap-specific coin value
+        });
     });
 
     //
@@ -142,9 +252,12 @@ describe("retrieveHabitsByCategory", () => {
     it("retrieves habits successfully for a given category", async () => {
         const mockHabits = [
             { id: "1", title: "Sleep Early", category_name: "Sleeping" },
-            { id: "2", title: "Read a book", category_name: "Sleeping" }
+            { id: "2", title: "Read a book", category_name: "Sleeping" },
         ];
-        apiUtil.get.mockResolvedValue({ status: 200, data: { habits: mockHabits } });
+        apiUtil.get.mockResolvedValue({
+            status: 200,
+            data: { habits: mockHabits },
+        });
 
         const result = await retrieveHabitsByCategory("Sleeping");
         expect(apiUtil.get).toHaveBeenCalledWith("/habits/Sleeping");
@@ -200,4 +313,3 @@ describe("deleteHabit", () => {
         expect(logout).toHaveBeenCalled();
     });
 });
-
