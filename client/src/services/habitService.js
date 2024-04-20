@@ -201,3 +201,22 @@ export async function deleteHabit(habitId) {
         return false;
     }
 }
+
+/**
+ * Retrieves the total number of habits for all categories for the logged-in user.
+ * @returns {number} - The total count of habits across all categories.
+ */
+export async function getTotalHabits() {
+    const categories = ["Exercising", "Sleeping", "Eating", "Studying"];
+    let totalHabits = 0;
+
+    // Retrieve habits for each category and accumulate the counts
+    for (const category of categories) {
+        const habits = await retrieveHabitsByCategory(category);
+        if (habits) {
+            totalHabits += habits.length;
+        }
+    }
+
+    return totalHabits;
+}

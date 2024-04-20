@@ -68,3 +68,17 @@ export const asset = {
   color: "#FFFFFF",
   ...boldFont,
 };
+
+export const trackedHabit = {
+  fontSize: 63,
+  color: "#000",
+  textAlign: "center",
+  ...boldFont,
+};
+
+export const trackedHabitText = {
+  fontSize: 20,
+  color: "#000",
+  textAlign: "center",
+  ...defaultFont,
+};
