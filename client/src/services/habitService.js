@@ -3,6 +3,7 @@ import { logout } from "./authenticationUtil";
 import { StatusCodes } from "http-status-codes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { updatePointswithChange } from "./PointsService";
+import { updateLastActivity } from "../services/LastActivityService"; // Adjust the path as necessary
 
 /**
  * Adds a new habit for the user.
@@ -30,6 +31,15 @@ export async function addHabit(newHabit) {
         }); // Post request to add a new exercise habit
         // Save new habit in client's local storage
         AsyncStorage.setItem("habit", JSON.stringify(habit_response.data));
+
+        // Update last activity after successfully adding the habit
+        const lastActivityUpdate = await updateLastActivity(newHabit.category_name);
+        console.log("category_name: ", newHabit.category_name);
+        console.log("Last activity update: ", lastActivityUpdate);
+        if (!lastActivityUpdate) {
+            console.error("Failed to update last activity");
+            // Optionally handle this failure depending on your application needs
+        }
 
         // Update points based on the new habit
 

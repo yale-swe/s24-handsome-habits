@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { render, fireEvent } from "@testing-library/react-native";
+import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import Home from "../src/screens/home.js";
 import { getPointInfo } from "../src/services/PointsService.js";
 import { getExpression } from "../src/services/DansWordsService.js";
@@ -75,7 +75,11 @@ describe("Home component", () => {
     render(
       <NavigationContainer> <Home navigation={{ navigate: jest.fn() }} /> </NavigationContainer>,
     );
-    expect(getPointInfo).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(getPointInfo).toHaveBeenCalled();
+    }, { timeout: 1000 }); // Increase the timeout if necessary
+
+    // expect(getPointInfo).toHaveBeenCalled();
   });
 
   it("fetches dan's expression", async () => {
