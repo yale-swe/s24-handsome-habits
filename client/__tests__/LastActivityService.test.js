@@ -13,7 +13,6 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
     setItem: jest.fn(),
 }));
 
-
 beforeEach(() => {
     // Clear all instances and calls to constructor and all methods:
     apiUtil.post.mockClear();
@@ -72,7 +71,6 @@ describe("LastActivityService", () => {
     });
     // describe("checkAndUpdateActivity", () => {
 
-        
     //     it("should handle the case where no last activities are retrieved", async () => {
     //         const mockData = null;
     //         const category = "Exercising";
