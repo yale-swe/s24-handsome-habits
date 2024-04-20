@@ -154,20 +154,17 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   lowerContainer: {
-    paddingTop: 30,
+    paddingTop: 50,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingBottom: 100,
+    paddingBottom: 200,
     backgroundColor: "white",
     width: "100%",
   },
-  buttonContainer: {
-    marginTop: 30,
-  },
   bulldog: {
-    margin: 30,
-    width: 200,
-    height: 300,
+    marginTop: 70,
+    width: 350,
+    height: 466,
   },
   GloginButton: {
     ...Buttons.loginButton,
