@@ -12,6 +12,7 @@ import { Typography, Buttons, Colors } from "../styles";
 import PropTypes from "prop-types";
 import CookieManager from "@react-native-cookies/cookies";
 import { serverURL } from "../services/apiUtil";
+import { useAuth } from "../components/authContext";
 
 const Login = (props) => {
   Login.propTypes = {
@@ -62,6 +63,8 @@ const Login = (props) => {
             // Save user data on client side
             AsyncStorage.setItem("user", userData);
 
+            handleLoginSuccess();
+
             // Redirect to the main screen
             props.navigation.navigate("Home");
           }
@@ -72,6 +75,12 @@ const Login = (props) => {
     };
     actions();
   }, []);
+
+  const { setIsAuthenticated } = useAuth();
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);  // Set authenticated to true when login is successful
+  };
 
   /**
    * Handle navigation state changes in the WebView.
@@ -90,6 +99,7 @@ const Login = (props) => {
       // console.log("User data: ", userData);
       setShowWebView(false); // Hide the WebView
       props.navigation.navigate("Home");
+      handleLoginSuccess();
     }
   };
 
