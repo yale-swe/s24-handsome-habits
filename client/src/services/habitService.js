@@ -99,7 +99,7 @@ export function calculatePoints(newHabit) {
         case "Studying":
             // 4 points per 30 minutes (for only full 5 minutes)
             points +=
-                Math.floor(newHabit.details.workout.workout_duration / 30) * 4;
+                Math.floor(newHabit.details.study.study_duration / 30) * 4;
 
             // default coins
             coins += 6;
