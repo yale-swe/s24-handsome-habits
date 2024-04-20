@@ -75,7 +75,11 @@ describe("Home component", () => {
     render(
       <NavigationContainer> <Home navigation={{ navigate: jest.fn() }} /> </NavigationContainer>,
     );
-    expect(getPointInfo).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(getPointInfo).toHaveBeenCalled();
+    }, { timeout: 1000 }); // Increase the timeout if necessary
+    
+    // expect(getPointInfo).toHaveBeenCalled();
   });
 
   it("fetches dan's expression", async () => {

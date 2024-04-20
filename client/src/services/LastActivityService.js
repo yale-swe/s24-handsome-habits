@@ -13,7 +13,7 @@ export async function checkAndUpdateActivity() {
             console.error("Failed to retrieve last activities.");
             return;
         }
-
+        console.log("Last activities: ", lastActivities);
         const decrementData =
             (await AsyncStorage.getItem("lastDecrementTimes")) || "{}";
         const lastDecrementTimes = JSON.parse(decrementData);
@@ -43,10 +43,18 @@ export async function checkAndUpdateActivity() {
             Sleeping: -20,
         };
 
+        const categoryToKey = {
+            Exercising: "last_exercising",
+            Eating: "last_eating",
+            Studying: "last_studying",
+            Sleeping: "last_sleeping",
+        };
+        
+
         const now = new Date();
 
         for (const category of Object.keys(thresholds)) {
-            const lastActivityTime = new Date(lastActivities[category]);
+            const lastActivityTime = new Date(lastActivities[categoryToKey[category]]);
             const hoursElapsed = (now - lastActivityTime) / (1000 * 60 * 60); // ms to hours
 
             const lastDecrementTime = lastDecrementTimes[category]
