@@ -3,7 +3,7 @@ import LastActivity from "../src/db/models/lastActivity.js";
 import {
     updateLastActivity,
     retrieveLastActivity,
-} from "../src/controllers/lastActivityController";
+} from "../src/controllers/LastActivityController";
 import mongoose from "mongoose";
 
 
