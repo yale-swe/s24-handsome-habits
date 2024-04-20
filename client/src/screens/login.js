@@ -24,7 +24,6 @@ const Login = (props) => {
   const [showWebView, setShowWebView] = useState(false);
 
   function handleLoginWithCAS() {
-
     // Display the WebView for CAS login
     setShowWebView(true);
   }
@@ -39,6 +38,7 @@ const Login = (props) => {
 
   //   props.navigation.navigate("Home"); // Redirect to the main screen
   // }
+
 
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.

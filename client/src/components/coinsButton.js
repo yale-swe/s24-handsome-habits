@@ -4,15 +4,18 @@ import PropTypes from "prop-types";
 import { Typography } from "../styles";
 
 const CoinsButton = (props) => {
+  const coinImage = require("../assets/images/coin.png");
+  const cartImage = require("../assets/images/cart.png");
+
   return (
     <View style={styles.container} testID={"coins-button-container"}>
       <TouchableOpacity onPress={props.onPress} style={props.style} testID={props.testID}>
         <View style={styles.coinButtonContainer} testID={"coins-info-container"}>
-          <Text style={Typography.coins}> {props.coinAmount} </Text>
+          <Text style={props.state == "coin" ? Typography.coins : Typography.cart}> {props.state == "coin" || props.state == "shopCoin" ? props.coinAmount : "Shop"} </Text>
         </View>
         <Image
-          source={props.logo}
-          style={styles.coinsButtonImage}
+          source={props.state == "coin" ? coinImage : cartImage}
+          style={props.state == "coin" ? styles.coinsButtonImage : styles.cartButtonImage}
           resizeMode="contain"
           testID={"coins-button-image"}
         />
@@ -40,6 +43,11 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 27,
     height: 27,
+  },
+  cartButtonImage: {
+    flex: 1,
+    width: 22,
+    height: 22,
   },
   coinButtonContainer: {
     flex: 1,
