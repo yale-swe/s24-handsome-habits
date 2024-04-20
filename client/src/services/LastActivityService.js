@@ -49,7 +49,6 @@ export async function checkAndUpdateActivity() {
             Studying: "last_studying",
             Sleeping: "last_sleeping",
         };
-        
 
         const now = new Date();
 
