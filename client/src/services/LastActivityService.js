@@ -45,7 +45,7 @@ export async function checkAndUpdateActivity() {
 
         const now = new Date();
 
-        for (const category of Object.keys(lastActivities)) {
+        for (const category of Object.keys(thresholds)) {
             const lastActivityTime = new Date(lastActivities[category]);
             const hoursElapsed = (now - lastActivityTime) / (1000 * 60 * 60); // ms to hours
 
@@ -67,6 +67,11 @@ export async function checkAndUpdateActivity() {
                 );
 
                 await updatePointswithChange(category, pointChanges[category]);
+            }
+            else{
+                console.log(
+                    `Last activity for ${category} was not too long ago.`
+                );
             }
 
             lastDecrementTimes[category] = now.toISOString();
