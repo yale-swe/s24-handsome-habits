@@ -63,7 +63,7 @@ export const coins = {
 };
 
 export const cart = {
-  fontSize: 14,
+  fontSize: 12,
   textAlign: "center",
   color: "#000000",
   ...boldFont,
