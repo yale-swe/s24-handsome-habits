@@ -9,7 +9,7 @@ import {
 import {
     updateLastActivity,
     retrieveLastActivity,
-} from "../controllers/lastActivityController.js";
+} from "../controllers/LastActivityController.js";
 import {
     addAsset,
     getAssets,
