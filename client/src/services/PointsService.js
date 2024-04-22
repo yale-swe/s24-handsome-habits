@@ -34,20 +34,17 @@ export async function getPointInfo() {
  */
 export async function updatePoints(newPoints) {
   try {
-    // ensure that no points are over their maxium. if they are, reduce to maximum
-    newPoints.exercise_points = Math.min(newPoints.exercise_points || 0, 26);
-    newPoints.eating_points = Math.min(newPoints.eating_points || 0, 25);
-    newPoints.sleeping_points = Math.min(newPoints.sleeping_points || 0, 27);
-    newPoints.studying_points = Math.min(newPoints.studying_points || 0, 22);
-
-    console.log("New Points", newPoints);
+    // ensure that no points are non-negative and not over their maxium. if they are, reduce to maximum
+    newPoints.exercise_points = Math.min(Math.max(newPoints.exercise_points,0), 26);
+    newPoints.eating_points = Math.min(Math.max(newPoints.eating_points, 0), 25);
+    newPoints.sleeping_points = Math.min(Math.max(newPoints.sleeping_points,0), 27);
+    newPoints.studying_points = Math.min(Math.max(newPoints.studying_points, 0), 22);
 
     const response = await Api.post("/points/update", {
       points: newPoints,
     }); // Post request to update points
 
     // Save new points in client's local storage
-    console.log("Updated points from server", response.data.points);
     await AsyncStorage.setItem("points", JSON.stringify(response.data.points));
 
     return response.data.points;
@@ -68,15 +65,13 @@ export async function updatePoints(newPoints) {
  */
 export async function updatePointswithChange(category, pointChange) {
   const categoryPoints = categoryPointName(category.toLowerCase());
-  let currentPoints = await AsyncStorage.getItem("points");
-  currentPoints = JSON.parse(currentPoints);
-
+  let currentPoints = JSON.parse(await AsyncStorage.getItem("points"));
   if (currentPoints == null) {
     currentPoints = await getPointInfo();
   }
 
   currentPoints[categoryPoints] += pointChange.points;
-  currentPoints.coins += pointChange.coins;
+  currentPoints.coins += pointChange.coins ? pointChange.coins : 0;
   return updatePoints(currentPoints);
 }
 
