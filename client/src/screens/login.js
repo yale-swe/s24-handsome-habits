@@ -39,7 +39,6 @@ const Login = (props) => {
   //   props.navigation.navigate("Home"); // Redirect to the main screen
   // }
 
-
   /**
    * On component mount, check if the user is already authenticated by looking for cookies.
    * If authenticated, navigate to the main screen; otherwise, display the login option.

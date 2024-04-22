@@ -131,8 +131,6 @@ export function calculatePoints(newHabit) {
                 coins += 6;
             }
 
-
-
             break;
 
         case "Sleeping":

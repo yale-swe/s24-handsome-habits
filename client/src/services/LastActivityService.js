@@ -3,6 +3,18 @@ import { updatePointswithChange } from "./PointsService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
+ * Threshold for hours since last activity for each category
+ * eg "Category": { "Threshold in hours": "Point decrement" }
+ * These values should always be negative. (Since we're decrementing points)
+ */
+const thresholds = {
+    Exercising: { 24: -10, 48: -10, 72: -10 },
+    Eating: { 8: -15, 16: -10 },
+    Studying: { 24: -10, 48: -15 },
+    Sleeping: { 12: 0, 24: -15, 36: -15 },
+};
+
+/**
  * Checks the activity duration for each category and updates points if the activity was too long ago.
  */
 export async function checkAndUpdateActivity() {
@@ -13,19 +25,10 @@ export async function checkAndUpdateActivity() {
             console.error("Failed to retrieve last activities.");
             return;
         }
-        console.log("Last activities: ", lastActivities);
+
         const decrementData =
             (await AsyncStorage.getItem("lastDecrementTimes")) || "{}";
         const lastDecrementTimes = JSON.parse(decrementData);
-
-        // Threshold for hours since last activity for each category
-        // eg "Category": { "Threshold in hours": "Point decrement" }
-        const thresholds = {
-            Exercising: { 24: -10, 48: -10, 72: -10 },
-            Eating: { 8: -15, 16: -10 },
-            Studying: { 24: -10, 48: -15 },
-            Sleeping: { 12: 0, 24: -15, 36: -15 },
-        };
 
         // Decrement time periods
         const decrementAfter = {
@@ -33,14 +36,6 @@ export async function checkAndUpdateActivity() {
             Eating: 8,
             Studying: 24,
             Sleeping: 12,
-        };
-
-        // Point changes for each category
-        const pointChanges = {
-            Exercising: -10,
-            Eating: -5,
-            Studying: -15,
-            Sleeping: -20,
         };
 
         const categoryToKey = {
@@ -54,42 +49,51 @@ export async function checkAndUpdateActivity() {
 
         for (const category of Object.keys(thresholds)) {
             const lastActivityTime = new Date(lastActivities[categoryToKey[category]]);
+            console.log("Last activity time: ", lastActivityTime.toISOString());
             const hoursElapsed = (now - lastActivityTime) / (1000 * 60 * 60); // ms to hours
 
-            const lastDecrementTime = lastDecrementTimes[category]
-                ? new Date(lastDecrementTimes[category])
-                : now;
+            const lastDecrementTime = lastDecrementTimes[category] ?
+                new Date(lastDecrementTimes[category]) :
+                now;
+
             const hoursSinceLastDecrement =
                 (now - lastDecrementTime) / (1000 * 60 * 60); // ms to hours
+
+            console.log("Last decrement time: ", lastDecrementTime.toISOString());
 
             if (!lastDecrementTimes[category]) {
                 // If no last decrement time is available, set it to now and skip decrementing
                 lastDecrementTimes[category] = now.toISOString();
-            } else if (
-                hoursElapsed > thresholds[category] &&
-                hoursSinceLastDecrement > decrementAfter[category]
-            ) {
-                console.log(
-                    `Last activity for ${category} was too long ago. Updating points.`
-                );
+            } else if (hoursSinceLastDecrement > decrementAfter[category]) {
 
-                await updatePointswithChange(category, pointChanges[category]);
-            }
-            else{
-                console.log(
-                    `Last activity for ${category} was not too long ago.`
-                );
-            }
+                const valueToDecrement = threshholdValue(hoursElapsed, category);
 
-            lastDecrementTimes[category] = now.toISOString();
-            await AsyncStorage.setItem(
-                "lastDecrementTimes",
-                JSON.stringify(lastDecrementTimes)
-            );
+                // No points to decrement because it hasn't been long enough
+                if (valueToDecrement == 0) { continue; }
+
+                console.log(`Last activity for ${category} was too long ago. Updating points.`);
+
+                // Update points and save time in local storage
+                await updatePointswithChange(category, { "points": valueToDecrement });
+                lastDecrementTimes[category] = now.toISOString();
+                await AsyncStorage.setItem("lastDecrementTimes", JSON.stringify(lastDecrementTimes));
+            } else {
+                console.log(`Last activity for ${category} was not too long ago.`);
+            }
         }
     } catch (err) {
         console.error("Error in checking and updating activities:", err);
     }
+}
+
+function threshholdValue(hoursElapsed, category) {
+    let threshhold = 0;
+    for (const key of Object.keys(thresholds[category])) {
+        if (hoursElapsed >= key) {
+            threshhold = thresholds[category][key];
+        }
+    }
+    return threshhold;
 }
 /**
  * Updates the last activity for a given category.
