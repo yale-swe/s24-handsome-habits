@@ -43,7 +43,7 @@ For Yale students, balance often seems unachievable. While Yale students are oft
 - **Reminders:** Get notified when it's been a while since you logged a habit.
 
 ### Demo
-![](https://github.com/yale-swe/s24-handsome-habits/blob/main/project_demo.gif)
+![](project_demo.gif)
 
 ### Screenshots
 
