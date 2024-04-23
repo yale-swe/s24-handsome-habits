@@ -13,14 +13,15 @@
    - [Description](#description)
    - [Features](#features)
    - [Screenshots](#screenshots)
+   - [Project Demo](#demo)
    - [Built With](#built-with)
    - [Metric Tracking](#metric-tracking)
 
-2. [Getting Started](#gettingstarted)
+2. [Getting Started](#getting-started)
    - [Prerequisites](#prerequisites)
    - [Installation](#installation)
 3. [Usage](#usage)
-   - [Run Locally](#run-locally)
+   - [Run Locally](#running-locally)
    - [Testing](#testing)
 4. [Support](#support)
 5. [Privacy Policy](#privacy-policy)
@@ -40,6 +41,9 @@ For Yale students, balance often seems unachievable. While Yale students are oft
 - **Buy rewards:** earn coins when you log a habit to buy Handsome Dan new clothes.
 - **Customize Handsome Dan:** change Handsome Dan's outfit and accessories.
 - **Reminders:** Get notified when it's been a while since you logged a habit.
+
+### Demo
+![](https://github.com/yale-swe/s24-handsome-habits/blob/main/project_demo.gif)
 
 ### Screenshots
 
