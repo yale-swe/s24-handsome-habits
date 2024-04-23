@@ -11,11 +11,13 @@ const CoinsButton = (props) => {
     <View style={styles.container} testID={"coins-button-container"}>
       <TouchableOpacity onPress={props.onPress} style={props.style} testID={props.testID}>
         <View style={styles.coinButtonContainer} testID={"coins-info-container"}>
-          <Text style={props.state == "coin" ? Typography.coins : Typography.cart}> {props.state == "coin" || props.state == "shopCoin" ? props.coinAmount : "Shop"} </Text>
+          {/* if it's coin or shopCoin, use the coint count, else if it's shop just show "Shop" */}
+          <Text style={props.state == "coin" || props.state == "shopCoin" ? Typography.coins : Typography.cart}> {props.state == "coin" || props.state == "shopCoin" ? props.coinAmount : "Shop"} </Text>
         </View>
+        {/* if it's shop or shopCoin, use cart image, else if it's coin use coin image */}
         <Image
-          source={props.state == "coin" ? coinImage : cartImage}
-          style={props.state == "coin" ? styles.coinsButtonImage : styles.cartButtonImage}
+          source={props.state == "shop" || props.state == "shopCoin" ? cartImage : coinImage}
+          style={props.state == "shop" || props.state == "shopCoin" ? styles.cartButtonImage : styles.coinsButtonImage}
           resizeMode="contain"
           testID={"coins-button-image"}
         />
