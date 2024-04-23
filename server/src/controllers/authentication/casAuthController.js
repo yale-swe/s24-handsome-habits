@@ -22,7 +22,7 @@ export function CASLogin(req, res, next) {
     if (err) {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ error: err.message });
+        .json({ error: err?.message });
     }
 
     // Necessary to await actual user object and not use a promise

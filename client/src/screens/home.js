@@ -28,11 +28,13 @@ const Home = (props) => {
   };
 
   // shop button logic for metrics
-  const [shopButton, setShopButton] = React.useState("shop");
+  const [shopButton, setShopButton] = React.useState("none");
 
   const updateShopButton = async () => {
-    const buttonState = await getButtonToDisplay();
-    setShopButton(buttonState["type"]);
+    if(shopButton == "none") {
+      const buttonState = await getButtonToDisplay();
+      setShopButton(buttonState["type"]);
+    }
   };
 
   useEffect(
@@ -124,7 +126,7 @@ const Home = (props) => {
           coinAmount={pointsInfo != null ? pointsInfo.coins : 0}
           logo={require("../assets/images/coin.png")}
           style={Buttons.coinsButton}
-          state={shopButton.type}
+          state={shopButton}
           onPress={() => {
             updateshopButtonCount();
             props.navigation.navigate("Shop");

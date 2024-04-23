@@ -25,7 +25,7 @@ export async function getAssets() {
 
     return assets;
   } catch (err) {
-    if (err.response?.status == StatusCodes.UNAUTHORIZED) {
+    if (err?.response?.status == StatusCodes.UNAUTHORIZED) {
       console.log("Error: Session is expired/invalid, so logout");
       logout();
       return null;
@@ -58,9 +58,9 @@ export async function addAsset(assetType, assetName) {
     AsyncStorage.setItem("assets", JSON.stringify(updatedAssets));
     return updatedAssets;
   } catch (err) {
-    if (err.response?.status == StatusCodes.UNAUTHORIZED) {
+    if (err?.response?.status == StatusCodes.UNAUTHORIZED) {
       logout();
-    } else if (err.response?.status == StatusCodes.INTERNAL_SERVER_ERROR) {
+    } else if (err?.response?.status == StatusCodes.INTERNAL_SERVER_ERROR) {
       console.log(
         "Error adding asset; Returning locally saved assets in AsyncStorage",
       );
@@ -92,7 +92,7 @@ export async function setActiveAssets(newActiveAssets) {
     return updatedAssets;
   } catch (err) {
     // return previous assets in locally saved assets in AsyncStorage if unable to set new active assets
-    if (err.response.status == StatusCodes.INTERNAL_SERVER_ERROR) {
+    if (err?.response?.status == StatusCodes.INTERNAL_SERVER_ERROR) {
       console.log("Error setting active asset.");
       console.log(
         "Assets not updated, so returning locally saved assets in AsyncStorage",
@@ -100,7 +100,7 @@ export async function setActiveAssets(newActiveAssets) {
       return JSON.parse(await AsyncStorage.getItem("assets"));
     }
 
-    if (err.response.status == StatusCodes.UNAUTHORIZED) {
+    if (err?.response?.status == StatusCodes.UNAUTHORIZED) {
       logout();
     } // logout if session is invalid
 

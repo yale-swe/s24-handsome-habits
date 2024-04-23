@@ -17,7 +17,7 @@ export async function testCreateUser() {
         })
         .catch((err) => {
             // Duplicate username error
-            if (err.name === "MongoServerError" && err.code === 11000) {
+            if (err?.name === "MongoServerError" && err?.code === 11000) {
                 console.log("Test user already exists");
                 console.log(JSON.stringify(err, null, 2));
             } else {

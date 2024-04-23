@@ -57,9 +57,9 @@ export async function LoginWithActiveSession() {
         // Clear session if session is invalid / unauthorized user
         console.error(
             "Error logging in with stored cookies. Logging out",
-            err.response.status
+            err?.response?.status
         );
-        if (err.response.status == StatusCodes.UNAUTHORIZED) {
+        if (err?.response?.status == StatusCodes.UNAUTHORIZED) {
             logout();
         }
     } finally {

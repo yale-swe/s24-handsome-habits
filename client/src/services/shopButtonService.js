@@ -10,7 +10,7 @@ export async function getButtonToDisplay() {
     AsyncStorage.setItem("shopButton", buttonType);
     return response.data;
   } catch (err) {
-    if (err.response.status == StatusCodes.UNAUTHORIZED) {
+    if (err?.response?.status == StatusCodes.UNAUTHORIZED) {
       logout();
     }
     return "shop";
@@ -24,7 +24,7 @@ export async function updateshopButtonCount() {
       type: buttonType,
     });
   } catch (err) {
-    if (err.response.status == StatusCodes.UNAUTHORIZED) {
+    if (err?.response?.status == StatusCodes.UNAUTHORIZED) {
       logout();
     }
   }

@@ -52,7 +52,7 @@ export async function addHabit(newHabit) {
 
         return habit_response.data;
     } catch (err) {
-        if (err.response && err.response.status === StatusCodes.UNAUTHORIZED) {
+        if (err?.response && err?.response?.status === StatusCodes.UNAUTHORIZED) {
             logout(); // Session is expired/invalid, so logout
         }
         return null;
@@ -171,13 +171,13 @@ export async function retrieveHabitsByCategory(category_name) {
         return null;
     } catch (err) {
         // Handle specific HTTP errors
-        if (err.response) {
-            if (err.response.status === StatusCodes.UNAUTHORIZED) {
+        if (err?.response) {
+            if (err?.response?.status === StatusCodes.UNAUTHORIZED) {
                 logout(); // Session is expired/invalid, so logout
                 return null; // Return after logout to stop further execution
             }
 
-            if (err.response.status === StatusCodes.NOT_FOUND) {
+            if (err?.response?.status === StatusCodes.NOT_FOUND) {
                 return []; // Return an empty array if no habits are found
             }
         }
@@ -204,7 +204,7 @@ export async function deleteHabit(habitId) {
         console.error("Error deleting habit:", response.data);
         return false;
     } catch (err) {
-        if (err.response && err.response.status === StatusCodes.UNAUTHORIZED) {
+        if (err?.response && err?.response?.status === StatusCodes.UNAUTHORIZED) {
             logout(); // Session is expired/invalid, so logout
         } else {
             console.error("Error deleting habit:", err);
