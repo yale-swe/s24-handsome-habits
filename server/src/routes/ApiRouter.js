@@ -24,7 +24,7 @@ router.get("/user", findUser);
 
 /* ************ Points Routes ************ */
 // Update a user's points
-router.post("/points/update", async (req, res) => {
+router.post("/points/update", async(req, res) => {
     const user = await UserFromRequest(req); // Get user from request
     if (!user) {
         return res
@@ -44,7 +44,7 @@ router.post("/points/update", async (req, res) => {
 });
 
 // Get a User's points
-router.get("/points", async (req, res) => {
+router.get("/points", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -65,7 +65,7 @@ router.get("/points", async (req, res) => {
 /* ************ Habits Routes ************ */
 
 // Route to add habits by category for a user
-router.post("/habits/add", async (req, res) => {
+router.post("/habits/add", async(req, res) => {
     const user = await UserFromRequest(req); // Get user from request
     if (!user) {
         return res
@@ -85,7 +85,7 @@ router.post("/habits/add", async (req, res) => {
 });
 
 // Route to get habits by category for a user
-router.get("/habits/:categoryName", async (req, res) => {
+router.get("/habits/:categoryName", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -111,7 +111,7 @@ router.get("/habits/:categoryName", async (req, res) => {
 });
 
 // Route to delete a habit
-router.delete("/habits/:habitId", async (req, res) => {
+router.delete("/habits/:habitId", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -141,7 +141,7 @@ router.delete("/habits/:habitId", async (req, res) => {
 /* ************ Assets Routes ************ */
 
 // Gets the assets Object for a user. Includes owned assets and active assets
-router.get("/assets", async (req, res) => {
+router.get("/assets", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -160,7 +160,7 @@ router.get("/assets", async (req, res) => {
 });
 
 // Add an asset to the user's assets
-router.post("/assets/add", async (req, res) => {
+router.post("/assets/add", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -183,7 +183,7 @@ router.post("/assets/add", async (req, res) => {
     return res.status(StatusCodes.OK).json({ assets: updatedAssets });
 });
 
-router.post("/assets/setActive", async (req, res) => {
+router.post("/assets/setActive", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -209,7 +209,7 @@ router.post("/assets/setActive", async (req, res) => {
 /* ************ Last Activity Routes ************ */
 
 // Set the last activity for a user
-router.post("/lastActivity/update", async (req, res) => {
+router.post("/lastActivity/update", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -228,7 +228,7 @@ router.post("/lastActivity/update", async (req, res) => {
 });
 
 // Route to retrieve last activity
-router.get("/lastActivity", async (req, res) => {
+router.get("/lastActivity", async(req, res) => {
     const user = await UserFromRequest(req);
     if (!user) {
         return res
@@ -247,7 +247,7 @@ router.get("/lastActivity", async (req, res) => {
 
 /* ************ Shop Button Routes ************ */
 
-router.get("/shopButton", async (req, res) => {
+router.get("/shopButton", async(req, res) => {
     // return shop button type with the highest expectation
     let shopButton;
     if (Math.random() < 0.1) {
@@ -264,6 +264,7 @@ router.get("/shopButton", async (req, res) => {
     shopButton.timesShown += 1;
     shopButton.expectation = (shopButton.timesPressed / shopButton.timesShown) * 100;
     shopButton.save();
+    console.log("Shop button: ", shopButton.type);
     return res.status(StatusCodes.OK).json({ type: shopButton.type });
 });
 

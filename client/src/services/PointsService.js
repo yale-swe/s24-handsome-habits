@@ -35,10 +35,10 @@ export async function getPointInfo() {
 export async function updatePoints(newPoints) {
   try {
     // ensure that no points are non-negative and not over their maxium. if they are, reduce to maximum
-    newPoints.exercise_points = Math.min(Math.max(newPoints.exercise_points,0), 26);
-    newPoints.eating_points = Math.min(Math.max(newPoints.eating_points, 0), 25);
-    newPoints.sleeping_points = Math.min(Math.max(newPoints.sleeping_points,0), 27);
-    newPoints.studying_points = Math.min(Math.max(newPoints.studying_points, 0), 22);
+    newPoints.exercise_points = Math.min(Math.max(newPoints.exercise_points,4), 26);
+    newPoints.eating_points = Math.min(Math.max(newPoints.eating_points, 4), 25);
+    newPoints.sleeping_points = Math.min(Math.max(newPoints.sleeping_points,4), 27);
+    newPoints.studying_points = Math.min(Math.max(newPoints.studying_points, 4), 22);
 
     const response = await Api.post("/points/update", {
       points: newPoints,
