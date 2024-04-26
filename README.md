@@ -123,7 +123,7 @@ npm run ios`
 
 1. To run lint tests in the server or client: `npm run lint`
 2. To run jest tests and a coverage report in the server: `npm run test-coverage`
-3. To run jest tests in the client
+3. To add a test, create a new file with the `.test.js` extensions in `client/__tests__` or `server/__tests__`
 
 ## Support
 
