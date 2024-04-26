@@ -89,3 +89,23 @@ export const trackedHabitText = {
   textAlign: "center",
   ...defaultFont,
 };
+
+export const settingMenuItem = {
+  fontSize: 16,
+  textAlign: "left",
+  ...boldFont,
+}
+
+export const settingMenuName = {
+  fontSize: 16,
+  textAlign: "left",
+  padding: 7,
+  paddingLeft: 0,
+  ...boldFont,
+}
+
+export const settingMenuArrow = {
+  fontSize: 20,
+  textAlign: "right",
+  ...boldFont,
+}
