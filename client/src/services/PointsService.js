@@ -14,7 +14,7 @@ export async function getPointInfo() {
 
     return userPoints;
   } catch (err) {
-    if (err.response.status == StatusCodes.UNAUTHORIZED) {
+    if (err?.response?.status == StatusCodes.UNAUTHORIZED) {
       logout(); // Session is expired/invalid, so logout
     }
   }
@@ -49,7 +49,7 @@ export async function updatePoints(newPoints) {
 
     return response.data.points;
   } catch (err) {
-    if (err.response && err.response.status == StatusCodes.UNAUTHORIZED) {
+    if (err?.response && err?.response?.status == StatusCodes.UNAUTHORIZED) {
       logout(); // Session is expired/invalid, so logout
     }
     return null;

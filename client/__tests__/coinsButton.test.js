@@ -10,7 +10,8 @@ describe("Coins Button component", () => {
                                                 style={Buttons.coinsButton}
                                                 onPress={() => jest.fn()}
                                                 testID={"coins-button"}
-                                                coinAmount={100}/>);
+                                                coinAmount={100}
+                                                state={"coin"}/>);
 
     // Check if the coin button's touchable opacity is properly rendered
     expect(getByTestId("coins-button")).toBeTruthy();
